@@ -1,20 +1,20 @@
 import type { CSSProperties } from 'react'
-import { HobbyPhoto } from '../components/HobbyPhoto'
 import { MiniGraph } from '../components/MiniGraph'
 import { Shell } from '../components/Shell'
 import { accolades, heroChips, heroIntro, hobbies } from '../data/about'
+import { commitHashFor } from '../lib/hash'
 import './about.css'
 
 const d = (ms: number) => ({ ['--d' as string]: `${ms}ms` }) as CSSProperties
 
-/** Tints for pending-photo tiles, cycled per card. */
-const PHOTO_TINTS = [
-  'var(--c-work)',
+/** Node colors along the hobby log, cycled per entry. */
+const NODE_TINTS = [
   'var(--c-education)',
+  'var(--c-work)',
   'var(--c-research)',
   'var(--c-leadership)',
-  'var(--amber)',
   'var(--mint)',
+  'var(--amber)',
 ]
 
 export function AboutPage() {
@@ -68,19 +68,45 @@ export function AboutPage() {
         <p className="intro">
           The parts of the week that don’t compile to anything, happily.
         </p>
-        <ul className="hobby-grid">
+        <ol className="hobby-log">
           {hobbies.map((h, i) => (
-            <li key={h.id}>
-              <figure className="polaroid">
-                <HobbyPhoto hobby={h} tint={PHOTO_TINTS[i % PHOTO_TINTS.length]} />
-                <figcaption>
-                  <strong>{h.name}</strong>
-                  <span className="mono">{h.caption}</span>
-                </figcaption>
-              </figure>
+            <li
+              key={h.id}
+              className={h.photos.length > 0 ? 'has-photo' : undefined}
+              style={
+                {
+                  ['--branch-color' as string]: NODE_TINTS[i % NODE_TINTS.length],
+                } as CSSProperties
+              }
+            >
+              <span className="hl-node" aria-hidden="true" />
+              <div className="hl-body">
+                <div className="hl-head">
+                  <h3>{h.name}</h3>
+                  <span className="hl-hash mono" aria-hidden="true">
+                    {commitHashFor(h.id)}
+                  </span>
+                </div>
+                <p className="hl-desc">{h.description}</p>
+                {h.note && <p className="hl-note mono">{`// ${h.note}`}</p>}
+              </div>
+              {h.photos.length > 0 && (
+                <figure
+                  className={`hl-photo${h.photos.length === 4 ? ' is-quad' : ''}`}
+                >
+                  {h.photos.map((p) => (
+                    <img
+                      key={p.src}
+                      src={`/images/hobbies/${p.src}`}
+                      alt={p.alt}
+                      loading="lazy"
+                    />
+                  ))}
+                </figure>
+              )}
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
     </Shell>
   )

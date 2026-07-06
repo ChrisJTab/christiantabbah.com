@@ -1,15 +1,17 @@
 # Hobby photos
 
-Drop photos here with these exact names and they appear on the About page
-automatically:
+These files are referenced from `src/data/about.ts` (each hobby's `photos`
+list). Currently in use:
 
 - `snowboarding.jpg`
-- `basketball.jpg` (the Yao Ming block)
-- `cooking.jpg` (something you cooked and plated)
+- `yao-ming-block.jpg`
+- `food-birria-tacos.jpg`, `food-carbonara.jpg`, `food-beef-stirfry.jpg`,
+  `food-cheesecake.jpg` (the cooking quadrant, shown 2×2 in data order)
 
-Board games, rock climbing, and badminton intentionally show a styled
-"no photo" tile instead. To give one of them a real photo later, add the
-file here and delete that hobby's `noPhoto` line in `src/data/about.ts`.
+To add or swap a photo: drop the file here, then point the hobby's `photos`
+entry at it in `src/data/about.ts`. One photo renders as a single 4:5 card;
+exactly four render as a quadrant. Hobbies with an empty `photos` list are
+text-only on purpose.
 
-Landscape ~4:3 crops look best (displayed at 4:3, ~640px wide).
-Captions and alt text live in `src/data/about.ts`.
+Convert HEIC before adding (browsers can't show it):
+`sips -s format jpeg -s formatOptions 80 --resampleWidth 1400 in.HEIC --out out.jpg`

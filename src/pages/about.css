@@ -172,95 +172,123 @@
   }
 }
 
-/* --- hobbies ------------------------------------------------------------- */
+/* --- hobbies: the off-the-clock log ---------------------------------------
+   One vertical branch line; every hobby is a commit node with a couple of
+   sentences, photos attached where they exist (1 = single, 4 = quadrant). */
 
-.hobby-grid {
+.hobby-log {
   list-style: none;
   padding: 0;
-  margin-top: var(--sp-6);
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--sp-5);
+  margin: var(--sp-6) 0 0 var(--sp-2);
+  position: relative;
 }
 
-.polaroid {
+.hobby-log::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 18px;
+  bottom: 18px;
+  width: 2.5px;
+  border-radius: 2px;
+  background: var(--amber);
+  opacity: 0.55;
+}
+
+.hobby-log > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4) var(--sp-7);
+  align-items: center;
+  padding: var(--sp-5) 0 var(--sp-5) var(--sp-7);
+}
+
+.hobby-log > li.has-photo {
+  grid-template-columns: minmax(0, 1fr) 320px;
+}
+
+.hl-node {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--branch-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--branch-color) 14%, transparent);
+  transition: transform var(--dur-quick) var(--ease-spring);
+}
+
+.hobby-log > li:hover .hl-node {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.hl-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.hl-head h3 {
+  font-size: 1.35rem;
+}
+
+.hl-hash {
+  color: var(--text-dim);
+  font-size: var(--text-mono-small);
+}
+
+.hl-desc {
+  margin-top: var(--sp-2);
+  color: var(--text-muted);
+  max-width: 54ch;
+}
+
+.hl-note {
+  margin-top: var(--sp-2);
+  color: var(--text-muted);
+  font-size: var(--text-mono-small);
+}
+
+.hl-photo {
+  margin: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-m);
-  padding: var(--sp-3) var(--sp-3) var(--sp-4);
-  transform: rotate(var(--tilt, 0deg));
+  padding: var(--sp-2);
+  transform: rotate(0.8deg);
   transition: transform var(--dur-slow) var(--ease-spring),
     box-shadow var(--dur-slow) var(--ease-out);
 }
 
-.hobby-grid li:nth-child(3n + 1) .polaroid {
-  --tilt: -1.1deg;
+.hobby-log > li:nth-child(even) .hl-photo {
+  transform: rotate(-0.8deg);
 }
 
-.hobby-grid li:nth-child(3n + 2) .polaroid {
-  --tilt: 0.8deg;
-}
-
-.hobby-grid li:nth-child(3n) .polaroid {
-  --tilt: -0.4deg;
-}
-
-.polaroid:hover {
+.hl-photo:hover {
   transform: rotate(0deg) translateY(-4px);
   box-shadow: var(--shadow-panel);
 }
 
-.polaroid img,
-.ph-fallback {
+.hl-photo img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: var(--radius-s);
 }
 
-.ph-fallback {
+.hl-photo.is-quad {
   display: grid;
-  place-content: center;
-  gap: var(--sp-1);
-  text-align: center;
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--ph-tint) 14%, var(--bg)),
-      color-mix(in srgb, var(--ph-tint) 4%, var(--bg)) 70%
-    );
-  border: 1px dashed color-mix(in srgb, var(--ph-tint) 40%, transparent);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
 }
 
-/* Deliberate no-photo tiles are a feature, not a placeholder. */
-.ph-fallback.is-permanent {
-  border-style: solid;
-}
-
-.ph-name {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: var(--text);
-}
-
-.ph-note {
-  color: var(--text-muted);
-  font-size: var(--text-mono-small);
-}
-
-.polaroid figcaption {
-  margin-top: var(--sp-3);
-  display: grid;
-  gap: 2px;
-}
-
-.polaroid figcaption strong {
-  font-size: var(--text-small);
-}
-
-.polaroid figcaption .mono {
-  color: var(--text-muted);
-  font-size: var(--text-mono-small);
+.hl-photo.is-quad img {
+  aspect-ratio: 1 / 1;
 }
 
 /* --- responsive ------------------------------------------------------------ */
@@ -275,13 +303,11 @@
     display: none;
   }
 
-  .hobby-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .hobby-log > li.has-photo {
+    grid-template-columns: minmax(0, 1fr);
   }
-}
 
-@media (max-width: 560px) {
-  .hobby-grid {
-    grid-template-columns: 1fr;
+  .hl-photo {
+    max-width: 400px;
   }
 }

@@ -47,64 +47,76 @@ export const accolades: Accolade[] = [
   },
 ]
 
+export interface HobbyPhoto {
+  /** Filename inside public/images/hobbies/ */
+  src: string
+  alt: string
+}
+
 export interface Hobby {
   id: string
   name: string
-  /** Drop a photo at public/images/hobbies/<img> and it appears automatically. */
-  img: string
-  alt: string
-  caption: string
-  /**
-   * Set when there's deliberately no photo; the tile shows this line instead.
-   * To switch a hobby to a real photo later, delete this field and add the file.
-   */
-  noPhoto?: string
+  /** A couple of sentences, first person. */
+  description: string
+  /** Optional mono aside, rendered like a code comment. */
+  note?: string
+  /** 0 photos = text-only entry · 1 = single photo · 4 = 2×2 quadrant. */
+  photos: HobbyPhoto[]
 }
 
 export const hobbies: Hobby[] = [
   {
-    id: 'board-games',
-    name: 'Board games',
-    img: 'board-games.jpg',
-    alt: 'A board game mid-play',
-    caption: 'Rules explanations are my love language.',
-    noPhoto: 'undocumented. everyone was busy losing',
-  },
-  {
     id: 'snowboarding',
     name: 'Snowboarding',
-    img: 'snowboarding.jpg',
-    alt: 'Snowboarding on a mountain',
-    caption: 'Winter is the good season.',
+    description:
+      'Winter is the good season. The plan every year is the same: more mountains, fewer excuses, and at least one run where nobody saw the fall.',
+    photos: [
+      { src: 'snowboarding.jpg', alt: 'Me on the hill with my snowboard' },
+    ],
   },
   {
-    id: 'rock-climbing',
-    name: 'Rock climbing',
-    img: 'rock-climbing.jpg',
-    alt: 'Climbing an indoor bouldering wall',
-    caption: 'Problems worth solving with both hands.',
-    noPhoto: 'chalk everywhere, camera nowhere',
-  },
-  {
-    id: 'badminton',
-    name: 'Badminton',
-    img: 'badminton.jpg',
-    alt: 'Badminton racquet and shuttlecock',
-    caption: 'Deceptively cardio.',
-    noPhoto: 'too fast for cameras',
+    id: 'board-games',
+    name: 'Board games',
+    description:
+      'Rules explanations are my love language. Bring a new box to the table and I will happily walk everyone through setup, strategy, and the rematch nobody asked for.',
+    note: 'undocumented. everyone was busy losing',
+    photos: [],
   },
   {
     id: 'basketball',
     name: 'Watching basketball',
-    img: 'basketball.jpg',
-    alt: 'Me jumping to block a shot by Yao Ming',
-    caption: 'That’s me blocking Yao Ming. No further questions.',
+    description:
+      'Watching, analyzing, occasionally yelling at a screen. Also pictured: the greatest defensive play of my career, against a very tall and very patient opponent.',
+    photos: [
+      { src: 'yao-ming-block.jpg', alt: 'Me jumping to block a shot by Yao Ming' },
+    ],
+  },
+  {
+    id: 'rock-climbing',
+    name: 'Rock climbing',
+    description:
+      'Problems worth solving with both hands. Half the sport is standing under the wall, arguing about the right way up it.',
+    note: 'chalk everywhere, camera nowhere',
+    photos: [],
+  },
+  {
+    id: 'badminton',
+    name: 'Badminton',
+    description:
+      'Deceptively cardio. It looks like a backyard game right up until a smash goes past your ear at highway speed.',
+    note: 'too fast for cameras',
+    photos: [],
   },
   {
     id: 'cooking',
     name: 'Cooking',
-    img: 'cooking.jpg',
-    alt: 'A dish I cooked, plated and ready',
-    caption: 'I cook, I plate, I photograph the evidence.',
+    description:
+      'I cook, I plate, I photograph the evidence. Current portfolio: birria tacos, carbonara, beef stir fry, and a cheesecake that did not survive the review.',
+    photos: [
+      { src: 'food-birria-tacos.jpg', alt: 'Birria tacos I made' },
+      { src: 'food-carbonara.jpg', alt: 'Carbonara I made' },
+      { src: 'food-beef-stirfry.jpg', alt: 'Beef stir fry I made' },
+      { src: 'food-cheesecake.jpg', alt: 'Cheesecake I baked' },
+    ],
   },
 ]

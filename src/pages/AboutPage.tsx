@@ -48,7 +48,7 @@ export function AboutPage() {
 
       <section className="container about-sec" aria-labelledby="milestones-h">
         <span className="file-tab">$ git tag --list</span>
-        <h2 id="milestones-h">Milestones, tagged</h2>
+        <h2 id="milestones-h">Milestones</h2>
         <ul className="tag-list">
           {accolades.map((a) => (
             <li key={a.id} className="tag-row">

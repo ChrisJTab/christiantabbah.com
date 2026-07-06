@@ -37,13 +37,13 @@ export const accolades: Accolade[] = [
     id: 'msc',
     tag: 'msc-in-progress',
     title: 'MSc Computer Science',
-    detail: 'UofT · in progress, expected April 2026',
+    detail: 'UofT · in progress, expected October 2026',
   },
   {
     id: 'black-belt',
     tag: 'black-belt',
     title: 'Black Belt, Taekwondo',
-    detail: '7 years of training · second degree in progress',
+    detail: '7 years of training',
   },
 ]
 

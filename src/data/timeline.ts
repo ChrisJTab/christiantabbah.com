@@ -68,7 +68,7 @@ export const timeline: TimelineEntry[] = [
     end: 'ongoing',
     refName: 'education/msc',
     bullets: [
-      'Expected to land April 2026.',
+      'Expected to land October 2026.',
       'Systems group. See research/gpu-txn-db for what I actually do all day.',
     ],
     skills: [],

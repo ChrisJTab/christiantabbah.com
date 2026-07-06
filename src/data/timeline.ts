@@ -80,8 +80,7 @@ export const timeline: TimelineEntry[] = [
     org: 'University of Toronto',
     short: 'Teaching assistant · UofT',
     start: '2023-01',
-    end: 'ongoing',
-    refName: 'education/ta',
+    end: '2026-04',
     bullets: [
       'Operating Systems (CSC369) ×4 · Intro to Information Security (CSC347) ×2, including lecturing while the professor was away.',
       'Intro to CS (CSC148) ×2 · Computer Security (CSC427) · Computability & Complexity (CSC363) · Intro to Databases (CSC343).',

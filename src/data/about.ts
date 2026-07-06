@@ -85,9 +85,12 @@ export const hobbies: Hobby[] = [
     id: 'basketball',
     name: 'Watching basketball',
     description:
-      'Watching, analyzing, occasionally yelling at a screen. Also pictured: the greatest defensive play of my career, against a very tall and very patient opponent.',
+      'I enjoy watching, analyzing and occasionally yelling at my screen. The picture also highlights the greatest defensive play of my career, blocking a very tall wax figure of Yao Ming.',
     photos: [
-      { src: 'yao-ming-block.jpg', alt: 'Me jumping to block a shot by Yao Ming' },
+      {
+        src: 'yao-ming-block.jpg',
+        alt: 'Me jumping to block a shot by a wax figure of Yao Ming',
+      },
     ],
   },
   {

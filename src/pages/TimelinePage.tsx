@@ -53,7 +53,7 @@ export function TimelinePage() {
     <Shell page="timeline">
       <header className="container page-header">
         <span className="file-tab">$ git log --graph --all</span>
-        <h1>The story so far</h1>
+        <h1>My commit history</h1>
         <p className="intro">
           Every job, degree, and detour since 2018: one branch per chapter,
           merged back into main when it wrapped.{' '}

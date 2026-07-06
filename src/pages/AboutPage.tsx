@@ -65,9 +65,6 @@ export function AboutPage() {
       <section className="container about-sec" aria-labelledby="hobbies-h">
         <span className="file-tab">~/off-the-clock</span>
         <h2 id="hobbies-h">Off the clock</h2>
-        <p className="intro">
-          The parts of the week that don’t compile to anything, happily.
-        </p>
         <ol className="hobby-log">
           {hobbies.map((h, i) => (
             <li

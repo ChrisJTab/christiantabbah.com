@@ -111,7 +111,7 @@ export const hobbies: Hobby[] = [
     id: 'cooking',
     name: 'Cooking',
     description:
-      'I love cooking new things, and the photos are a small sample of the experiments. Also, not to brag, but I make a killer cheesecake.',
+      'I absolutely love cooking new recipes with friends, and I enjoy reviewing the result afterwards even more. Here are some of the dishes I’m most proud of!',
     photos: [
       { src: 'food-birria-tacos.jpg', alt: 'Birria tacos I made' },
       { src: 'food-carbonara.jpg', alt: 'Carbonara I made' },

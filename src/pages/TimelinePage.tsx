@@ -55,11 +55,10 @@ export function TimelinePage() {
         <span className="file-tab">$ git log --graph --all</span>
         <h1>My history so far</h1>
         <p className="intro">
-          Every job, degree, and detour since 2018: one branch per chapter,
-          merged back into main when it wrapped.{' '}
+          Below is every job, degree, and detour I took since 2018.{' '}
           {isNarrow
-            ? 'Tap a commit for the details.'
-            : 'Click a commit for details, hover a branch to trace it.'}
+            ? 'Tap on commits for details.'
+            : 'Click on commits for details, hover a branch to trace it.'}
         </p>
       </header>
 

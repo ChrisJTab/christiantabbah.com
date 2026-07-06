@@ -63,7 +63,7 @@ export function CommitCard({ entry }: { entry: TimelineEntry }) {
       )}
       {entry.end === 'ongoing' ? (
         <p className="c-status c-open mono">
-          <span className="open-dot" aria-hidden="true" /> open branch — still
+          <span className="open-dot" aria-hidden="true" /> open branch · still
           committing
         </p>
       ) : (

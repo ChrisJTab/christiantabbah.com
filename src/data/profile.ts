@@ -5,9 +5,9 @@ export const profile = {
   domain: 'https://christiantabbah.com',
   email: 'christiantabbah@mail.utoronto.ca',
   github: 'https://github.com/ChrisJTab',
-  // TODO(christian): real LinkedIn URL — icon stays hidden until this is set.
+  // TODO(christian): real LinkedIn URL; icon stays hidden until this is set.
   linkedin: null as string | null,
-  // TODO(christian): real Instagram URL — icon stays hidden until this is set.
+  // TODO(christian): real Instagram URL; icon stays hidden until this is set.
   instagram: null as string | null,
   cvPath: '/Christian-Tabbah-CV.pdf',
   // TODO(christian): confirm the repo URL once the site is pushed to GitHub.

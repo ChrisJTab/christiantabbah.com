@@ -1,5 +1,5 @@
 /* ==========================================================================
-   night-roast — the theme.
+   night-roast: the theme.
    Every color, font stack, size, and motion value on the site lives here.
    Components must reference these variables; no hex values anywhere else.
    ========================================================================== */
@@ -14,7 +14,7 @@
   --border-strong: #55452f;
 
   --text: #f0e6d2; /* warm parchment */
-  --text-muted: #a89a85; /* secondary copy — still AA on --bg */
+  --text-muted: #a89a85; /* secondary copy, still AA on --bg */
   --text-dim: #6e6150; /* decorative glyphs only, never running text */
 
   --amber: #e8a03c; /* dominant: main branch, links, primary action */

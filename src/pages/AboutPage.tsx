@@ -66,7 +66,7 @@ export function AboutPage() {
         <span className="file-tab">~/off-the-clock</span>
         <h2 id="hobbies-h">Off the clock</h2>
         <p className="intro">
-          The parts of the week that don’t compile to anything — happily.
+          The parts of the week that don’t compile to anything, happily.
         </p>
         <ul className="hobby-grid">
           {hobbies.map((h, i) => (

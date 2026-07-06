@@ -15,7 +15,7 @@ export function BucketListPage() {
         <span className="file-tab">TODO.md</span>
         <h1>The bucket list</h1>
         <p className="intro">
-          Things to do before I run out of runtime — {done} of {bucketList.length}{' '}
+          Things to do before I run out of runtime. {done} of {bucketList.length}{' '}
           merged so far.
         </p>
       </header>
@@ -56,7 +56,7 @@ export function BucketListPage() {
             ))}
           </ul>
           <p className="todo-note mono">
-            # christian still owes this file 5–8 lines — git blame agrees
+            # christian still owes this file 5–8 lines (git blame agrees)
           </p>
         </div>
       </section>

@@ -55,7 +55,7 @@ export function TimelinePage() {
         <span className="file-tab">$ git log --graph --all</span>
         <h1>The story so far</h1>
         <p className="intro">
-          Every job, degree, and detour since 2018 — one branch per chapter,
+          Every job, degree, and detour since 2018: one branch per chapter,
           merged back into main when it wrapped.{' '}
           {isNarrow
             ? 'Tap a commit for the details.'
@@ -96,7 +96,7 @@ export function TimelinePage() {
         <span className="file-tab">~/projects</span>
         <h2 id="projects-h">Side quests</h2>
         <p className="intro">
-          Course builds and rabbit holes that got out of hand — repo links
+          Course builds and rabbit holes that got out of hand. Repo links
           coming as I dust them off.
         </p>
         <ProjectList />

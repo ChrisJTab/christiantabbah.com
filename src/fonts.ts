@@ -1,5 +1,5 @@
 // Self-hosted fonts (Fontsource → hashed assets, no third-party CDN).
-// Young Serif ships a single 400 weight — that constraint is part of the look.
+// Young Serif ships a single 400 weight; that constraint is part of the look.
 import '@fontsource/young-serif/400.css'
 import '@fontsource/atkinson-hyperlegible-next/400.css'
 import '@fontsource/atkinson-hyperlegible-next/400-italic.css'

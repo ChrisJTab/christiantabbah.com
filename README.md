@@ -1,6 +1,6 @@
 # christiantabbah.com
 
-Personal site for Christian Tabbah — a warm-dark, git-themed static site.
+Personal site for Christian Tabbah: a warm-dark, git-themed static site.
 Vite + React + TypeScript, custom SVG git-graph timeline, deployed to
 GitHub Pages at [christiantabbah.com](https://christiantabbah.com).
 
@@ -25,12 +25,12 @@ npm run lint      # oxlint
 | Links (GitHub/LinkedIn/Instagram), email, CV path | `src/data/profile.ts` |
 | Theme (all colors, fonts, spacing) | `src/styles/tokens.css` |
 
-Open `TODO`s are marked `TODO(christian):` in those files — LinkedIn and
+Open `TODO`s are marked `TODO(christian):` in those files: LinkedIn and
 Instagram URLs, project repo links, the food-comparison one-liner, and 5–8
 more bucket-list items. Hobby photos go in `public/images/hobbies/`
 (see the README there for exact filenames).
 
-Adding a timeline entry: append an object to `src/data/timeline.ts` — the
+Adding a timeline entry: append an object to `src/data/timeline.ts`, and the
 graph lays itself out (lanes, curves, label rows) from the dates. When a new
 month starts, bump `TIMELINE_NOW` in the same file so open branches extend.
 

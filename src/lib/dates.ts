@@ -1,7 +1,7 @@
 /** Year-month string, e.g. '2024-09'. All timeline math runs on these. */
 export type YM = `${number}-${number}`
 
-/** The graph's epoch — months are counted from January of this year. */
+/** The graph's epoch: months are counted from January of this year. */
 export const EPOCH_YEAR = 2018
 
 const MONTHS = [
@@ -36,7 +36,7 @@ export function formatYM(ym: YM): string {
 }
 
 export function formatRange(start: YM, end: YM | 'ongoing'): string {
-  return `${formatYM(start)} — ${end === 'ongoing' ? 'now' : formatYM(end)}`
+  return `${formatYM(start)} → ${end === 'ongoing' ? 'now' : formatYM(end)}`
 }
 
 /** Human duration like "2 yrs 8 mos", counting both endpoint months. */

@@ -1,4 +1,4 @@
-// The bucket list. One item per line — set done: true and it gets its
+// The bucket list. One item per line; set done: true and it gets its
 // strikethrough + commit-hash flourish automatically.
 
 export interface BucketItem {
@@ -23,5 +23,5 @@ export const bucketList: BucketItem[] = [
     text: 'Build a file system from scratch',
     done: true,
   },
-  // TODO(christian): 5–8 more items — copy a block above, give it a unique id.
+  // TODO(christian): 5–8 more items. Copy a block above, give it a unique id.
 ]

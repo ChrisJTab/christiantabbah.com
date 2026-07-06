@@ -3,7 +3,7 @@ export interface Project {
   name: string
   blurb: string
   tech: string[]
-  /** TODO(christian): add repo links where they exist — rows link when set. */
+  /** TODO(christian): add repo links where they exist; rows link when set. */
   repo: string | null
 }
 
@@ -39,14 +39,14 @@ export const projects: Project[] = [
   {
     id: 'udp-reliable',
     name: 'udp-reliable-transfer',
-    blurb: 'Reliable file transfer built on top of UDP — acks, retransmits, the whole dance.',
+    blurb: 'Reliable file transfer built on top of UDP: acks, retransmits, the whole dance.',
     tech: ['UDP', 'networking'],
     repo: null,
   },
   {
     id: 'survey-classifier',
     name: 'survey-classifier',
-    blurb: 'ML classifier for survey responses — 85–90% test accuracy, best in the class.',
+    blurb: 'ML classifier for survey responses: 85–90% test accuracy, best in the class.',
     tech: ['machine learning'],
     repo: null,
   },

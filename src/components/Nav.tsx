@@ -8,7 +8,7 @@ const LINKS: { id: PageId; href: string; label: string }[] = [
   { id: 'bucket-list', href: '/bucket-list/', label: 'Bucket List' },
 ]
 
-/** Icon links rendered as mono chips — on-theme and unambiguous. */
+/** Icon links rendered as mono chips: on-theme and unambiguous. */
 const SOCIALS: { label: string; glyph: string; url: string | null }[] = [
   { label: 'GitHub', glyph: 'gh', url: profile.github },
   { label: 'LinkedIn', glyph: 'in', url: profile.linkedin },

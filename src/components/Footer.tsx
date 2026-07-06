@@ -22,7 +22,7 @@ export function Footer() {
           ) : (
             <span>{hash}</span>
           )}{' '}
-          on main — no uncommitted changes
+          on main · no uncommitted changes
         </p>
       </div>
     </footer>

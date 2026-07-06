@@ -14,7 +14,7 @@ export function Shell({ page, children }: { page: PageId; children: ReactNode })
     console.log(
       `%c*  ${__COMMIT_HASH__} (HEAD -> you) opened the dev tools\n` +
         `%c|\n` +
-        `|  hi! this site is a static Vite + React build — no trackers, no backend.\n` +
+        `|  hi! this site is a static Vite + React build. no trackers, no backend.\n` +
         `|  say hello: ${profile.email}\n` +
         `|\n` +
         `*  2018-06 the log starts at /timeline/`,

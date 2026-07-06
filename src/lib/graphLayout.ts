@@ -4,7 +4,7 @@
  * Time flows bottom → top (like `git log --graph`): newest at the top.
  * `main` is a vertical spine; each entry is a branch that forks off main at
  * its start date and merges back at its end date (or stays open with a tip
- * node near the top when ongoing). Everything is computed from the data —
+ * node near the top when ongoing). Everything is computed from the data;
  * components only draw what this returns.
  */
 import type { Category, TimelineEntry } from '../data/timeline'

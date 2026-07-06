@@ -29,7 +29,7 @@ const vars = (v: Record<string, string>) => v as CSSProperties
 
 /**
  * Desktop graph: an SVG layer for lanes/curves/nodes (aria-hidden) and an
- * HTML layer of real buttons — one `git log --oneline`-style row per commit,
+ * HTML layer of real buttons: one `git log --oneline`-style row per commit,
  * vertically aligned with its node. Keyboard users tab through the rows.
  */
 export function GitGraph({
@@ -133,8 +133,8 @@ export function GitGraph({
                 })}
                 aria-expanded={selected}
                 aria-controls="commit-panel"
-                aria-label={`${e.role} — ${e.org}, ${formatRange(e.start, e.end)}`}
-                title={`${e.role} — ${e.org}`}
+                aria-label={`${e.role}, ${e.org}, ${formatRange(e.start, e.end)}`}
+                title={`${e.role} · ${e.org}`}
                 onClick={() => onSelect(e.id)}
                 onMouseEnter={() => onHighlight({ kind: 'entry', id: e.id })}
                 onMouseLeave={() => onHighlight(null)}

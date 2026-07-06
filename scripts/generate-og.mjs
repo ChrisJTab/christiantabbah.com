@@ -1,7 +1,7 @@
 /**
  * Generates public/og.png (1200×630) and public/apple-touch-icon.png.
  *
- * One-off, run locally (never in CI — the PNGs are committed):
+ * One-off, run locally (never in CI; the PNGs are committed):
  *   npm i --no-save satori @resvg/resvg-js
  *   node scripts/generate-og.mjs
  *
@@ -138,7 +138,7 @@ const card = h(
           lineHeight: 1.4,
           maxWidth: 660,
         },
-        'MSc CS @ University of Toronto — building GPU-accelerated transactional databases.',
+        'MSc CS @ University of Toronto, building GPU-accelerated transactional databases.',
       ),
     ),
     h(
@@ -153,7 +153,7 @@ const card = h(
   }),
 )
 
-// satori's h-shim above puts src in style for img — fix that node directly:
+// satori's h-shim above puts src in style for img; fix that node directly:
 card.props.children[1] = {
   type: 'img',
   props: {

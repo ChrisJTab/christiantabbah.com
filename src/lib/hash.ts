@@ -11,7 +11,7 @@ export function commitHashFor(seed: string): string {
   return (h >>> 4).toString(16).padStart(7, '0').slice(0, 7)
 }
 
-/** Stable small int in [min, max] derived from a seed — used for diffstat bars. */
+/** Stable small int in [min, max] derived from a seed, used for diffstat bars. */
 export function seededInt(seed: string, min: number, max: number): number {
   let h = 0x811c9dc5
   for (let i = 0; i < seed.length; i++) {

@@ -78,7 +78,7 @@ export const hobbies: Hobby[] = [
     id: 'board-games',
     name: 'Board games',
     description:
-      'Board games are my love language. Coming up with optimal strategies always gets me excited.',
+      'Board games are my love language. I love the feeling of a game finally clicking enough to come up with new strategies, and the feeling of ganging up on the player with the most resources at the table.',
     photos: [],
   },
   {

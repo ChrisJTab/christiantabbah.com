@@ -26,9 +26,9 @@ npm run lint      # oxlint
 | Theme (all colors, fonts, spacing) | `src/styles/tokens.css` |
 
 Open `TODO`s are marked `TODO(christian):` in those files: LinkedIn and
-Instagram URLs, project repo links, the food-comparison one-liner, and 5–8
-more bucket-list items. Hobby photos go in `public/images/hobbies/`
-(see the README there for exact filenames).
+Instagram URLs, project repo links, and 5–8 more bucket-list items.
+Hobby photos go in `public/images/hobbies/` (see the README there for
+exact filenames).
 
 Adding a timeline entry: append an object to `src/data/timeline.ts`, and the
 graph lays itself out (lanes, curves, label rows) from the dates. When a new

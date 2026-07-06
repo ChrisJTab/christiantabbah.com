@@ -54,6 +54,11 @@ export interface Hobby {
   img: string
   alt: string
   caption: string
+  /**
+   * Set when there's deliberately no photo; the tile shows this line instead.
+   * To switch a hobby to a real photo later, delete this field and add the file.
+   */
+  noPhoto?: string
 }
 
 export const hobbies: Hobby[] = [
@@ -63,6 +68,7 @@ export const hobbies: Hobby[] = [
     img: 'board-games.jpg',
     alt: 'A board game mid-play',
     caption: 'Rules explanations are my love language.',
+    noPhoto: 'undocumented. everyone was busy losing',
   },
   {
     id: 'snowboarding',
@@ -77,6 +83,7 @@ export const hobbies: Hobby[] = [
     img: 'rock-climbing.jpg',
     alt: 'Climbing an indoor bouldering wall',
     caption: 'Problems worth solving with both hands.',
+    noPhoto: 'chalk everywhere, camera nowhere',
   },
   {
     id: 'badminton',
@@ -84,20 +91,20 @@ export const hobbies: Hobby[] = [
     img: 'badminton.jpg',
     alt: 'Badminton racquet and shuttlecock',
     caption: 'Deceptively cardio.',
+    noPhoto: 'too fast for cameras',
   },
   {
     id: 'basketball',
     name: 'Watching basketball',
     img: 'basketball.jpg',
-    alt: 'A basketball game in progress',
-    caption: 'Watching, analyzing, occasionally yelling.',
+    alt: 'Me jumping to block a shot by Yao Ming',
+    caption: 'That’s me blocking Yao Ming. No further questions.',
   },
   {
-    id: 'food',
-    name: 'Comparing food',
-    img: 'food.jpg',
-    alt: 'Two dishes side by side',
-    // TODO(christian): your one-liner explaining the food-comparison hobby.
-    caption: 'Full explanation pending.',
+    id: 'cooking',
+    name: 'Cooking',
+    img: 'cooking.jpg',
+    alt: 'A dish I cooked, plated and ready',
+    caption: 'I cook, I plate, I photograph the evidence.',
   },
 ]

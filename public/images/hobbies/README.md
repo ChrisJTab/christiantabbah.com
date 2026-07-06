@@ -1,14 +1,15 @@
 # Hobby photos
 
 Drop photos here with these exact names and they appear on the About page
-automatically (until then, each card shows a styled "photo pending" tile):
+automatically:
 
-- `board-games.jpg`
 - `snowboarding.jpg`
-- `rock-climbing.jpg`
-- `badminton.jpg`
-- `basketball.jpg`
-- `food.jpg`
+- `basketball.jpg` (the Yao Ming block)
+- `cooking.jpg` (something you cooked and plated)
 
-Landscape ~4:3 crops look best (they're displayed at 4:3, ~640px wide).
+Board games, rock climbing, and badminton intentionally show a styled
+"no photo" tile instead. To give one of them a real photo later, add the
+file here and delete that hobby's `noPhoto` line in `src/data/about.ts`.
+
+Landscape ~4:3 crops look best (displayed at 4:3, ~640px wide).
 Captions and alt text live in `src/data/about.ts`.

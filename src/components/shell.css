@@ -32,7 +32,7 @@
 }
 
 .logo-dot {
-  color: var(--amber);
+  color: var(--primary);
 }
 
 .nav-links {
@@ -55,8 +55,8 @@
 }
 
 .nav-links a[aria-current='page'] {
-  color: var(--amber);
-  box-shadow: inset 0 -2px 0 var(--amber);
+  color: var(--primary);
+  box-shadow: inset 0 -2px 0 var(--primary);
 }
 
 .nav-side {
@@ -80,8 +80,8 @@
 }
 
 .social-chip:hover {
-  color: var(--amber);
-  border-color: var(--amber);
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 .nav-side .btn {
@@ -117,5 +117,5 @@
 }
 
 .footer-hash span[aria-hidden] {
-  color: var(--amber);
+  color: var(--primary);
 }

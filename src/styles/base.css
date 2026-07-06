@@ -39,7 +39,7 @@ body::before {
   background-image:
     radial-gradient(
       1100px 700px at 16% -10%,
-      color-mix(in srgb, var(--amber) 9%, transparent),
+      color-mix(in srgb, var(--primary) 9%, transparent),
       transparent 62%
     ),
     radial-gradient(
@@ -68,12 +68,12 @@ button {
 /* --- selection & focus --------------------------------------------------- */
 
 ::selection {
-  background: var(--amber);
+  background: var(--primary);
   color: var(--bg);
 }
 
 :focus-visible {
-  outline: 2px solid var(--mint);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: var(--radius-s);
 }
@@ -107,18 +107,18 @@ p {
 }
 
 a {
-  color: var(--amber);
+  color: var(--primary);
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
-  text-decoration-color: color-mix(in srgb, var(--amber) 45%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--primary) 45%, transparent);
   transition: color var(--dur-quick) var(--ease-out),
     text-decoration-color var(--dur-quick) var(--ease-out);
 }
 
 a:hover {
-  color: var(--amber-bright);
-  text-decoration-color: var(--amber-bright);
+  color: var(--primary-bright);
+  text-decoration-color: var(--primary-bright);
 }
 
 .mono {
@@ -140,7 +140,7 @@ a:hover {
   color: var(--text-muted);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-top: 2px solid var(--amber);
+  border-top: 2px solid var(--primary);
   border-radius: 0 0 var(--radius-s) var(--radius-s);
   padding: 0.3rem 0.75rem;
 }
@@ -176,7 +176,7 @@ a:hover {
   font-weight: 700;
   font-size: var(--text-small);
   color: var(--bg);
-  background: var(--amber);
+  background: var(--primary);
   border-radius: var(--radius-s);
   padding: 0.5em 1em;
   text-decoration: none;
@@ -186,7 +186,7 @@ a:hover {
 
 .btn:hover {
   color: var(--bg);
-  background: var(--amber-bright);
+  background: var(--primary-bright);
   transform: translateY(-1px);
 }
 

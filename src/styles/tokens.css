@@ -1,31 +1,32 @@
 /* ==========================================================================
-   night-roast: the theme.
+   night-moss: the theme.
+   Muted green, brown, and cream on a dark walnut base.
    Every color, font stack, size, and motion value on the site lives here.
    Components must reference these variables; no hex values anywhere else.
    ========================================================================== */
 
 :root {
   /* --- palette ------------------------------------------------------ */
-  --bg: #1f1811; /* deep espresso base */
-  --bg-glow: #2a1e12; /* warm wash used in the background gradients */
-  --surface: #2a2118; /* raised panels: commit view, cards, nav */
-  --surface-2: #332a1e; /* hover / double-raised */
-  --border: #3d3021;
-  --border-strong: #55452f;
+  --bg: #1c1a12; /* dark walnut base */
+  --bg-glow: #262214; /* mossy wash used in the background gradients */
+  --surface: #282419; /* raised panels: commit view, cards, nav */
+  --surface-2: #312b1d; /* hover / double-raised */
+  --border: #3a3424;
+  --border-strong: #524932;
 
-  --text: #f0e6d2; /* warm parchment */
-  --text-muted: #a89a85; /* secondary copy, still AA on --bg */
-  --text-dim: #6e6150; /* decorative glyphs only, never running text */
+  --text: #f0ead8; /* cream */
+  --text-muted: #a9a08a; /* secondary copy, still AA on --bg */
+  --text-dim: #6e6753; /* decorative glyphs only, never running text */
 
-  --amber: #e8a03c; /* dominant: main branch, links, primary action */
-  --amber-bright: #f6b95e; /* hover state of the dominant */
-  --mint: #4fd6be; /* sharp accent: HEAD, focus rings, done-hashes */
+  --primary: #a8bd8f; /* dominant muted sage: main branch, links, actions */
+  --primary-bright: #bdd1a5; /* hover state of the dominant */
+  --accent: #82d69b; /* sharp accent: HEAD, focus rings, done-hashes */
 
-  /* timeline branch colors */
-  --c-work: #e57a67;
-  --c-education: #82aee0;
-  --c-research: #b494d6;
-  --c-leadership: #a9c76f;
+  /* timeline branch colors (earth-toned, all ≥4.5:1 on --bg) */
+  --c-work: #d08c6a; /* clay */
+  --c-education: #8fb0cf; /* dusty blue */
+  --c-research: #b49bd1; /* heather */
+  --c-leadership: #d6b36a; /* ochre */
 
   /* --- type ----------------------------------------------------------- */
   --font-display: 'Young Serif', 'Iowan Old Style', Georgia, serif;

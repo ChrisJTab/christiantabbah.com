@@ -6,8 +6,8 @@ import './shell.css'
 
 export function Shell({ page, children }: { page: PageId; children: ReactNode }) {
   useEffect(() => {
-    const amber = getComputedStyle(document.documentElement)
-      .getPropertyValue('--amber')
+    const primary = getComputedStyle(document.documentElement)
+      .getPropertyValue('--primary')
       .trim()
     const mono = 'font-family: ui-monospace, monospace'
     // For fellow console-openers.
@@ -18,7 +18,7 @@ export function Shell({ page, children }: { page: PageId; children: ReactNode })
         `|  say hello: ${profile.email}\n` +
         `|\n` +
         `*  2018-06 the log starts at /timeline/`,
-      `${mono}; color: ${amber}`,
+      `${mono}; color: ${primary}`,
       mono,
     )
   }, [])

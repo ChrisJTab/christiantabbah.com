@@ -18,7 +18,7 @@
 }
 
 .hero .accent {
-  color: var(--amber);
+  color: var(--primary);
 }
 
 .hero-p {
@@ -53,7 +53,7 @@
 
 .mini-graph .mg-main {
   fill: none;
-  stroke: var(--amber);
+  stroke: var(--primary);
   stroke-width: 3;
   stroke-linecap: round;
   animation: draw-path 700ms var(--ease-out) var(--d) backwards;
@@ -75,7 +75,7 @@
 }
 
 .mini-graph .mg-dot {
-  fill: var(--amber);
+  fill: var(--primary);
   transform-box: fill-box;
   transform-origin: center;
   animation: node-pop 260ms var(--ease-spring) var(--d) backwards;
@@ -90,7 +90,7 @@
 }
 
 .mini-graph .mg-main-node {
-  stroke: var(--amber);
+  stroke: var(--primary);
 }
 
 .mini-graph .mg-edu-node {
@@ -103,7 +103,7 @@
 
 .mini-graph .mg-pulse {
   fill: none;
-  stroke: var(--mint);
+  stroke: var(--accent);
   stroke-width: 2;
   transform-box: fill-box;
   transform-origin: center;
@@ -147,9 +147,9 @@
 .tag-chip {
   font-family: var(--font-mono);
   font-size: var(--text-mono-small);
-  color: var(--amber);
-  background: color-mix(in srgb, var(--amber) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--amber) 35%, transparent);
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
   border-radius: var(--radius-s);
   padding: 3px 8px;
   white-space: nowrap;
@@ -191,7 +191,7 @@
   bottom: 18px;
   width: 2.5px;
   border-radius: 2px;
-  background: var(--amber);
+  background: var(--primary);
   opacity: 0.55;
 }
 

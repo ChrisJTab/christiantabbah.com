@@ -49,7 +49,7 @@
 }
 
 .legend-main {
-  color: var(--amber);
+  color: var(--primary);
   padding: 2px 8px;
 }
 
@@ -94,25 +94,25 @@
 }
 
 .now-line {
-  stroke: var(--mint);
+  stroke: var(--accent);
   stroke-dasharray: 3 6;
   opacity: 0.4;
 }
 
 .graph-gutter .now-label {
-  color: var(--mint);
+  color: var(--accent);
 }
 
 .main-line {
   fill: none;
-  stroke: var(--amber);
+  stroke: var(--primary);
   stroke-width: 3;
   stroke-linecap: round;
   animation: draw-path 800ms var(--ease-out) 60ms backwards;
 }
 
 .main-tip {
-  fill: var(--amber);
+  fill: var(--primary);
   animation: node-pop 300ms var(--ease-spring) 780ms backwards;
 }
 
@@ -163,7 +163,7 @@
 
 .tip-halo {
   fill: none;
-  stroke: var(--mint);
+  stroke: var(--accent);
   stroke-width: 1.5;
   opacity: 0.85;
   transform-box: fill-box;
@@ -173,7 +173,7 @@
 
 .head-pulse {
   fill: none;
-  stroke: var(--mint);
+  stroke: var(--accent);
   stroke-width: 2;
   transform-box: fill-box;
   transform-origin: center;
@@ -241,7 +241,7 @@
 
 .log-row:hover,
 .log-row.is-selected {
-  background: color-mix(in srgb, var(--amber) 8%, transparent);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
 .log-row.is-dim {
@@ -254,7 +254,7 @@
 }
 
 .log-row.is-selected .log-hash {
-  color: var(--amber);
+  color: var(--primary);
 }
 
 .log-title {
@@ -278,9 +278,9 @@
 }
 
 .ref-pill[data-head] {
-  color: var(--mint);
-  border-color: color-mix(in srgb, var(--mint) 55%, transparent);
-  background: color-mix(in srgb, var(--mint) 10%, transparent);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 /* --- commit panel --------------------------------------------------------- */
@@ -318,7 +318,7 @@
 }
 
 .c-hash {
-  color: var(--amber);
+  color: var(--primary);
 }
 
 .c-title {
@@ -384,7 +384,7 @@
   content: '+';
   position: absolute;
   left: 2px;
-  color: var(--mint);
+  color: var(--accent);
   font-family: var(--font-mono);
 }
 
@@ -418,7 +418,7 @@
 }
 
 .diff-bar {
-  color: var(--mint);
+  color: var(--accent);
   letter-spacing: 1px;
 }
 
@@ -437,14 +437,14 @@
 }
 
 .c-merged span {
-  color: var(--branch-color, var(--amber));
+  color: var(--branch-color, var(--primary));
 }
 
 .open-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--mint);
+  background: var(--accent);
   animation: breathe 2.4s ease-in-out infinite;
 }
 
@@ -455,7 +455,7 @@
 }
 
 .panel-empty .cursor {
-  color: var(--mint);
+  color: var(--accent);
   animation: breathe 1.2s steps(2, jump-none) infinite;
 }
 
@@ -476,7 +476,7 @@
   bottom: 10px;
   width: 2.5px;
   border-radius: 2px;
-  background: var(--amber);
+  background: var(--primary);
   opacity: 0.75;
 }
 
@@ -508,7 +508,7 @@
 }
 
 .mob-row:hover {
-  background: color-mix(in srgb, var(--amber) 7%, transparent);
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
 }
 
 .mob-row-main {

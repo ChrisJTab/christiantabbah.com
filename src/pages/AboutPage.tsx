@@ -13,8 +13,8 @@ const NODE_TINTS = [
   'var(--c-work)',
   'var(--c-research)',
   'var(--c-leadership)',
-  'var(--mint)',
-  'var(--amber)',
+  'var(--accent)',
+  'var(--primary)',
 ]
 
 export function AboutPage() {

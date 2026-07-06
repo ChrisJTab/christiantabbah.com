@@ -35,7 +35,7 @@
 }
 
 .td-2 {
-  background: var(--amber);
+  background: var(--primary);
 }
 
 .td-3 {
@@ -79,12 +79,12 @@
 }
 
 .todo-box {
-  color: var(--amber);
+  color: var(--primary);
   font-size: var(--text-mono);
 }
 
 li.done .todo-box {
-  color: var(--mint);
+  color: var(--accent);
 }
 
 .todo-text {
@@ -100,7 +100,7 @@ li.done .todo-text {
 }
 
 .todo-hash {
-  color: var(--mint);
+  color: var(--accent);
   font-size: var(--text-mono-small);
   white-space: nowrap;
   animation: node-pop 300ms var(--ease-spring) var(--d) backwards;

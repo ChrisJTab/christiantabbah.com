@@ -5,24 +5,24 @@
  *   npm i --no-save satori @resvg/resvg-js
  *   node scripts/generate-og.mjs
  *
- * Colors mirror src/styles/tokens.css (night-roast).
+ * Colors mirror src/styles/tokens.css (night-moss).
  */
 import { readFile, writeFile } from 'node:fs/promises'
 import satori from 'satori'
 import { Resvg } from '@resvg/resvg-js'
 
 const C = {
-  bg: '#1f1811',
-  surface: '#2a2118',
-  border: '#55452f',
-  text: '#f0e6d2',
-  muted: '#a89a85',
-  amber: '#e8a03c',
-  mint: '#4fd6be',
-  work: '#e57a67',
-  education: '#82aee0',
-  research: '#b494d6',
-  leadership: '#a9c76f',
+  bg: '#1c1a12',
+  surface: '#282419',
+  border: '#524932',
+  text: '#f0ead8',
+  muted: '#a9a08a',
+  primary: '#a8bd8f',
+  accent: '#82d69b',
+  work: '#d08c6a',
+  education: '#8fb0cf',
+  research: '#b49bd1',
+  leadership: '#d6b36a',
 }
 
 /** Fetch a TTF from Google Fonts (default UA gets truetype URLs). */
@@ -42,21 +42,21 @@ const [youngSerif, atkinson, plexMono] = await Promise.all([
 // Git-graph motif as a plain SVG (no text → no font worries), inlined as an img.
 const motif = `
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="486" viewBox="0 0 240 324">
-  <path d="M 40 300 L 40 30" stroke="${C.amber}" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M 40 300 L 40 30" stroke="${C.primary}" stroke-width="5" stroke-linecap="round" fill="none"/>
   <path d="M 40 246 C 40 226, 118 236, 118 216 L 118 138 C 118 118, 40 128, 40 108"
         stroke="${C.education}" stroke-width="4" stroke-linecap="round" fill="none"/>
   <path d="M 40 192 C 40 172, 188 182, 188 162 L 188 66"
         stroke="${C.research}" stroke-width="4" stroke-linecap="round" fill="none"/>
   <path d="M 40 276 C 40 260, 74 266, 74 250 L 74 226"
         stroke="${C.work}" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <circle cx="40" cy="246" r="6" fill="${C.amber}"/>
-  <circle cx="40" cy="192" r="6" fill="${C.amber}"/>
-  <circle cx="40" cy="108" r="6" fill="${C.amber}"/>
+  <circle cx="40" cy="246" r="6" fill="${C.primary}"/>
+  <circle cx="40" cy="192" r="6" fill="${C.primary}"/>
+  <circle cx="40" cy="108" r="6" fill="${C.primary}"/>
   <circle cx="74" cy="232" r="8" fill="${C.bg}" stroke="${C.work}" stroke-width="4"/>
   <circle cx="118" cy="177" r="9" fill="${C.bg}" stroke="${C.education}" stroke-width="4"/>
-  <circle cx="40" cy="30" r="9" fill="${C.bg}" stroke="${C.amber}" stroke-width="5"/>
-  <circle cx="188" cy="66" r="16" fill="none" stroke="${C.mint}" stroke-width="2" opacity="0.55"/>
-  <circle cx="188" cy="66" r="9" fill="${C.bg}" stroke="${C.mint}" stroke-width="5"/>
+  <circle cx="40" cy="30" r="9" fill="${C.bg}" stroke="${C.primary}" stroke-width="5"/>
+  <circle cx="188" cy="66" r="16" fill="none" stroke="${C.accent}" stroke-width="2" opacity="0.55"/>
+  <circle cx="188" cy="66" r="9" fill="${C.bg}" stroke="${C.accent}" stroke-width="5"/>
 </svg>`
 const motifSrc = `data:image/svg+xml,${encodeURIComponent(motif)}`
 
@@ -88,8 +88,8 @@ const card = h(
     height: 630,
     display: 'flex',
     backgroundColor: C.bg,
-    backgroundImage: `radial-gradient(circle at 12% -10%, ${C.amber}22, transparent 55%),
-       radial-gradient(circle at 90% 115%, #2a1e12dd, transparent 55%)`,
+    backgroundImage: `radial-gradient(circle at 12% -10%, ${C.primary}22, transparent 55%),
+       radial-gradient(circle at 90% 115%, #262214dd, transparent 55%)`,
     padding: 64,
   },
   h(
@@ -108,7 +108,7 @@ const card = h(
         fontSize: 24,
         color: C.muted,
         border: `2px solid ${C.border}`,
-        borderTop: `4px solid ${C.amber}`,
+        borderTop: `4px solid ${C.primary}`,
         backgroundColor: C.surface,
         borderRadius: 10,
         padding: '10px 24px',
@@ -144,8 +144,8 @@ const card = h(
     h(
       'div',
       { display: 'flex', gap: 18 },
-      pill('* main', C.amber),
-      pill('HEAD → research/gpu-txn-db', C.mint),
+      pill('* main', C.primary),
+      pill('HEAD → research/gpu-txn-db', C.accent),
     ),
   ),
   h('img', { width: 360, height: 486, alignSelf: 'center' }, undefined, {

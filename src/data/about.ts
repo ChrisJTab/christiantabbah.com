@@ -104,7 +104,7 @@ export const hobbies: Hobby[] = [
     id: 'badminton',
     name: 'Badminton',
     description:
-      'I picked up badminton in high school and at my peak was playing 15 hours a week. Career highlight: almost taking a game off a Singaporean national champion. The word almost is doing a lot of heavy lifting there, and I’ve made my peace with it.',
+      'I picked up badminton in high school and fell in love with the sport. At my peak I was playing 15 hours a week, and at one point even scored 12 points (out of 21) against a Singaporean national player. That may not sound like much, but trust me, it was.',
     photos: [],
   },
   {

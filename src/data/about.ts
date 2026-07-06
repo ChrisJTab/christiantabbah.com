@@ -69,7 +69,7 @@ export const hobbies: Hobby[] = [
     id: 'snowboarding',
     name: 'Snowboarding',
     description:
-      'Look closely at the photo: my board is wearing a tiny replica of itself as a keychain. That should tell you roughly how much I love this sport.',
+      'If you look closely at the photo, you’ll see that beside my snowboard is its mini replica. That should tell you how much I love the sport :)',
     photos: [
       { src: 'snowboarding.jpg', alt: 'Me on the hill with my snowboard' },
     ],

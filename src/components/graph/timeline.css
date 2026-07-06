@@ -93,6 +93,16 @@
   opacity: 0.55;
 }
 
+.now-line {
+  stroke: var(--mint);
+  stroke-dasharray: 3 6;
+  opacity: 0.4;
+}
+
+.graph-gutter .now-label {
+  color: var(--mint);
+}
+
 .main-line {
   fill: none;
   stroke: var(--amber);

@@ -62,6 +62,8 @@ export interface GraphLayout {
   mainX: number
   mainPath: string
   mainTipY: number
+  /** Shared "now" level — every open branch's line runs exactly this far. */
+  nowY: number
   /** Branches sorted top → bottom; this is also the tab/reading order. */
   branches: LaidBranch[]
   mainDots: MainDot[]
@@ -73,6 +75,9 @@ export function layoutGraph(entries: TimelineEntry[], now: YM): GraphLayout {
   const tMax = nowT + 1
   const yOf = (t: number) => TOP_PAD + (tMax - t) * PX_PER_MONTH
   const height = yOf(0) + BOTTOM_PAD
+  // All ongoing branches terminate together here, so "still current" reads
+  // as one shared boundary instead of staggered label positions.
+  const nowY = TOP_PAD - 8
 
   // --- lane allocation (per category, with overflow sub-lanes) -----------
   const laneOf = new Map<string, number>()
@@ -193,7 +198,8 @@ export function layoutGraph(entries: TimelineEntry[], now: YM): GraphLayout {
       `C ${MAIN_X} ${forkY - c * 0.75}, ${x} ${forkY - c * 0.25}, ` +
       `${x} ${forkY - c}`
     if (mergeY === null) {
-      path += ` L ${x} ${tipY}`
+      // Open branch: the line reaches "now"; the labeled node sits on it.
+      path += ` L ${x} ${nowY}`
     } else {
       path +=
         ` L ${x} ${mergeY + c} ` +
@@ -228,6 +234,7 @@ export function layoutGraph(entries: TimelineEntry[], now: YM): GraphLayout {
     mainX: MAIN_X,
     mainPath,
     mainTipY,
+    nowY,
     branches,
     mainDots: mainEvents.map(({ entryId, category, kind, y }) => ({
       entryId,

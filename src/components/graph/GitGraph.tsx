@@ -55,6 +55,13 @@ export function GitGraph({
             <line key={y.year} x1={46} x2={layout.width} y1={y.y} y2={y.y} />
           ))}
         </g>
+        <line
+          className="now-line"
+          x1={46}
+          x2={layout.width}
+          y1={layout.nowY}
+          y2={layout.nowY}
+        />
         <path className="main-line" d={layout.mainPath} pathLength={1} />
         <circle
           className="main-tip"
@@ -111,6 +118,9 @@ export function GitGraph({
       </svg>
 
       <div className="graph-gutter" aria-hidden="true">
+        <span className="mono now-label" style={{ top: layout.nowY }}>
+          now
+        </span>
         {layout.years.map((y) => (
           <span key={y.year} className="mono" style={{ top: y.y }}>
             {y.year}

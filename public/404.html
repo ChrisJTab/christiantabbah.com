@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>404 — Christian Tabbah</title>
+    <!-- Standalone page (no build step), so theme values are inlined here.
+         Source of truth: src/styles/tokens.css -->
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      html {
+        color-scheme: dark;
+      }
+
+      body {
+        min-height: 100svh;
+        display: grid;
+        place-content: center;
+        gap: 1.25rem;
+        padding: 2rem;
+        background: #1f1811;
+        color: #f0e6d2;
+        font-family: 'Menlo', 'Consolas', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .prompt {
+        color: #a89a85;
+      }
+
+      .err {
+        color: #e57a67;
+      }
+
+      code {
+        color: #e8a03c;
+      }
+
+      a {
+        color: #e8a03c;
+      }
+
+      a:hover {
+        color: #f6b95e;
+      }
+
+      .fix {
+        margin-top: 0.5rem;
+        color: #a89a85;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p class="prompt">$ git checkout <code id="path">this-page</code></p>
+      <p class="err">
+        error: pathspec did not match any file(s) known to christiantabbah.com
+      </p>
+      <p class="fix">
+        hint: try one of these branches instead —<br />
+        <a href="/">main (about me)</a> ·
+        <a href="/timeline/">timeline</a> ·
+        <a href="/bucket-list/">bucket-list</a>
+      </p>
+    </div>
+    <script>
+      document.getElementById('path').textContent =
+        window.location.pathname.replace(/^\//, '') || 'this-page'
+    </script>
+  </body>
+</html>

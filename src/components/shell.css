@@ -1,0 +1,121 @@
+/* --- nav ------------------------------------------------------------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  min-height: var(--nav-height);
+  flex-wrap: wrap;
+  padding-block: var(--sp-2);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo:hover {
+  color: var(--text);
+}
+
+.logo-dot {
+  color: var(--amber);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--sp-5);
+  list-style: none;
+  padding: 0;
+}
+
+.nav-links a {
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding-block: 0.35rem;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links a[aria-current='page'] {
+  color: var(--amber);
+  box-shadow: inset 0 -2px 0 var(--amber);
+}
+
+.nav-side {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-left: auto;
+}
+
+.social-chip {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-s);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out);
+}
+
+.social-chip:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+.nav-side .btn {
+  margin-left: var(--sp-2);
+}
+
+@media (max-width: 640px) {
+  .nav-inner {
+    gap: var(--sp-3) var(--sp-4);
+  }
+
+  .nav-links {
+    gap: var(--sp-4);
+  }
+}
+
+/* --- footer ------------------------------------------------------------ */
+
+.site-footer {
+  margin-top: var(--sp-9);
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3) var(--sp-6);
+  flex-wrap: wrap;
+  padding-block: var(--sp-6);
+  font-size: var(--text-mono-small);
+  color: var(--text-muted);
+}
+
+.footer-hash span[aria-hidden] {
+  color: var(--amber);
+}

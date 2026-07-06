@@ -1,0 +1,282 @@
+/* ==========================================================================
+   About page: hero, tagged milestones, hobby polaroids.
+   ========================================================================== */
+
+/* --- hero ------------------------------------------------------------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: var(--sp-7);
+  align-items: center;
+  padding-block: var(--sp-8) var(--sp-7);
+}
+
+.hero h1 {
+  margin-top: var(--sp-4);
+  font-size: clamp(2.6rem, 6vw, 4rem);
+}
+
+.hero .accent {
+  color: var(--amber);
+}
+
+.hero-p {
+  margin-top: var(--sp-4);
+  font-size: 1.15rem;
+  max-width: 56ch;
+}
+
+.hero-p + .hero-p {
+  color: var(--text-muted);
+  font-size: var(--text-base);
+}
+
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+}
+
+.rise {
+  animation: card-in 420ms var(--ease-out) var(--d, 0ms) backwards;
+}
+
+.hero-art {
+  justify-self: center;
+}
+
+/* --- mini graph ---------------------------------------------------------- */
+
+.mini-graph .mg-main {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: draw-path 700ms var(--ease-out) var(--d) backwards;
+}
+
+.mini-graph .mg-branch {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  animation: draw-path 620ms var(--ease-out) var(--d) backwards;
+}
+
+.mini-graph .mg-edu {
+  stroke: var(--c-education);
+}
+
+.mini-graph .mg-research {
+  stroke: var(--c-research);
+}
+
+.mini-graph .mg-dot {
+  fill: var(--amber);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pop 260ms var(--ease-spring) var(--d) backwards;
+}
+
+.mini-graph .mg-node {
+  fill: var(--bg);
+  stroke-width: 2.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pop 300ms var(--ease-spring) var(--d) backwards;
+}
+
+.mini-graph .mg-main-node {
+  stroke: var(--amber);
+}
+
+.mini-graph .mg-edu-node {
+  stroke: var(--c-education);
+}
+
+.mini-graph .mg-research-node {
+  stroke: var(--c-research);
+}
+
+.mini-graph .mg-pulse {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: head-pulse 2.8s var(--ease-out) 1400ms infinite;
+}
+
+/* --- sections ------------------------------------------------------------- */
+
+.about-sec {
+  margin-top: var(--sp-8);
+}
+
+.about-sec h2 {
+  margin-top: var(--sp-4);
+}
+
+.about-sec .intro {
+  margin-top: var(--sp-2);
+  color: var(--text-muted);
+}
+
+/* --- milestones (`git tag`) ------------------------------------------------ */
+
+.tag-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-4) var(--sp-7);
+}
+
+.tag-row {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding-block: var(--sp-3);
+  border-bottom: 1px dashed var(--border);
+}
+
+.tag-chip {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-small);
+  color: var(--amber);
+  background: color-mix(in srgb, var(--amber) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--amber) 35%, transparent);
+  border-radius: var(--radius-s);
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.tag-row strong {
+  font-weight: 700;
+}
+
+.tag-detail {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  margin-top: 2px;
+}
+
+@media (max-width: 760px) {
+  .tag-list {
+    grid-template-columns: 1fr;
+    gap: var(--sp-1);
+  }
+}
+
+/* --- hobbies ------------------------------------------------------------- */
+
+.hobby-grid {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-6);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+
+.polaroid {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  padding: var(--sp-3) var(--sp-3) var(--sp-4);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform var(--dur-slow) var(--ease-spring),
+    box-shadow var(--dur-slow) var(--ease-out);
+}
+
+.hobby-grid li:nth-child(3n + 1) .polaroid {
+  --tilt: -1.1deg;
+}
+
+.hobby-grid li:nth-child(3n + 2) .polaroid {
+  --tilt: 0.8deg;
+}
+
+.hobby-grid li:nth-child(3n) .polaroid {
+  --tilt: -0.4deg;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: var(--shadow-panel);
+}
+
+.polaroid img,
+.ph-fallback {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-s);
+}
+
+.ph-fallback {
+  display: grid;
+  place-content: center;
+  gap: var(--sp-1);
+  text-align: center;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--ph-tint) 14%, var(--bg)),
+      color-mix(in srgb, var(--ph-tint) 4%, var(--bg)) 70%
+    );
+  border: 1px dashed color-mix(in srgb, var(--ph-tint) 40%, transparent);
+}
+
+.ph-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.ph-note {
+  color: var(--text-muted);
+  font-size: var(--text-mono-small);
+}
+
+.polaroid figcaption {
+  margin-top: var(--sp-3);
+  display: grid;
+  gap: 2px;
+}
+
+.polaroid figcaption strong {
+  font-size: var(--text-small);
+}
+
+.polaroid figcaption .mono {
+  color: var(--text-muted);
+  font-size: var(--text-mono-small);
+}
+
+/* --- responsive ------------------------------------------------------------ */
+
+@media (max-width: 899px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-block: var(--sp-7) var(--sp-6);
+  }
+
+  .hero-art {
+    display: none;
+  }
+
+  .hobby-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .hobby-grid {
+    grid-template-columns: 1fr;
+  }
+}

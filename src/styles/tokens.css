@@ -1,0 +1,67 @@
+/* ==========================================================================
+   night-roast — the theme.
+   Every color, font stack, size, and motion value on the site lives here.
+   Components must reference these variables; no hex values anywhere else.
+   ========================================================================== */
+
+:root {
+  /* --- palette ------------------------------------------------------ */
+  --bg: #1f1811; /* deep espresso base */
+  --bg-glow: #2a1e12; /* warm wash used in the background gradients */
+  --surface: #2a2118; /* raised panels: commit view, cards, nav */
+  --surface-2: #332a1e; /* hover / double-raised */
+  --border: #3d3021;
+  --border-strong: #55452f;
+
+  --text: #f0e6d2; /* warm parchment */
+  --text-muted: #a89a85; /* secondary copy — still AA on --bg */
+  --text-dim: #6e6150; /* decorative glyphs only, never running text */
+
+  --amber: #e8a03c; /* dominant: main branch, links, primary action */
+  --amber-bright: #f6b95e; /* hover state of the dominant */
+  --mint: #4fd6be; /* sharp accent: HEAD, focus rings, done-hashes */
+
+  /* timeline branch colors */
+  --c-work: #e57a67;
+  --c-education: #82aee0;
+  --c-research: #b494d6;
+  --c-leadership: #a9c76f;
+
+  /* --- type ----------------------------------------------------------- */
+  --font-display: 'Young Serif', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible',
+    'Trebuchet MS', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace;
+
+  --text-base: 1.0625rem; /* 17px body */
+  --text-small: 0.9375rem;
+  --text-mono: 0.8125rem; /* 13px default mono */
+  --text-mono-small: 0.75rem;
+  --leading-body: 1.65;
+
+  /* --- space & shape --------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+  --sp-9: 6.5rem;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+
+  --shadow-panel: 0 14px 40px color-mix(in srgb, black 30%, transparent);
+
+  --content-width: 72rem;
+  --nav-height: 4.25rem;
+
+  /* --- motion ----------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.9, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.44, 1);
+  --dur-quick: 160ms;
+  --dur-slow: 420ms;
+}

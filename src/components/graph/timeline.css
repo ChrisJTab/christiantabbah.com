@@ -1,0 +1,590 @@
+/* ==========================================================================
+   Timeline page: git graph, log rows, commit panel, legend, mobile spine,
+   and the projects list.
+
+   Entrance choreography convention: keyframes animate FROM the hidden state
+   with `animation-fill-mode: backwards`, so resting styles are the final
+   state and hover/dim classes keep working after the reveal finishes.
+   ========================================================================== */
+
+/* --- layout --------------------------------------------------------------- */
+
+.graph-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+.graph-col {
+  min-width: 0;
+}
+
+.graph {
+  position: relative;
+}
+
+.graph-svg {
+  display: block;
+}
+
+/* --- legend (`$ git branch`) ---------------------------------------------- */
+
+.legend {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: var(--sp-5);
+  font-size: var(--text-mono);
+  animation: fade-in 400ms var(--ease-out) 80ms backwards;
+}
+
+.legend-cmd {
+  color: var(--text-dim);
+  margin-bottom: var(--sp-1);
+}
+
+.legend-main {
+  color: var(--amber);
+  padding: 2px 8px;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: var(--radius-s);
+  transition: background var(--dur-quick) var(--ease-out),
+    color var(--dur-quick) var(--ease-out);
+}
+
+.legend-row:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.legend-row[aria-pressed='true'] {
+  color: var(--text);
+  background: color-mix(in srgb, var(--branch-color) 16%, transparent);
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--branch-color);
+}
+
+.legend-count {
+  color: var(--text-dim);
+}
+
+/* --- SVG pieces --------------------------------------------------------- */
+
+.year-lines line {
+  stroke: var(--border);
+  stroke-dasharray: 2 7;
+  opacity: 0.55;
+}
+
+.main-line {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: draw-path 800ms var(--ease-out) 60ms backwards;
+}
+
+.main-tip {
+  fill: var(--amber);
+  animation: node-pop 300ms var(--ease-spring) 780ms backwards;
+}
+
+.branch-line {
+  fill: none;
+  stroke: var(--branch-color);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: opacity 220ms var(--ease-out), stroke-width 220ms var(--ease-out),
+    filter 220ms var(--ease-out);
+  animation: draw-path 620ms var(--ease-out) var(--d) backwards;
+}
+
+.branch.is-dim .branch-line {
+  opacity: 0.28;
+}
+
+.branch.is-hi .branch-line {
+  stroke-width: 3.5;
+  filter: drop-shadow(
+    0 0 6px color-mix(in srgb, var(--branch-color) 60%, transparent)
+  );
+}
+
+.branch .tip {
+  fill: var(--bg);
+  stroke: var(--branch-color);
+  stroke-width: 2.5;
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 220ms var(--ease-out), transform 180ms var(--ease-spring);
+  animation: node-pop 320ms var(--ease-spring) calc(var(--d) + 460ms) backwards;
+}
+
+.branch.is-hi .tip,
+.branch .tip:hover {
+  transform: scale(1.25);
+}
+
+.branch.is-dim .tip {
+  opacity: 0.35;
+}
+
+.branch.is-selected .tip {
+  stroke-width: 3.25;
+}
+
+.tip-halo {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 1.5;
+  opacity: 0.85;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: halo-in 260ms var(--ease-spring) backwards;
+}
+
+.head-pulse {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: head-pulse 2.8s var(--ease-out) calc(var(--d) + 900ms) infinite;
+}
+
+.main-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pop 260ms var(--ease-spring) calc(var(--d) + 260ms) backwards;
+}
+
+.main-dot.merge {
+  fill: var(--branch-color);
+}
+
+.main-dot.fork {
+  fill: var(--bg);
+  stroke: var(--branch-color);
+  stroke-width: 1.5;
+}
+
+/* --- year gutter --------------------------------------------------------- */
+
+.graph-gutter span {
+  position: absolute;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: var(--text-mono-small);
+  color: var(--text-muted);
+  animation: fade-in 500ms var(--ease-out) 200ms backwards;
+}
+
+/* --- log rows (the HTML/button layer) ------------------------------------ */
+
+.log-rows {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.log-rows > li {
+  position: absolute;
+  left: var(--label-x);
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.log-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  padding: 7px 10px;
+  border-radius: var(--radius-s);
+  transition: background var(--dur-quick) var(--ease-out),
+    opacity 220ms var(--ease-out);
+  animation: row-in 280ms var(--ease-out) calc(var(--d) + 520ms) backwards;
+}
+
+.log-row:hover,
+.log-row.is-selected {
+  background: color-mix(in srgb, var(--amber) 8%, transparent);
+}
+
+.log-row.is-dim {
+  opacity: 0.35;
+}
+
+.log-hash {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.log-row.is-selected .log-hash {
+  color: var(--amber);
+}
+
+.log-title {
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ref-pill {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-small);
+  line-height: 1;
+  color: var(--branch-color);
+  background: color-mix(in srgb, var(--branch-color) 9%, transparent);
+  border: 1px solid color-mix(in srgb, var(--branch-color) 45%, transparent);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ref-pill[data-head] {
+  color: var(--mint);
+  border-color: color-mix(in srgb, var(--mint) 55%, transparent);
+  background: color-mix(in srgb, var(--mint) 10%, transparent);
+}
+
+/* --- commit panel --------------------------------------------------------- */
+
+.commit-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-panel);
+}
+
+.commit-panel {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--sp-5));
+  max-height: calc(100vh - var(--nav-height) - var(--sp-7));
+  overflow-y: auto;
+  animation: fade-in 400ms var(--ease-out) 350ms backwards;
+}
+
+.commit-card {
+  animation: card-in 240ms var(--ease-out) backwards;
+}
+
+.c-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  font-size: var(--text-mono);
+}
+
+.c-label {
+  color: var(--text-muted);
+}
+
+.c-hash {
+  color: var(--amber);
+}
+
+.c-title {
+  font-size: 1.35rem;
+  margin-top: var(--sp-3);
+}
+
+.c-meta {
+  margin-top: var(--sp-4);
+  display: grid;
+  gap: 3px;
+  font-size: var(--text-mono-small);
+}
+
+.c-meta > div {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.c-meta dt {
+  color: var(--text-muted);
+  min-width: 4.5rem;
+}
+
+.c-meta dd {
+  margin: 0;
+}
+
+.c-branch {
+  color: var(--branch-color, var(--text));
+}
+
+.commit-card[data-category='work'] {
+  --branch-color: var(--c-work);
+}
+
+.commit-card[data-category='education'] {
+  --branch-color: var(--c-education);
+}
+
+.commit-card[data-category='research'] {
+  --branch-color: var(--c-research);
+}
+
+.commit-card[data-category='leadership'] {
+  --branch-color: var(--c-leadership);
+}
+
+.c-bullets {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-4);
+  font-size: var(--text-small);
+}
+
+.c-bullets li {
+  position: relative;
+  padding-left: 20px;
+  margin-block: var(--sp-2);
+}
+
+.c-bullets li::before {
+  content: '+';
+  position: absolute;
+  left: 2px;
+  color: var(--mint);
+  font-family: var(--font-mono);
+}
+
+.c-diff {
+  margin-top: var(--sp-4);
+  border-top: 1px dashed var(--border-strong);
+  padding-top: var(--sp-3);
+  font-size: var(--text-mono-small);
+}
+
+.c-diff-head {
+  color: var(--text-muted);
+}
+
+.c-diff-lines {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-2);
+}
+
+.diff-line {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: baseline;
+  flex-wrap: wrap; /* narrow screens: the // note tucks under the bar */
+  padding-block: 2px;
+}
+
+.diff-file {
+  color: var(--text);
+}
+
+.diff-bar {
+  color: var(--mint);
+  letter-spacing: 1px;
+}
+
+.diff-note {
+  margin-left: auto;
+  color: var(--text-muted);
+}
+
+.c-status {
+  margin-top: var(--sp-4);
+  font-size: var(--text-mono-small);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.c-merged span {
+  color: var(--branch-color, var(--amber));
+}
+
+.open-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mint);
+  animation: breathe 2.4s ease-in-out infinite;
+}
+
+.panel-empty {
+  color: var(--text-muted);
+  font-size: var(--text-mono);
+  line-height: 2;
+}
+
+.panel-empty .cursor {
+  color: var(--mint);
+  animation: breathe 1.2s steps(2, jump-none) infinite;
+}
+
+/* --- mobile spine ---------------------------------------------------------- */
+
+.mob-log {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--sp-2);
+  position: relative;
+}
+
+.mob-log::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--sp-2) + 5px);
+  top: 10px;
+  bottom: 10px;
+  width: 2.5px;
+  border-radius: 2px;
+  background: var(--amber);
+  opacity: 0.75;
+}
+
+.mob-log > li {
+  position: relative;
+  padding-left: var(--sp-6);
+  animation: row-in 280ms var(--ease-out) var(--d) backwards;
+}
+
+.mob-dot {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2.5px solid var(--branch-color);
+}
+
+.mob-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  text-align: left;
+  padding: var(--sp-3) var(--sp-2);
+  border-radius: var(--radius-s);
+}
+
+.mob-row:hover {
+  background: color-mix(in srgb, var(--amber) 7%, transparent);
+}
+
+.mob-row-main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.mob-title {
+  color: var(--text);
+  font-size: var(--text-mono);
+}
+
+.mob-dates {
+  color: var(--text-muted);
+  font-size: var(--text-mono-small);
+}
+
+.mob-panel {
+  margin: var(--sp-1) 0 var(--sp-4);
+}
+
+/* --- projects ------------------------------------------------------------- */
+
+.projects-sec {
+  margin-top: var(--sp-8);
+}
+
+.projects-sec h2 {
+  margin-top: var(--sp-4);
+}
+
+.projects-sec .intro {
+  margin-top: var(--sp-2);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-5);
+}
+
+.repo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
+}
+
+.repo-row {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr) auto;
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: var(--sp-4) var(--sp-2);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--dur-quick) var(--ease-out);
+}
+
+.repo-row:hover {
+  background: color-mix(in srgb, var(--surface) 65%, transparent);
+}
+
+.repo-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.repo-blurb {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.repo-tech {
+  display: flex;
+  gap: var(--sp-1);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 899px) {
+  .repo-row {
+    grid-template-columns: 1fr;
+    gap: var(--sp-2);
+  }
+
+  .repo-tech {
+    justify-content: flex-start;
+  }
+}
+
+/* (shared keyframes live in base.css) */

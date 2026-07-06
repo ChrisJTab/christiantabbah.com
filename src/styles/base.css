@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Base: reset, background depth, typography, focus, shared primitives.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100svh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layered background: two warm glows + film grain, fixed to the viewport.
+   The grain's opacity is baked into the SVG so the glows stay clean. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      1100px 700px at 16% -10%,
+      color-mix(in srgb, var(--amber) 9%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      900px 640px at 88% 112%,
+      color-mix(in srgb, var(--bg-glow) 85%, transparent),
+      transparent 58%
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* --- selection & focus --------------------------------------------------- */
+
+::selection {
+  background: var(--amber);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+  border-radius: var(--radius-s);
+}
+
+/* --- typography ------------------------------------------------------- */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400; /* Young Serif ships one weight; hierarchy comes from size */
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.35rem, 5.2vw, 3.55rem);
+}
+
+h2 {
+  font-size: clamp(1.55rem, 3vw, 2.05rem);
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+p {
+  max-width: 62ch;
+}
+
+a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--amber) 45%, transparent);
+  transition: color var(--dur-quick) var(--ease-out),
+    text-decoration-color var(--dur-quick) var(--ease-out);
+}
+
+a:hover {
+  color: var(--amber-bright);
+  text-decoration-color: var(--amber-bright);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+/* Eyebrow styled like the active file tab in an editor. */
+.file-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--amber);
+  border-radius: 0 0 var(--radius-s) var(--radius-s);
+  padding: 0.3rem 0.75rem;
+}
+
+/* --- layout ------------------------------------------------------------ */
+
+.container {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.page-header {
+  padding-block: var(--sp-7) var(--sp-6);
+}
+
+.page-header .intro {
+  margin-top: var(--sp-4);
+  color: var(--text-muted);
+  font-size: var(--text-base);
+}
+
+.page-header h1 {
+  margin-top: var(--sp-4);
+}
+
+/* --- shared bits -------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: 700;
+  font-size: var(--text-small);
+  color: var(--bg);
+  background: var(--amber);
+  border-radius: var(--radius-s);
+  padding: 0.5em 1em;
+  text-decoration: none;
+  transition: background var(--dur-quick) var(--ease-out),
+    transform var(--dur-quick) var(--ease-out);
+}
+
+.btn:hover {
+  color: var(--bg);
+  background: var(--amber-bright);
+  transform: translateY(-1px);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-small);
+  line-height: 1;
+  padding: 0.35em 0.6em;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--sp-2);
+  left: var(--sp-2);
+  z-index: 100;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-s);
+  padding: var(--sp-2) var(--sp-4);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* Thin, theme-colored scrollbars inside panels. */
+.commit-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.commit-panel::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+}
+
+/* --- shared animation vocabulary ------------------------------------------
+   Entrance keyframes animate FROM the hidden state and are applied with
+   `backwards` fill, so resting styles equal the final state and later
+   class toggles (dim/hover) aren't fought by a lingering fill-mode. */
+
+@keyframes draw-path {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes node-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes halo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes head-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+
+  55%,
+  100% {
+    opacity: 0;
+    transform: scale(2.3);
+  }
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* --- reduced motion ------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

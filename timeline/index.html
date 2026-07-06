@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Set before first paint so the chosen theme never flashes.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Timeline · Christian Tabbah</title>
@@ -11,7 +17,7 @@
       content="My life as a git graph: work, education, research, and leadership branches from 2018 to now. Click a commit for the details."
     />
     <link rel="canonical" href="https://christiantabbah.com/timeline/" />
-    <meta name="theme-color" content="#1c1a12" />
+    <meta name="theme-color" content="#242b1c" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Christian Tabbah" />
     <meta property="og:title" content="Timeline · Christian Tabbah" />

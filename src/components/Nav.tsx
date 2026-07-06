@@ -1,4 +1,5 @@
 import { profile } from '../data/profile'
+import { ThemeToggle } from './ThemeToggle'
 
 export type PageId = 'about' | 'timeline' | 'bucket-list'
 
@@ -47,6 +48,7 @@ export function Nav({ page }: { page: PageId }) {
               {s.glyph}
             </a>
           ))}
+          <ThemeToggle />
           <a className="btn" href={profile.cvPath} download="Christian-Tabbah-CV.pdf">
             <span aria-hidden="true">↓</span> Download CV
           </a>

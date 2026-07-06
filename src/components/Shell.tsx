@@ -1,11 +1,13 @@
 import { useEffect, type ReactNode } from 'react'
 import { profile } from '../data/profile'
+import { syncThemeColor } from '../lib/themeColor'
 import { Footer } from './Footer'
 import { Nav, type PageId } from './Nav'
 import './shell.css'
 
 export function Shell({ page, children }: { page: PageId; children: ReactNode }) {
   useEffect(() => {
+    syncThemeColor()
     const primary = getComputedStyle(document.documentElement)
       .getPropertyValue('--primary')
       .trim()

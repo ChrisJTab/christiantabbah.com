@@ -1,16 +1,18 @@
 /* ==========================================================================
-   matcha-paper: the theme.
-   Warm cream paper, deep moss, earth-tone branches, and a night-moss
-   dark band for the navigation.
+   The theme: matcha-paper (light, default) + night-moss (dark), switched
+   by data-theme on <html> via the nav toggle. The nav itself is a constant
+   deep-moss band in both modes.
    Every color, font stack, size, and motion value on the site lives here.
    Components must reference these variables; no hex values anywhere else.
    ========================================================================== */
 
 :root {
-  /* --- palette ------------------------------------------------------ */
+  color-scheme: light;
+
+  /* --- palette: matcha-paper ----------------------------------------- */
   --bg: #f2eee1; /* warm cream base */
   --bg-glow: #e7dfc6; /* deeper cream wash for the background gradients */
-  --surface: #faf7ec; /* raised panels: commit view, cards, nav */
+  --surface: #faf7ec; /* raised panels: commit view, cards */
   --surface-2: #ece5d0; /* hover / double-raised */
   --border: #dcd3ba;
   --border-strong: #c2b697;
@@ -28,6 +30,8 @@
   --c-education: #3e6a8e; /* deep dusty blue */
   --c-research: #6d5493; /* plum */
   --c-leadership: #7f611c; /* russet ochre */
+
+  --shadow-panel: 0 12px 32px color-mix(in srgb, black 12%, transparent);
 
   /* --- type ----------------------------------------------------------- */
   --font-display: 'Young Serif', 'Iowan Old Style', Georgia, serif;
@@ -56,8 +60,6 @@
   --radius-m: 10px;
   --radius-l: 14px;
 
-  --shadow-panel: 0 12px 32px color-mix(in srgb, black 12%, transparent);
-
   --content-width: 72rem;
   --nav-height: 4.25rem;
 
@@ -68,14 +70,43 @@
   --dur-slow: 420ms;
 }
 
-/* Dark island: the nav keeps a night-moss band above the paper page.
-   Re-declaring the variables here re-themes everything inside the nav. */
-.site-nav {
-  --bg: #1c1a12;
+/* --- palette: night-moss (dark mode) --------------------------------- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #1c1a12; /* dark walnut base */
+  --bg-glow: #262214;
+  --surface: #282419;
+  --surface-2: #312b1d;
   --border: #3a3424;
   --border-strong: #524932;
-  --text: #f0ead8;
+
+  --text: #f0ead8; /* cream */
   --text-muted: #a9a08a;
+  --text-dim: #6e6753;
+
+  --primary: #a8bd8f; /* muted sage */
+  --primary-bright: #bdd1a5;
+  --accent: #82d69b; /* fresh green */
+
+  --c-work: #d08c6a; /* clay */
+  --c-education: #8fb0cf; /* dusty blue */
+  --c-research: #b49bd1; /* heather */
+  --c-leadership: #d6b36a; /* ochre */
+
+  --shadow-panel: 0 14px 40px color-mix(in srgb, black 30%, transparent);
+}
+
+/* Light mode only: the nav is a deep-moss band over the paper page
+   (re-declaring the variables re-themes everything inside it). In dark
+   mode the nav inherits the page's night-moss values and blends in,
+   as the original dark theme did. */
+:root:not([data-theme='dark']) .site-nav {
+  --bg: #242b1c;
+  --border: #3a4430;
+  --border-strong: #55624a;
+  --text: #f0ead8;
+  --text-muted: #a6ad93;
   --primary: #a8bd8f;
   --primary-bright: #bdd1a5;
   --accent: #82d69b;

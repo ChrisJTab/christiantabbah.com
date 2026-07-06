@@ -97,7 +97,7 @@ export const hobbies: Hobby[] = [
     id: 'rock-climbing',
     name: 'Bouldering',
     description:
-      'My favourite part is the puzzle solving: reading a problem from the ground, then testing the solution hold by hold. That and the chats between attempts, which somehow last longer than the actual climbing.',
+      'I really enjoy the puzzle solving aspect of bouldering. That, and the chats between attempts, which somehow last longer than the climbing.',
     photos: [],
   },
   {

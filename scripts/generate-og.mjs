@@ -12,17 +12,17 @@ import satori from 'satori'
 import { Resvg } from '@resvg/resvg-js'
 
 const C = {
-  bg: '#1c1a12',
-  surface: '#282419',
-  border: '#524932',
-  text: '#f0ead8',
-  muted: '#a9a08a',
-  primary: '#a8bd8f',
-  accent: '#82d69b',
-  work: '#d08c6a',
-  education: '#8fb0cf',
-  research: '#b49bd1',
-  leadership: '#d6b36a',
+  bg: '#f2eee1',
+  surface: '#faf7ec',
+  border: '#c2b697',
+  text: '#322d1e',
+  muted: '#6e6753',
+  primary: '#566f3d',
+  accent: '#2a7049',
+  work: '#a4552f',
+  education: '#3e6a8e',
+  research: '#6d5493',
+  leadership: '#7f611c',
 }
 
 /** Fetch a TTF from Google Fonts (default UA gets truetype URLs). */
@@ -89,7 +89,7 @@ const card = h(
     display: 'flex',
     backgroundColor: C.bg,
     backgroundImage: `radial-gradient(circle at 12% -10%, ${C.primary}22, transparent 55%),
-       radial-gradient(circle at 90% 115%, #262214dd, transparent 55%)`,
+       radial-gradient(circle at 90% 115%, #e7dfc6dd, transparent 55%)`,
     padding: 64,
   },
   h(

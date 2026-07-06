@@ -13,7 +13,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   background: var(--bg);
   scroll-behavior: smooth;
 }

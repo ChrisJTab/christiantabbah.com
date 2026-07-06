@@ -2,7 +2,7 @@
 
 export const heroIntro: string[] = [
   'I’m a master’s student at the University of Toronto, where I’m teaching a GPU to run a transactional database bigger than its own memory.',
-  'Before that: four years of security-and-systems undergrad, a couple of years of full-stack work, and more TA office hours than I can count.',
+  'Before that, I did four years of security-and-systems undergrad, a couple of years of full-stack work, and more TA office hours than I can count.',
 ]
 
 export const heroChips: string[] = [

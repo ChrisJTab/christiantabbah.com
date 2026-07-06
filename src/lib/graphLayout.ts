@@ -145,13 +145,14 @@ export function layoutGraph(entries: TimelineEntry[], now: YM): GraphLayout {
   }
 
   // --- tip (labeled node) positions, swept so log rows never collide ------
-  // Ongoing tips stack from the very top: HEAD first, then newest start.
+  // Ongoing tips stack from the very top: HEAD first, then oldest start.
   const ongoing = entries
     .filter((e) => e.end === 'ongoing')
     .sort(
       (a, b) =>
         Number(b.head ?? false) - Number(a.head ?? false) ||
-        monthsSinceEpoch(b.start) - monthsSinceEpoch(a.start),
+        monthsSinceEpoch(a.start) - monthsSinceEpoch(b.start) ||
+        a.id.localeCompare(b.id),
     )
   // Per-branch curve depth (shrunk when the branch is too short to fit two).
   const cOf = new Map<string, number>()
@@ -176,10 +177,43 @@ export function layoutGraph(entries: TimelineEntry[], now: YM): GraphLayout {
   const tips = [...entries].sort(
     (a, b) => (seedTipY.get(a.id) ?? 0) - (seedTipY.get(b.id) ?? 0),
   )
+  // Fork/merge curves sweep across every lane closer to main than their own.
+  // An ongoing node parked near the top must not sit inside such a curve's
+  // vertical band, or the curve appears to run through the node.
+  const NODE_CLEARANCE = 12
+  interface CurveBand {
+    x: number
+    lo: number
+    hi: number
+  }
+  const curveBands: CurveBand[] = []
+  for (const e of entries) {
+    const x = laneOf.get(e.id)!
+    const c = cOf.get(e.id)!
+    const forkY = forkYOf.get(e.id)!
+    curveBands.push({ x, lo: forkY - c, hi: forkY })
+    const mergeY = mergeYOf.get(e.id)
+    if (mergeY !== undefined) curveBands.push({ x, lo: mergeY, hi: mergeY + c })
+  }
+  curveBands.sort((a, b) => a.lo - b.lo)
+
   const tipYOf = new Map<string, number>()
   prevY = -Infinity
   for (const e of tips) {
     let y = Math.max(seedTipY.get(e.id) ?? 0, prevY + ROW_GAP)
+    if (e.end === 'ongoing') {
+      const myX = laneOf.get(e.id)!
+      for (const band of curveBands) {
+        const crossesMyLane = band.x > myX
+        if (
+          crossesMyLane &&
+          y > band.lo - NODE_CLEARANCE &&
+          y < band.hi + NODE_CLEARANCE
+        ) {
+          y = band.hi + NODE_CLEARANCE
+        }
+      }
+    }
     // Never push a tip past its own fork curve (short branches stay intact).
     y = Math.min(y, (forkYOf.get(e.id) ?? height) - cOf.get(e.id)!)
     tipYOf.set(e.id, y)

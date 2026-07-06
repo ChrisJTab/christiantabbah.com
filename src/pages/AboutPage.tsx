@@ -88,7 +88,6 @@ export function AboutPage() {
                   </span>
                 </div>
                 <p className="hl-desc">{h.description}</p>
-                {h.note && <p className="hl-note mono">{`// ${h.note}`}</p>}
               </div>
               {h.photos.length > 0 && (
                 <figure
@@ -100,6 +99,7 @@ export function AboutPage() {
                       src={`/images/hobbies/${p.src}`}
                       alt={p.alt}
                       loading="lazy"
+                      style={p.position ? { objectPosition: p.position } : undefined}
                     />
                   ))}
                 </figure>

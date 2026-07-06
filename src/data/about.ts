@@ -51,6 +51,8 @@ export interface HobbyPhoto {
   /** Filename inside public/images/hobbies/ */
   src: string
   alt: string
+  /** Optional CSS object-position for the crop, e.g. '50% 12%'. */
+  position?: string
 }
 
 export interface Hobby {
@@ -58,8 +60,6 @@ export interface Hobby {
   name: string
   /** A couple of sentences, first person. */
   description: string
-  /** Optional mono aside, rendered like a code comment. */
-  note?: string
   /** 0 photos = text-only entry · 1 = single photo · 4 = 2×2 quadrant. */
   photos: HobbyPhoto[]
 }
@@ -69,7 +69,7 @@ export const hobbies: Hobby[] = [
     id: 'snowboarding',
     name: 'Snowboarding',
     description:
-      'Winter is the good season. The plan every year is the same: more mountains, fewer excuses, and at least one run where nobody saw the fall.',
+      'Look closely at the photo: my board is wearing a tiny replica of itself as a keychain. That should tell you roughly how much I love this sport.',
     photos: [
       { src: 'snowboarding.jpg', alt: 'Me on the hill with my snowboard' },
     ],
@@ -78,8 +78,7 @@ export const hobbies: Hobby[] = [
     id: 'board-games',
     name: 'Board games',
     description:
-      'Rules explanations are my love language. Bring a new box to the table and I will happily walk everyone through setup, strategy, and the rematch nobody asked for.',
-    note: 'undocumented. everyone was busy losing',
+      'Board games are my love language. Coming up with optimal strategies always gets me excited.',
     photos: [],
   },
   {
@@ -93,30 +92,28 @@ export const hobbies: Hobby[] = [
   },
   {
     id: 'rock-climbing',
-    name: 'Rock climbing',
+    name: 'Bouldering',
     description:
-      'Problems worth solving with both hands. Half the sport is standing under the wall, arguing about the right way up it.',
-    note: 'chalk everywhere, camera nowhere',
+      'My favourite part is the puzzle solving: reading a problem from the ground, then testing the solution hold by hold. That and the chats between attempts, which somehow last longer than the actual climbing.',
     photos: [],
   },
   {
     id: 'badminton',
     name: 'Badminton',
     description:
-      'Deceptively cardio. It looks like a backyard game right up until a smash goes past your ear at highway speed.',
-    note: 'too fast for cameras',
+      'I picked up badminton in high school and at my peak was playing 15 hours a week. Career highlight: almost taking a game off a Singaporean national champion. The word almost is doing a lot of heavy lifting there, and I’ve made my peace with it.',
     photos: [],
   },
   {
     id: 'cooking',
     name: 'Cooking',
     description:
-      'I cook, I plate, I photograph the evidence. Current portfolio: birria tacos, carbonara, beef stir fry, and a cheesecake that did not survive the review.',
+      'I love cooking new things, and the photos are a small sample of the experiments. Also, not to brag, but I make a killer cheesecake.',
     photos: [
       { src: 'food-birria-tacos.jpg', alt: 'Birria tacos I made' },
       { src: 'food-carbonara.jpg', alt: 'Carbonara I made' },
       { src: 'food-beef-stirfry.jpg', alt: 'Beef stir fry I made' },
-      { src: 'food-cheesecake.jpg', alt: 'Cheesecake I baked' },
+      { src: 'food-cheesecake.jpg', alt: 'Cheesecake I baked', position: '50% 12%' },
     ],
   },
 ]

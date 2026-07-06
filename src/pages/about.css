@@ -248,12 +248,6 @@
   max-width: 54ch;
 }
 
-.hl-note {
-  margin-top: var(--sp-2);
-  color: var(--text-muted);
-  font-size: var(--text-mono-small);
-}
-
 .hl-photo {
   margin: 0;
   background: var(--surface);

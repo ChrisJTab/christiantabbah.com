@@ -31,6 +31,7 @@ export default defineConfig({
       input: {
         about: resolve(import.meta.dirname, 'index.html'),
         timeline: resolve(import.meta.dirname, 'timeline/index.html'),
+        projects: resolve(import.meta.dirname, 'projects/index.html'),
         bucketList: resolve(import.meta.dirname, 'bucket-list/index.html'),
       },
     },

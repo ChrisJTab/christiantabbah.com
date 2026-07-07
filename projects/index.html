@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Set before first paint so the chosen theme never flashes.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Projects · Christian Tabbah</title>
+    <meta
+      name="description"
+      content="Side quests: distributed URL shorteners, an ext2 file system, GPU prototypes, and other rabbit holes that got out of hand."
+    />
+    <link rel="canonical" href="https://christiantabbah.com/projects/" />
+    <meta name="theme-color" content="#242b1c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Christian Tabbah" />
+    <meta property="og:title" content="Projects · Christian Tabbah" />
+    <meta
+      property="og:description"
+      content="Side quests: distributed URL shorteners, an ext2 file system, GPU prototypes, and other rabbit holes that got out of hand."
+    />
+    <meta property="og:url" content="https://christiantabbah.com/projects/" />
+    <meta property="og:image" content="https://christiantabbah.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Projects · Christian Tabbah" />
+    <meta
+      name="twitter:description"
+      content="Side quests: distributed URL shorteners, an ext2 file system, GPU prototypes, and other rabbit holes that got out of hand."
+    />
+    <meta name="twitter:image" content="https://christiantabbah.com/og.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/entries/projects.tsx"></script>
+  </body>
+</html>

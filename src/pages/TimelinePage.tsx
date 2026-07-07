@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { Shell } from '../components/Shell'
-import { ProjectList } from '../components/ProjectList'
 import { CommitPanel } from '../components/graph/CommitPanel'
 import { GitGraph, type Highlight } from '../components/graph/GitGraph'
 import { Legend } from '../components/graph/Legend'
@@ -89,16 +88,6 @@ export function TimelinePage() {
             <CommitPanel entry={selected} />
           </div>
         )}
-      </section>
-
-      <section className="container projects-sec" aria-labelledby="projects-h">
-        <span className="file-tab">~/projects</span>
-        <h2 id="projects-h">Side quests</h2>
-        <p className="intro">
-          Course builds and rabbit holes that got out of hand. Repo links
-          coming as I dust them off.
-        </p>
-        <ProjectList />
       </section>
     </Shell>
   )

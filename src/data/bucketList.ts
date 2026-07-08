@@ -16,6 +16,26 @@ export const bucketList: BucketItem[] = [
     done: false,
   },
   {
+    id: 'go-to-japan',
+    text: 'Go to Japan',
+    done: false,
+  },
+  {
+    id: 'github-cleanup',
+    text: 'Clean up my GitHub repos',
+    done: false,
+  },
+  {
+    id: 'unturned-stones',
+    text: 'Turn some unturned stones',
+    done: false,
+  },
+  {
+    id: 'armenian-fluency',
+    text: 'Become fluent in Armenian',
+    done: false,
+  },
+  {
     id: 'club-200-members',
     text: 'Found a club and grow it past 200 members',
     done: true,

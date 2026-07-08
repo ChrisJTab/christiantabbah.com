@@ -7,7 +7,7 @@ const LINKS: { id: PageId; href: string; label: string }[] = [
   { id: 'about', href: '/', label: 'About' },
   { id: 'timeline', href: '/timeline/', label: 'Timeline' },
   { id: 'projects', href: '/projects/', label: 'Projects' },
-  { id: 'bucket-list', href: '/bucket-list/', label: 'Bucket List' },
+  { id: 'bucket-list', href: '/bucket-list/', label: 'TODOs' },
 ]
 
 /** Icon links rendered as mono chips: on-theme and unambiguous. */

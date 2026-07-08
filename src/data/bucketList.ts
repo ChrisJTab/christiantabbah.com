@@ -5,6 +5,8 @@ export interface BucketItem {
   id: string
   text: string
   done: boolean
+  /** Optional vanity commit hash (hex chars only); defaults to a generated one. */
+  hash?: string
 }
 
 export const bucketList: BucketItem[] = [
@@ -23,5 +25,26 @@ export const bucketList: BucketItem[] = [
     text: 'Build a file system from scratch',
     done: true,
   },
-  // TODO(christian): 5–8 more items. Copy a block above, give it a unique id.
+  {
+    id: 'ace-up-sleeve',
+    text: 'Ace, up my sleeve',
+    done: true,
+    hash: 'ace5afe',
+  },
+  {
+    id: 'horses-held',
+    text: 'Horses, held',
+    done: true,
+  },
+  {
+    id: 'elephant-addressed',
+    text: 'Elephant in the room, addressed',
+    done: true,
+  },
+  {
+    id: 'eggs-distributed',
+    text: 'Eggs, distributed across several baskets (no single point of failure)',
+    done: true,
+  },
+  // TODO(christian): more real items. Copy a block above, give it a unique id.
 ]

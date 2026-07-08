@@ -49,14 +49,14 @@ export function BucketListPage() {
                 {item.done && (
                   <span className="todo-hash mono" style={d(320 + i * 80)}>
                     <span aria-hidden="true">✓ </span>
-                    {commitHashFor(item.id)}
+                    {item.hash ?? commitHashFor(item.id)}
                   </span>
                 )}
               </li>
             ))}
           </ul>
           <p className="todo-note mono">
-            # christian still owes this file 5–8 lines (git blame agrees)
+            # more real items pending. jokes ship faster (fewer edge cases)
           </p>
         </div>
       </section>

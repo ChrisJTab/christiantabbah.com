@@ -407,7 +407,7 @@
 
 .diff-line {
   display: flex;
-  gap: var(--sp-2);
+  gap: 2px var(--sp-2); /* tight row-gap so a wrapped // note hugs its file */
   align-items: baseline;
   flex-wrap: wrap; /* narrow screens: the // note tucks under the bar */
   padding-block: 2px;

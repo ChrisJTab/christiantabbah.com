@@ -95,13 +95,59 @@
   margin-left: var(--sp-2);
 }
 
-@media (max-width: 640px) {
+/* The CV button's short label ("CV") only exists on small screens. */
+.btn-label-short {
+  display: none;
+}
+
+/* Below 900px (the same breakpoint the timeline collapses at) the single
+   sticky bar would wrap into a tall stack, so it goes static — content gets
+   the whole screen back — and reflows into two rows: brand + actions on
+   top, full-width link tabs underneath. */
+@media (max-width: 899px) {
+  .site-nav {
+    position: static;
+  }
+
   .nav-inner {
-    gap: var(--sp-3) var(--sp-4);
+    gap: 0 var(--sp-4);
+    padding-block: var(--sp-3) 0;
+  }
+
+  .logo {
+    font-size: 1.05rem;
+  }
+
+  .nav-main {
+    order: 3;
+    flex-basis: 100%;
   }
 
   .nav-links {
-    gap: var(--sp-4);
+    max-width: 26rem;
+    justify-content: space-between;
+    gap: var(--sp-2);
+  }
+
+  .nav-links a {
+    display: inline-block;
+    padding-block: 0.75rem;
+  }
+
+  .btn-label {
+    display: none;
+  }
+
+  .btn-label-short {
+    display: inline;
+  }
+}
+
+/* Touch screens: icon chips grow toward the 44px tap-target guideline. */
+@media (pointer: coarse) {
+  .social-chip {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }
 

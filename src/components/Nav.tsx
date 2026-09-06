@@ -24,7 +24,7 @@ export function Nav({ page }: { page: PageId }) {
         <a className="logo" href="/">
           christian tabbah<span className="logo-dot">.</span>
         </a>
-        <nav aria-label="Main">
+        <nav aria-label="Main" className="nav-main">
           <ul className="nav-links">
             {LINKS.map((l) => (
               <li key={l.id}>
@@ -50,8 +50,17 @@ export function Nav({ page }: { page: PageId }) {
             </a>
           ))}
           <ThemeToggle />
-          <a className="btn" href={profile.cvPath} download="Christian-Tabbah-CV.pdf">
-            <span aria-hidden="true">↓</span> Download CV
+          <a
+            className="btn"
+            href={profile.cvPath}
+            download="Christian-Tabbah-CV.pdf"
+            aria-label="Download CV"
+          >
+            <span aria-hidden="true">↓</span>
+            <span className="btn-label">Download CV</span>
+            <span className="btn-label-short" aria-hidden="true">
+              CV
+            </span>
           </a>
         </div>
       </div>

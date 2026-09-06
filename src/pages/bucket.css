@@ -121,7 +121,10 @@ li.done .todo-text {
     flex-wrap: wrap;
   }
 
+  /* The hash gets its own line under the text (flex-basis: 100%); otherwise
+     it sits beside the text and squeezes long items into a skinny column. */
   .todo-hash {
+    flex-basis: 100%;
     margin-left: calc(2ch + var(--sp-3) * 2 + 3ch);
   }
 }

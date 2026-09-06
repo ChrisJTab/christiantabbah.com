@@ -97,6 +97,14 @@
   --shadow-panel: 0 14px 40px color-mix(in srgb, black 30%, transparent);
 }
 
+/* Phones: 13px running mono text is a desktop luxury; bump it for thumbs
+   and small screens (decorative --text-mono-small stays put). */
+@media (max-width: 899px) {
+  :root {
+    --text-mono: 0.875rem;
+  }
+}
+
 /* Light mode only: the nav is a deep-moss band over the paper page
    (re-declaring the variables re-themes everything inside it). In dark
    mode the nav inherits the page's night-moss values and blends in,

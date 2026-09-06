@@ -78,7 +78,7 @@ export const hobbies: Hobby[] = [
     id: 'board-games',
     name: 'Board games',
     description:
-      'Board games are my love language. I love the feeling of a game finally clicking enough to come up with new strategies, and the feeling of ganging up on the player with the most resources at the table.',
+      'Board games are my love language. I love the feeling of a game finally clicking enough to come up with new strategies, as well as ganging up on the player with the most resources at the table.',
     photos: [],
   },
   {
@@ -104,7 +104,7 @@ export const hobbies: Hobby[] = [
     id: 'badminton',
     name: 'Badminton',
     description:
-      'I picked up badminton in high school and fell in love with the sport. At my peak I was playing 15 hours a week, and at one point even scored 12 points (out of 21) against a Singaporean national player. That may not sound like much, but trust me, it was.',
+      'I picked up badminton in high school and fell in love with the sport, to the tune of 15 hours a week. At my peak, I nearly made a Singaporean national player break a sweat with 12 points (out of 21).',
     photos: [],
   },
   {

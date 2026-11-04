@@ -62,7 +62,7 @@ export interface GraphLayout {
   mainX: number
   mainPath: string
   mainTipY: number
-  /** Shared "now" level — every open branch's line runs exactly this far. */
+  /** Shared "now" level: every open branch's line runs exactly this far. */
   nowY: number
   /** Branches sorted top → bottom; this is also the tab/reading order. */
   branches: LaidBranch[]

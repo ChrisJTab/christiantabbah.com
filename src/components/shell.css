@@ -101,8 +101,8 @@
 }
 
 /* Below 900px (the same breakpoint the timeline collapses at) the single
-   sticky bar would wrap into a tall stack, so it goes static — content gets
-   the whole screen back — and reflows into two rows: brand + actions on
+   sticky bar would wrap into a tall stack, so it goes static (content gets
+   the whole screen back) and reflows into two rows: brand + actions on
    top, full-width link tabs underneath. */
 @media (max-width: 899px) {
   .site-nav {

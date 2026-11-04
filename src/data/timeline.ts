@@ -22,7 +22,7 @@ export interface TimelineEntry {
 }
 
 /** Upper bound of the graph; bump this when adding new ongoing months. */
-export const TIMELINE_NOW: YM = '2026-07'
+export const TIMELINE_NOW: YM = '2026-11'
 
 export const timeline: TimelineEntry[] = [
   {
@@ -32,12 +32,10 @@ export const timeline: TimelineEntry[] = [
     org: 'University of Toronto',
     short: 'MSc research: GPU transactional DB',
     start: '2024-09',
-    end: 'ongoing',
-    refName: 'research/gpu-txn-db',
-    head: true,
+    end: '2026-10',
     bullets: [
       'Supervised by Dr. Angela Demke Brown & Dr. Ashvin Goel.',
-      'Building a GPU transactional database that operates beyond VRAM limits.',
+      'Built a GPU transactional database that operates beyond VRAM limits.',
       'GPU staging & eviction layer: device free-list ring, epoch-aware hot cache, selective dirty write-back, scatter-gather DMA.',
       'The goal: multi-million-key OLTP batches as a predictable, low-latency pipeline.',
     ],
@@ -65,11 +63,10 @@ export const timeline: TimelineEntry[] = [
     org: 'University of Toronto',
     short: 'MSc CS · UofT',
     start: '2024-09',
-    end: 'ongoing',
-    refName: 'education/msc',
+    end: '2026-10',
     bullets: [
-      'Expected to land October 2026.',
-      'Systems group. See research/gpu-txn-db for what I actually do all day.',
+      'Graduated October 26, 2026.',
+      'Systems group. See research/gpu-txn-db for what I actually did all day.',
     ],
     skills: [],
   },

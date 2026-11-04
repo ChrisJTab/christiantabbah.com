@@ -1,7 +1,7 @@
 // Content for the About page. Voice: first person, warm, a little playful.
 
 export const heroIntro: string[] = [
-  'I’m a master’s student at the University of Toronto, where I’m teaching a GPU to run a transactional database bigger than its own memory.',
+  'I just finished my master’s at the University of Toronto, where I taught a GPU to run a transactional database bigger than its own memory.',
   'Before that, I did four years of security-and-systems undergrad, a couple of years of full-stack work, and more TA office hours than I can count.',
 ]
 
@@ -35,9 +35,9 @@ export const accolades: Accolade[] = [
   },
   {
     id: 'msc',
-    tag: 'msc-in-progress',
+    tag: 'msc-2026',
     title: 'MSc Computer Science',
-    detail: 'UofT · in progress, expected October 2026',
+    detail: 'Systems group · UofT · 2024–2026',
   },
   {
     id: 'black-belt',

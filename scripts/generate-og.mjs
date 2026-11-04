@@ -86,6 +86,9 @@ const card = h(
   {
     width: 1200,
     height: 630,
+    // Explicit: newer satori releases default a padded box to content-box,
+    // which grows the card past the canvas and drops the bottom pill row.
+    boxSizing: 'border-box',
     display: 'flex',
     backgroundColor: C.bg,
     backgroundImage: `radial-gradient(circle at 12% -10%, ${C.primary}22, transparent 55%),
@@ -126,6 +129,9 @@ const card = h(
           fontSize: 92,
           color: C.text,
           lineHeight: 1.05,
+          // The name runs on one line into the gap before the motif, the
+          // way older satori rendered it; newer releases would wrap it.
+          whiteSpace: 'nowrap',
         },
         'Christian Tabbah',
       ),
@@ -138,14 +144,14 @@ const card = h(
           lineHeight: 1.4,
           maxWidth: 660,
         },
-        'MSc CS @ University of Toronto, building GPU-accelerated transactional databases.',
+        'MSc CS @ University of Toronto, 2026. Built a GPU-accelerated transactional database bigger than its GPU.',
       ),
     ),
     h(
       'div',
       { display: 'flex', gap: 18 },
-      pill('* main', C.primary),
-      pill('HEAD → research/gpu-txn-db', C.accent),
+      pill('HEAD → main', C.primary),
+      pill('tag: msc-2026', C.accent),
     ),
   ),
   h('img', { width: 360, height: 486, alignSelf: 'center' }, undefined, {
@@ -160,7 +166,9 @@ card.props.children[1] = {
     src: motifSrc,
     width: 320,
     height: 432,
-    style: { alignSelf: 'center', marginRight: 28 },
+    // flexShrink 0: the one-line name is wider than its column, and without
+    // this the motif gets squeezed into ovals to make room.
+    style: { alignSelf: 'center', marginRight: 28, flexShrink: 0 },
   },
 }
 

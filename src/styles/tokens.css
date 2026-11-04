@@ -33,6 +33,17 @@
 
   --shadow-panel: 0 12px 32px color-mix(in srgb, black 12%, transparent);
 
+  /* Backing for third-party app icons on project covers. Stays white in
+     both themes: the logos ship on white, like a real app-icon tile. */
+  --logo-tile: #ffffff;
+
+  /* CRT terminal (the ext2 demo window): black glass and phosphor green,
+     identical in both themes, like a real terminal screenshot would be. */
+  --crt-bg: #0c110b;
+  --crt-border: #2b3526;
+  --crt-green: #45f06e;
+  --crt-green-dim: #33a355;
+
   /* --- type ----------------------------------------------------------- */
   --font-display: 'Young Serif', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible',

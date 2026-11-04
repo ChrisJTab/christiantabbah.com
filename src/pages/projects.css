@@ -1,10 +1,69 @@
 /* ==========================================================================
-   Projects page: repo-style panels with topic badges.
+   Projects page: repo cards with cover art (screenshots, schematics, or a
+   terminal teaser) that expand into README-style case panels. The schematics
+   are the page's signature: line-art system diagrams in the branch palette,
+   the projects-page cousin of the timeline's git graph.
    ========================================================================== */
+
+/* --- topic filter (`$ ls --topic=`) --------------------------------------- */
+
+.proj-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+  font-size: var(--text-mono);
+}
+
+.proj-filter-cmd {
+  color: var(--text-dim);
+  margin-right: var(--sp-1);
+}
+
+.proj-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: var(--text-mono-small);
+  line-height: 1;
+  padding: 0.5em 0.85em;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  transition: color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out),
+    background var(--dur-quick) var(--ease-out);
+}
+
+.proj-filter-chip:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.proj-filter-chip[aria-pressed='true'] {
+  color: var(--text);
+  border-color: color-mix(
+    in srgb,
+    var(--topic-color, var(--primary)) 60%,
+    transparent
+  );
+  background: color-mix(
+    in srgb,
+    var(--topic-color, var(--primary)) 14%,
+    transparent
+  );
+}
+
+.proj-count {
+  color: var(--text-dim);
+}
+
+/* --- card grid ------------------------------------------------------------- */
 
 .proj-grid {
   list-style: none;
-  margin: 0 0 var(--sp-7);
+  margin: 0 0 var(--sp-6);
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -12,13 +71,10 @@
 }
 
 .proj-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-l);
-  padding: var(--sp-5);
+  overflow: hidden;
   animation: card-in 320ms var(--ease-out) var(--d) backwards;
   transition: transform var(--dur-quick) var(--ease-out),
     box-shadow var(--dur-slow) var(--ease-out),
@@ -29,6 +85,205 @@
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--topic-color) 45%, var(--border));
   box-shadow: var(--shadow-panel);
+}
+
+.proj-card.is-open {
+  border-color: color-mix(in srgb, var(--topic-color) 60%, var(--border));
+}
+
+.proj-open {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+
+/* The card clips its corners, so the focus ring must sit inside it. */
+.proj-open:focus-visible {
+  outline-offset: -3px;
+}
+
+/* --- covers ---------------------------------------------------------------- */
+
+.proj-cover {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 55%, var(--surface));
+}
+
+.proj-cover-shots {
+  display: flex;
+}
+
+.proj-cover-shots img {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+/* App covers: topic-tinted glow, the app's icon in a tile, and a framed
+   phone rising from the bottom edge showing a whole screen (no zoom crops). */
+.proj-cover-app {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: var(--sp-5);
+  padding: var(--sp-4) var(--sp-5);
+  background:
+    radial-gradient(
+      120% 150% at 18% -10%,
+      color-mix(in srgb, var(--topic-color) 14%, transparent),
+      transparent 62%
+    ),
+    color-mix(in srgb, var(--bg) 55%, var(--surface));
+}
+
+.cover-logo {
+  width: clamp(58px, 24%, 104px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--logo-tile);
+  padding: 2.5%;
+  border: 1px solid var(--border);
+  border-radius: 22%;
+  box-shadow: 0 6px 18px color-mix(in srgb, black 10%, transparent);
+}
+
+/* The phone sits fully inside the cover: complete frame, all four
+   corners, just a hint of tilt. */
+.cover-phone {
+  align-self: center;
+  height: 85%;
+  width: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px color-mix(in srgb, black 16%, transparent);
+  transform: rotate(-2deg);
+}
+
+.proj-cover-sch {
+  display: grid;
+  place-items: center;
+  padding: var(--sp-3) var(--sp-4);
+}
+
+/* Research-figure covers: the real figure from the paper, framed like a
+   little poster on the same glow backdrop the app covers use. */
+.proj-cover-fig {
+  display: grid;
+  place-items: center;
+  padding: var(--sp-4) var(--sp-5);
+  background:
+    radial-gradient(
+      120% 150% at 18% -10%,
+      color-mix(in srgb, var(--topic-color) 14%, transparent),
+      transparent 62%
+    ),
+    color-mix(in srgb, var(--bg) 55%, var(--surface));
+}
+
+.proj-cover-fig img {
+  width: 100%;
+  background: var(--logo-tile);
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  box-shadow: 0 8px 22px color-mix(in srgb, black 12%, transparent);
+}
+
+.rd-figure-img {
+  max-width: 34rem;
+}
+
+.rd-figure-img img {
+  width: 100%;
+  background: var(--logo-tile);
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+}
+
+/* r/place cover: the pixel canvas runs edge to edge. */
+.proj-cover-px {
+  padding: 0;
+}
+
+.pxc {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pxc-bg {
+  fill: color-mix(in srgb, var(--logo-tile) 92%, var(--bg));
+}
+
+.pxc-grid {
+  stroke: var(--border);
+  stroke-width: 0.75;
+  opacity: 0.6;
+}
+
+.pxc-work {
+  fill: var(--c-work);
+}
+
+.pxc-education {
+  fill: var(--c-education);
+}
+
+.pxc-research {
+  fill: var(--c-research);
+}
+
+.pxc-leadership {
+  fill: var(--c-leadership);
+}
+
+.pxc-primary {
+  fill: var(--primary);
+}
+
+.pxc-accent {
+  fill: var(--accent);
+}
+
+.pxc-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.pxc-cursor {
+  fill: var(--text);
+  stroke: var(--logo-tile);
+  stroke-width: 1;
+}
+
+.proj-cover-sch .sch {
+  width: 100%;
+  height: 100%;
+}
+
+.proj-cover-term {
+  padding: var(--sp-4) var(--sp-4) 0;
+}
+
+/* --- card body ------------------------------------------------------------- */
+
+/* Stretches so paired cards keep their footers on the same baseline. */
+.proj-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--sp-5);
 }
 
 .proj-head {
@@ -42,19 +297,20 @@
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0;
-  font-family: var(--font-mono);
   color: var(--text);
 }
 
-.proj-link {
-  font-size: var(--text-mono-small);
-  white-space: nowrap;
+.proj-toggle {
+  color: var(--topic-color);
+  font-size: 1.05rem;
 }
 
 .proj-desc {
+  display: block;
+  flex: 1;
+  margin-top: var(--sp-3);
   color: var(--text-muted);
   font-size: var(--text-small);
-  flex: 1;
 }
 
 .proj-foot {
@@ -63,7 +319,7 @@
   justify-content: space-between;
   gap: var(--sp-3);
   flex-wrap: wrap;
-  margin-top: var(--sp-2);
+  margin-top: var(--sp-4);
 }
 
 .proj-topic {
@@ -79,18 +335,406 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--topic-color);
+  background: var(--topic-color, var(--primary));
+}
+
+.proj-hint {
+  font-size: var(--text-mono-small);
+  color: var(--text-dim);
+  transition: color var(--dur-quick) var(--ease-out);
+}
+
+.proj-open:hover .proj-hint,
+.proj-card.is-open .proj-hint {
+  color: var(--primary);
+}
+
+/* --- README panel ---------------------------------------------------------- */
+
+.proj-readme-row {
+  grid-column: 1 / -1;
+  scroll-margin-top: calc(var(--nav-height) + var(--sp-4));
+  animation: card-in 240ms var(--ease-out) backwards;
+}
+
+.proj-readme {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--topic-color) 40%, var(--border));
+  border-left: 4px solid var(--topic-color);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+}
+
+.rd-chrome {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 45%, var(--surface));
+  font-size: var(--text-mono-small);
+  color: var(--text-muted);
+}
+
+.rd-path {
+  flex: 1;
+  min-width: 0; /* lets the path ellipsize instead of widening the page */
+  margin-left: var(--sp-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rd-topic {
+  margin-left: auto;
+  color: var(--topic-color);
+  white-space: nowrap;
+}
+
+.rd-body {
+  padding: var(--sp-5);
+}
+
+.rd-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: var(--text-small);
+  max-width: 70ch;
+}
+
+.rd-bullets li {
+  position: relative;
+  padding-left: 20px;
+  margin-block: var(--sp-2);
+}
+
+.rd-bullets li::before {
+  content: '+';
+  position: absolute;
+  left: 2px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.rd-shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+}
+
+.rd-shots img {
+  width: clamp(7.5rem, 20vw, 11rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+
+.rd-figure {
+  margin: var(--sp-5) 0 0;
+  max-width: 30rem;
+}
+
+.rd-figure .sch {
+  width: 100%;
+}
+
+.rd-figure figcaption {
+  margin-top: var(--sp-2);
+  color: var(--text-dim);
+  font-size: var(--text-mono-small);
+}
+
+.rd-term {
+  margin-top: var(--sp-5);
+  max-width: 28rem;
+}
+
+.rd-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--border-strong);
 }
 
 .proj-tech {
   display: flex;
   gap: var(--sp-1);
   flex-wrap: wrap;
-  justify-content: flex-end;
 }
+
+.rd-private {
+  color: var(--text-dim);
+  font-size: var(--text-mono-small);
+}
+
+/* --- terminal blocks -------------------------------------------------------- */
+
+/* A little CRT: black glass, phosphor-green text, faint scanlines. */
+.term {
+  background: var(--crt-bg);
+  border: 1px solid var(--crt-border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: var(--shadow-panel);
+}
+
+.term-chrome {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--crt-border);
+  background: color-mix(in srgb, var(--crt-bg) 88%, white);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-small);
+  color: var(--crt-green-dim);
+}
+
+.term-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.td-1 {
+  background: var(--c-work);
+}
+
+.td-2 {
+  background: var(--primary);
+}
+
+.td-3 {
+  background: var(--c-leadership);
+}
+
+.term-title {
+  margin-left: var(--sp-1);
+}
+
+.term-lines {
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--text-mono);
+  line-height: 1.8;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    color-mix(in srgb, black 20%, transparent) 3px 4px
+  );
+}
+
+.term-cmd {
+  color: var(--crt-green);
+  text-shadow: 0 0 7px color-mix(in srgb, var(--crt-green) 55%, transparent);
+}
+
+.term-out {
+  color: var(--crt-green-dim);
+  text-shadow: 0 0 5px color-mix(in srgb, var(--crt-green) 25%, transparent);
+}
+
+.term-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--crt-green);
+  text-shadow: 0 0 7px color-mix(in srgb, var(--crt-green) 55%, transparent);
+  animation: breathe 1.2s steps(2, jump-none) infinite;
+}
+
+.term-compact .term-lines {
+  font-size: var(--text-mono-small);
+  line-height: 1.7;
+}
+
+/* --- schematics ------------------------------------------------------------ */
+
+.sch {
+  display: block;
+}
+
+.sch text {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  fill: var(--text-muted);
+  stroke: none;
+}
+
+.sch .sch-tiny {
+  font-size: 9px;
+  fill: var(--text-dim);
+}
+
+.sch-box {
+  fill: color-mix(in srgb, var(--bg) 40%, var(--surface));
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.sch-line,
+.sch-main,
+.sch-accent,
+.sch-branch,
+.sch-branch-dashed,
+.sch-curve,
+.sch-dashed,
+.sch-lifeline,
+.sch-x {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Arrowheads: filled triangles that take their color from the line group
+   they sit in (a filled shape is immune to dash inheritance). */
+.sch-head {
+  stroke: none;
+}
+
+.sch-line .sch-head {
+  fill: var(--text-dim);
+}
+
+.sch-main .sch-head {
+  fill: var(--primary);
+}
+
+.sch-accent .sch-head {
+  fill: var(--accent);
+}
+
+.sch-branch .sch-head,
+.sch-branch-dashed .sch-head {
+  fill: var(--topic-color, var(--primary));
+}
+
+.sch-line {
+  stroke: var(--text-dim);
+}
+
+.sch-curve {
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.sch-main {
+  stroke: var(--primary);
+}
+
+.sch-accent {
+  stroke: var(--accent);
+}
+
+.sch-branch {
+  stroke: var(--topic-color, var(--primary));
+}
+
+.sch-branch-dashed {
+  stroke: var(--topic-color, var(--primary));
+  stroke-dasharray: 4 5;
+}
+
+.sch-dashed {
+  stroke: var(--text-dim);
+  stroke-dasharray: 4 5;
+}
+
+.sch-lifeline {
+  stroke: var(--border-strong);
+}
+
+.sch-x {
+  stroke: var(--c-work);
+  stroke-width: 2.5;
+}
+
+.sch-node {
+  fill: var(--bg);
+  stroke: var(--topic-color, var(--primary));
+  stroke-width: 2;
+}
+
+.sch-dot {
+  fill: var(--topic-color, var(--primary));
+}
+
+.sch-cyl {
+  fill: color-mix(in srgb, var(--bg) 40%, var(--surface));
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.sch-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.sch-pixel-work {
+  fill: var(--c-work);
+}
+
+.sch-pixel-education {
+  fill: var(--c-education);
+}
+
+.sch-pixel-research {
+  fill: var(--c-research);
+}
+
+.sch-pixel-leadership {
+  fill: var(--c-leadership);
+}
+
+.sch-vbar {
+  fill: color-mix(in srgb, var(--primary) 12%, transparent);
+  stroke: color-mix(in srgb, var(--primary) 40%, transparent);
+  stroke-width: 1;
+}
+
+/* --- also shipped ----------------------------------------------------------- */
+
+.proj-also {
+  max-width: none;
+  margin: 0 0 var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-mono-small);
+}
+
+.proj-also strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* --- responsive ------------------------------------------------------------- */
 
 @media (max-width: 760px) {
   .proj-grid {
     grid-template-columns: 1fr;
+  }
+
+  .rd-chrome {
+    padding-inline: var(--sp-4);
+  }
+
+  /* The card foot already names the topic; the chrome bar is too tight. */
+  .rd-topic {
+    display: none;
+  }
+
+  .rd-body {
+    padding: var(--sp-4);
+  }
+
+  .rd-shots img {
+    width: clamp(7.5rem, 43vw, 11rem);
   }
 }

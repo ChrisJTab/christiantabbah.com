@@ -203,6 +203,32 @@ a:hover {
   white-space: nowrap;
 }
 
+/* Hero paragraphs and chips, shared by the home and about heroes. */
+.hero-p {
+  margin-top: var(--sp-4);
+  font-size: 1.15rem;
+  max-width: 56ch;
+}
+
+.hero-p + .hero-p {
+  color: var(--text-muted);
+  font-size: var(--text-base);
+}
+
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+}
+
+/* The page-load reveal for hero pieces; --d staggers them. */
+.rise {
+  animation: card-in 420ms var(--ease-out) var(--d, 0ms) backwards;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

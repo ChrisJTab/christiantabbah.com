@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Set before first paint so the chosen theme never flashes.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Research · Christian Tabbah</title>
+    <meta
+      name="description"
+      content="EGAD, my MSc research at the University of Toronto: a GPU transactional database whose primary store lives in CPU memory, so the database can be bigger than the GPU. Paper, code, results, and limits."
+    />
+    <link rel="canonical" href="https://christiantabbah.com/research/" />
+    <meta name="theme-color" content="#242b1c" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Christian Tabbah" />
+    <meta property="og:title" content="A transactional database that outgrows its GPU" />
+    <meta
+      property="og:description"
+      content="EGAD, my MSc research at UofT: a GPU transactional database whose primary store lives in CPU memory. Paper, code, results, and the honest limits."
+    />
+    <meta property="og:url" content="https://christiantabbah.com/research/" />
+    <meta property="og:image" content="https://christiantabbah.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A transactional database that outgrows its GPU" />
+    <meta
+      name="twitter:description"
+      content="EGAD, my MSc research at UofT: a GPU transactional database whose primary store lives in CPU memory. Paper, code, results, and the honest limits."
+    />
+    <meta name="twitter:image" content="https://christiantabbah.com/og.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/entries/research.tsx"></script>
+  </body>
+</html>

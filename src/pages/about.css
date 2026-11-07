@@ -1,119 +1,28 @@
 /* ==========================================================================
-   About page: hero, tagged milestones, hobby polaroids.
+   About page: intro, tagged milestones, the hobby log, and TODO.md.
    ========================================================================== */
 
-/* --- hero ------------------------------------------------------------- */
+/* --- intro ------------------------------------------------------------ */
 
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 250px;
-  gap: var(--sp-7);
-  align-items: center;
-  padding-block: var(--sp-8) var(--sp-7);
+.about-hero {
+  padding-block: var(--sp-8) var(--sp-6);
 }
 
-.hero h1 {
+.about-hero h1 {
   margin-top: var(--sp-4);
   font-size: clamp(2.6rem, 6vw, 4rem);
 }
 
-.hero .accent {
+.about-hero .accent {
   color: var(--primary);
-}
-
-.hero-p {
-  margin-top: var(--sp-4);
-  font-size: 1.15rem;
-  max-width: 56ch;
-}
-
-.hero-p + .hero-p {
-  color: var(--text-muted);
-  font-size: var(--text-base);
-}
-
-.hero-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2);
-  list-style: none;
-  padding: 0;
-  margin-top: var(--sp-5);
-}
-
-.rise {
-  animation: card-in 420ms var(--ease-out) var(--d, 0ms) backwards;
-}
-
-.hero-art {
-  justify-self: center;
-}
-
-/* --- mini graph ---------------------------------------------------------- */
-
-.mini-graph .mg-main {
-  fill: none;
-  stroke: var(--primary);
-  stroke-width: 3;
-  stroke-linecap: round;
-  animation: draw-path 700ms var(--ease-out) var(--d) backwards;
-}
-
-.mini-graph .mg-branch {
-  fill: none;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  animation: draw-path 620ms var(--ease-out) var(--d) backwards;
-}
-
-.mini-graph .mg-edu {
-  stroke: var(--c-education);
-}
-
-.mini-graph .mg-research {
-  stroke: var(--c-research);
-}
-
-.mini-graph .mg-dot {
-  fill: var(--primary);
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: node-pop 260ms var(--ease-spring) var(--d) backwards;
-}
-
-.mini-graph .mg-node {
-  fill: var(--bg);
-  stroke-width: 2.5;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: node-pop 300ms var(--ease-spring) var(--d) backwards;
-}
-
-.mini-graph .mg-main-node {
-  stroke: var(--primary);
-}
-
-.mini-graph .mg-edu-node {
-  stroke: var(--c-education);
-}
-
-.mini-graph .mg-research-node {
-  stroke: var(--c-research);
-}
-
-.mini-graph .mg-pulse {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: head-pulse 2.8s var(--ease-out) 1400ms infinite;
 }
 
 /* --- sections ------------------------------------------------------------- */
 
 .about-sec {
   margin-top: var(--sp-8);
+  /* /about/#todo lands clear of the sticky nav. */
+  scroll-margin-top: calc(var(--nav-height) + var(--sp-4));
 }
 
 .about-sec h2 {
@@ -123,6 +32,10 @@
 .about-sec .intro {
   margin-top: var(--sp-2);
   color: var(--text-muted);
+}
+
+.about-sec .todo-file {
+  margin-top: var(--sp-5);
 }
 
 /* --- milestones (`git tag`) ------------------------------------------------ */
@@ -288,13 +201,8 @@
 /* --- responsive ------------------------------------------------------------ */
 
 @media (max-width: 899px) {
-  .hero {
-    grid-template-columns: 1fr;
-    padding-block: var(--sp-7) var(--sp-6);
-  }
-
-  .hero-art {
-    display: none;
+  .about-hero {
+    padding-block: var(--sp-7) var(--sp-5);
   }
 
   .hobby-log > li.has-photo {

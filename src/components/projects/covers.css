@@ -1,0 +1,388 @@
+/* ==========================================================================
+   Project covers: app screenshots behind a logo tile, hand-drawn SVG
+   schematics in the branch palette, the r/place pixel canvas, a CRT
+   terminal, or a figure from a paper. Shared by the Projects grid and the
+   home page’s selected-work rows; each host sets --topic-color.
+   ========================================================================== */
+
+/* --- covers ---------------------------------------------------------------- */
+
+.proj-cover {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 55%, var(--surface));
+}
+
+.proj-cover-shots {
+  display: flex;
+}
+
+.proj-cover-shots img {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+/* App covers: topic-tinted glow, the app's icon in a tile, and a framed
+   phone rising from the bottom edge showing a whole screen (no zoom crops). */
+.proj-cover-app {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: var(--sp-5);
+  padding: var(--sp-4) var(--sp-5);
+  background:
+    radial-gradient(
+      120% 150% at 18% -10%,
+      color-mix(in srgb, var(--topic-color) 14%, transparent),
+      transparent 62%
+    ),
+    color-mix(in srgb, var(--bg) 55%, var(--surface));
+}
+
+.cover-logo {
+  width: clamp(58px, 24%, 104px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--logo-tile);
+  padding: 2.5%;
+  border: 1px solid var(--border);
+  border-radius: 22%;
+  box-shadow: 0 6px 18px color-mix(in srgb, black 10%, transparent);
+}
+
+/* The phone sits fully inside the cover: complete frame, all four
+   corners, just a hint of tilt. */
+.cover-phone {
+  align-self: center;
+  height: 85%;
+  width: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px color-mix(in srgb, black 16%, transparent);
+  transform: rotate(-2deg);
+}
+
+.proj-cover-sch {
+  display: grid;
+  place-items: center;
+  padding: var(--sp-3) var(--sp-4);
+}
+
+/* Research-figure covers: the real figure from the paper, framed like a
+   little poster on the same glow backdrop the app covers use. */
+.proj-cover-fig {
+  display: grid;
+  place-items: center;
+  padding: var(--sp-4) var(--sp-5);
+  background:
+    radial-gradient(
+      120% 150% at 18% -10%,
+      color-mix(in srgb, var(--topic-color) 14%, transparent),
+      transparent 62%
+    ),
+    color-mix(in srgb, var(--bg) 55%, var(--surface));
+}
+
+.proj-cover-fig img {
+  width: 100%;
+  background: var(--logo-tile);
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  box-shadow: 0 8px 22px color-mix(in srgb, black 12%, transparent);
+}
+
+/* r/place cover: the pixel canvas runs edge to edge. */
+.proj-cover-px {
+  padding: 0;
+}
+
+.pxc {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pxc-bg {
+  fill: color-mix(in srgb, var(--logo-tile) 92%, var(--bg));
+}
+
+.pxc-grid {
+  stroke: var(--border);
+  stroke-width: 0.75;
+  opacity: 0.6;
+}
+
+.pxc-work {
+  fill: var(--c-work);
+}
+
+.pxc-education {
+  fill: var(--c-education);
+}
+
+.pxc-research {
+  fill: var(--c-research);
+}
+
+.pxc-leadership {
+  fill: var(--c-leadership);
+}
+
+.pxc-primary {
+  fill: var(--primary);
+}
+
+.pxc-accent {
+  fill: var(--accent);
+}
+
+.pxc-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.pxc-cursor {
+  fill: var(--text);
+  stroke: var(--logo-tile);
+  stroke-width: 1;
+}
+
+.proj-cover-sch .sch {
+  width: 100%;
+  height: 100%;
+}
+
+.proj-cover-term {
+  padding: var(--sp-4) var(--sp-4) 0;
+}
+
+/* --- terminal blocks -------------------------------------------------------- */
+
+/* A little CRT: black glass, phosphor-green text, faint scanlines. */
+.term {
+  background: var(--crt-bg);
+  border: 1px solid var(--crt-border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: var(--shadow-panel);
+}
+
+.term-chrome {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--crt-border);
+  background: color-mix(in srgb, var(--crt-bg) 88%, white);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-small);
+  color: var(--crt-green-dim);
+}
+
+.term-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.td-1 {
+  background: var(--c-work);
+}
+
+.td-2 {
+  background: var(--primary);
+}
+
+.td-3 {
+  background: var(--c-leadership);
+}
+
+.term-title {
+  margin-left: var(--sp-1);
+}
+
+.term-lines {
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--text-mono);
+  line-height: 1.8;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    color-mix(in srgb, black 20%, transparent) 3px 4px
+  );
+}
+
+.term-cmd {
+  color: var(--crt-green);
+  text-shadow: 0 0 7px color-mix(in srgb, var(--crt-green) 55%, transparent);
+}
+
+.term-out {
+  color: var(--crt-green-dim);
+  text-shadow: 0 0 5px color-mix(in srgb, var(--crt-green) 25%, transparent);
+}
+
+.term-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--crt-green);
+  text-shadow: 0 0 7px color-mix(in srgb, var(--crt-green) 55%, transparent);
+  animation: breathe 1.2s steps(2, jump-none) infinite;
+}
+
+.term-compact .term-lines {
+  font-size: var(--text-mono-small);
+  line-height: 1.7;
+}
+
+/* --- schematics ------------------------------------------------------------ */
+
+.sch {
+  display: block;
+}
+
+.sch text {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  fill: var(--text-muted);
+  stroke: none;
+}
+
+.sch .sch-tiny {
+  font-size: 9px;
+  fill: var(--text-dim);
+}
+
+.sch-box {
+  fill: color-mix(in srgb, var(--bg) 40%, var(--surface));
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.sch-line,
+.sch-main,
+.sch-accent,
+.sch-branch,
+.sch-branch-dashed,
+.sch-curve,
+.sch-dashed,
+.sch-lifeline,
+.sch-x {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Arrowheads: filled triangles that take their color from the line group
+   they sit in (a filled shape is immune to dash inheritance). */
+.sch-head {
+  stroke: none;
+}
+
+.sch-line .sch-head {
+  fill: var(--text-dim);
+}
+
+.sch-main .sch-head {
+  fill: var(--primary);
+}
+
+.sch-accent .sch-head {
+  fill: var(--accent);
+}
+
+.sch-branch .sch-head,
+.sch-branch-dashed .sch-head {
+  fill: var(--topic-color, var(--primary));
+}
+
+.sch-line {
+  stroke: var(--text-dim);
+}
+
+.sch-curve {
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.sch-main {
+  stroke: var(--primary);
+}
+
+.sch-accent {
+  stroke: var(--accent);
+}
+
+.sch-branch {
+  stroke: var(--topic-color, var(--primary));
+}
+
+.sch-branch-dashed {
+  stroke: var(--topic-color, var(--primary));
+  stroke-dasharray: 4 5;
+}
+
+.sch-dashed {
+  stroke: var(--text-dim);
+  stroke-dasharray: 4 5;
+}
+
+.sch-lifeline {
+  stroke: var(--border-strong);
+}
+
+.sch-x {
+  stroke: var(--c-work);
+  stroke-width: 2.5;
+}
+
+.sch-node {
+  fill: var(--bg);
+  stroke: var(--topic-color, var(--primary));
+  stroke-width: 2;
+}
+
+.sch-dot {
+  fill: var(--topic-color, var(--primary));
+}
+
+.sch-cyl {
+  fill: color-mix(in srgb, var(--bg) 40%, var(--surface));
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.sch-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.sch-pixel-work {
+  fill: var(--c-work);
+}
+
+.sch-pixel-education {
+  fill: var(--c-education);
+}
+
+.sch-pixel-research {
+  fill: var(--c-research);
+}
+
+.sch-pixel-leadership {
+  fill: var(--c-leadership);
+}
+
+.sch-vbar {
+  fill: color-mix(in srgb, var(--primary) 12%, transparent);
+  stroke: color-mix(in srgb, var(--primary) 40%, transparent);
+  stroke-width: 1;
+}

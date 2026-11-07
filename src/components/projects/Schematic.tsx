@@ -276,6 +276,50 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
     </>
   ),
 
+  /* EGAD: the CPU primary store on the left, the GPU execution cache on
+     the right, the stager between them. Admit goes right before a batch,
+     write-back comes left after it; the bracket says how far apart the
+     two copies are ever allowed to drift. */
+  egad: (
+    <>
+      <rect className="sch-box" x="16" y="50" width="110" height="80" rx="8" />
+      <text className="sch-label" x="71" y="86" textAnchor="middle">
+        cpu memory
+      </text>
+      <text className="sch-label" x="71" y="102" textAnchor="middle">
+        primary store
+      </text>
+      <rect className="sch-box" x="194" y="50" width="110" height="80" rx="8" />
+      <text className="sch-label" x="249" y="86" textAnchor="middle">
+        gpu memory
+      </text>
+      <text className="sch-label" x="249" y="102" textAnchor="middle">
+        exec cache
+      </text>
+      <g className="sch-main">
+        <line x1="126" y1="72" x2="189" y2="72" />
+        <Head x={192} y={72} />
+      </g>
+      <text className="sch-label" x="160" y="64" textAnchor="middle">
+        admit
+      </text>
+      <rect className="sch-box" x="136" y="80" width="48" height="20" rx="5" />
+      <text className="sch-label" x="160" y="94" textAnchor="middle">
+        stager
+      </text>
+      <g className="sch-accent">
+        <line x1="194" y1="108" x2="131" y2="108" />
+        <Head x={128} y={108} angle={180} />
+      </g>
+      <text className="sch-label" x="160" y="122" textAnchor="middle">
+        write back
+      </text>
+      <path className="sch-dashed" d="M71 134 v10 H249 v-10" />
+      <text className="sch-label" x="160" y="160" textAnchor="middle">
+        never more than 2 batches apart
+      </text>
+    </>
+  ),
 }
 
 export function Schematic({ id }: { id: SchematicId }) {

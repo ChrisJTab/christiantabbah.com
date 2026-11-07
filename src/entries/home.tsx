@@ -3,10 +3,10 @@ import { createRoot } from 'react-dom/client'
 import '../fonts'
 import '../styles/tokens.css'
 import '../styles/base.css'
-import { BucketListPage } from '../pages/BucketListPage'
+import { HomePage } from '../pages/HomePage'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BucketListPage />
+    <HomePage />
   </StrictMode>,
 )

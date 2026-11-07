@@ -427,6 +427,11 @@
   color: var(--text-muted);
 }
 
+.c-links {
+  margin-top: var(--sp-4);
+  font-size: var(--text-mono-small);
+}
+
 .c-status {
   margin-top: var(--sp-4);
   font-size: var(--text-mono-small);

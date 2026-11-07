@@ -1,0 +1,507 @@
+/* ==========================================================================
+   Home: the recruiter-facing landing. Hero with `$ git status`, the
+   featured research block, selected work, a `git log --oneline` strip,
+   skills, and the contact “remotes”. One page-load reveal: the hero rises
+   and the mini graph draws; everything below is static.
+   ========================================================================== */
+
+/* --- hero ------------------------------------------------------------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: var(--sp-7);
+  align-items: center;
+  padding-block: var(--sp-8) var(--sp-7);
+}
+
+.hero h1 {
+  margin-top: var(--sp-4);
+  font-size: clamp(2.6rem, 6vw, 4rem);
+}
+
+.hero .accent {
+  color: var(--primary);
+}
+
+.hero-title {
+  margin-top: var(--sp-3);
+  color: var(--primary);
+  font-size: var(--text-mono);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-5);
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+}
+
+.hero-link {
+  font-size: var(--text-small);
+  font-weight: 500;
+}
+
+.hero-art {
+  justify-self: center;
+}
+
+/* --- `$ git status`: where I am and what I’m open to ------------------- */
+
+.status {
+  margin-top: var(--sp-6);
+  max-width: 44rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-panel);
+  padding: var(--sp-4) var(--sp-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  line-height: 1.6;
+}
+
+.status-cmd {
+  color: var(--text-dim);
+}
+
+.status-summary {
+  max-width: none;
+  color: var(--text);
+}
+
+.status-rows {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 4px var(--sp-4);
+  margin-top: var(--sp-3);
+}
+
+.status-rows dt {
+  color: var(--accent);
+}
+
+.status-rows dd {
+  margin: 0;
+  color: var(--text);
+}
+
+/* --- mini graph (hero ornament) ------------------------------------------ */
+
+.mini-graph .mg-main {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: draw-path 700ms var(--ease-out) var(--d) backwards;
+}
+
+.mini-graph .mg-branch {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  animation: draw-path 620ms var(--ease-out) var(--d) backwards;
+}
+
+.mini-graph .mg-edu {
+  stroke: var(--c-education);
+}
+
+.mini-graph .mg-research {
+  stroke: var(--c-research);
+}
+
+.mini-graph .mg-dot {
+  fill: var(--primary);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pop 260ms var(--ease-spring) var(--d) backwards;
+}
+
+.mini-graph .mg-node {
+  fill: var(--bg);
+  stroke-width: 2.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pop 300ms var(--ease-spring) var(--d) backwards;
+}
+
+.mini-graph .mg-main-node {
+  stroke: var(--primary);
+}
+
+.mini-graph .mg-edu-node {
+  stroke: var(--c-education);
+}
+
+.mini-graph .mg-research-node {
+  stroke: var(--c-research);
+}
+
+.mini-graph .mg-pulse {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: head-pulse 2.8s var(--ease-out) 1400ms infinite;
+}
+
+/* --- sections ------------------------------------------------------------- */
+
+.home-sec {
+  margin-top: var(--sp-8);
+}
+
+.home-sec h2 {
+  margin-top: var(--sp-4);
+}
+
+.home-more {
+  margin-top: var(--sp-4);
+  font-size: var(--text-mono);
+}
+
+/* --- featured research ------------------------------------------------ */
+
+.feat {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--sp-7);
+  align-items: center;
+}
+
+.feat-pitch {
+  margin-top: var(--sp-4);
+  max-width: 56ch;
+}
+
+/* The three numbers, laid out like a diffstat rather than stat tiles. */
+.feat-results {
+  margin-top: var(--sp-5);
+  max-width: 36rem;
+  font-size: var(--text-mono);
+}
+
+.feat-results div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding-block: var(--sp-2);
+  border-bottom: 1px dashed var(--border);
+}
+
+.feat-results dt {
+  color: var(--text-muted);
+}
+
+.feat-results dd {
+  margin: 0;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.feat-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+  font-size: var(--text-mono);
+}
+
+.feat-figure {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  padding: var(--sp-4) var(--sp-5) var(--sp-3);
+  box-shadow: var(--shadow-panel);
+}
+
+.feat-figure .sch {
+  width: 100%;
+}
+
+.feat-figure figcaption {
+  margin-top: var(--sp-2);
+  color: var(--text-dim);
+  font-size: var(--text-mono-small);
+}
+
+/* --- selected work: three rows, cover at left --------------------------- */
+
+.sel-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.sel-row {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: center;
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px dashed var(--border);
+}
+
+.sel-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.sel-cover {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  transition: transform var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out);
+}
+
+.sel-cover .proj-cover {
+  border-bottom: none;
+}
+
+.sel-row:hover .sel-cover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--topic-color) 45%, var(--border));
+  box-shadow: var(--shadow-panel);
+}
+
+.sel-name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.sel-name a {
+  color: var(--text);
+  text-decoration-color: transparent;
+}
+
+.sel-name a:hover {
+  color: var(--primary);
+  text-decoration-color: var(--primary);
+}
+
+.sel-blurb {
+  margin-top: var(--sp-2);
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  max-width: 60ch;
+}
+
+.sel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-2);
+  margin-top: var(--sp-3);
+  max-width: none;
+}
+
+.sel-topic {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-right: var(--sp-2);
+  font-size: var(--text-mono-small);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.sel-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--topic-color, var(--primary));
+}
+
+/* --- `git log --oneline` ------------------------------------------------ */
+
+.gl {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+  max-width: 54rem;
+  font-size: var(--text-mono);
+}
+
+.gl a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: 7px 10px;
+  border-radius: var(--radius-s);
+  color: var(--text);
+  text-decoration: none;
+  transition: background var(--dur-quick) var(--ease-out);
+}
+
+.gl a:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.gl-hash {
+  color: var(--text-muted);
+}
+
+.gl a:hover .gl-hash {
+  color: var(--primary);
+}
+
+.gl-short {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gl-range {
+  color: var(--text-muted);
+  font-size: var(--text-mono-small);
+  white-space: nowrap;
+}
+
+.gl-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--branch-color);
+  font-size: var(--text-mono-small);
+  white-space: nowrap;
+}
+
+.gl-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--branch-color);
+}
+
+/* --- skills ------------------------------------------------------------- */
+
+.skills {
+  margin-top: var(--sp-5);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-5) var(--sp-7);
+  max-width: 60rem;
+}
+
+.skills div {
+  padding-top: var(--sp-3);
+  border-top: 1px dashed var(--border);
+}
+
+.skills dt {
+  color: var(--primary);
+  font-size: var(--text-mono);
+}
+
+.skills dd {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--text-small);
+  max-width: 48ch;
+}
+
+/* --- contact (`git remote -v`) ------------------------------------------ */
+
+.contact-note {
+  margin-top: var(--sp-3);
+  color: var(--text-muted);
+}
+
+.remotes {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+  max-width: 44rem;
+  display: grid;
+  gap: var(--sp-2);
+  font-size: var(--text-mono);
+}
+
+.remotes li {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: baseline;
+}
+
+.remote-name {
+  color: var(--text-muted);
+}
+
+.remotes a {
+  overflow-wrap: anywhere;
+}
+
+/* --- responsive ------------------------------------------------------------ */
+
+@media (max-width: 899px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-block: var(--sp-7) var(--sp-6);
+  }
+
+  .hero-art {
+    display: none;
+  }
+
+  .status-rows {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .status-rows dd {
+    margin-bottom: var(--sp-2);
+  }
+
+  .feat {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+
+  .feat-results div {
+    flex-wrap: wrap;
+  }
+
+  .sel-row {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+
+  .sel-cover {
+    max-width: 420px;
+  }
+
+  .gl a {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 2px;
+  }
+
+  .gl-range,
+  .gl-cat {
+    grid-column: 2;
+  }
+
+  .skills {
+    grid-template-columns: 1fr;
+  }
+
+  .remotes li {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+}

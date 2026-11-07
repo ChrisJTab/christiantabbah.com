@@ -17,8 +17,8 @@ function commitHash(): string {
   }
 }
 
-// Three real HTML entry points (About is the home page). Each page ships its
-// own <title>/OG tags and gets its own URL on GitHub Pages — no SPA 404 hacks.
+// Five real HTML entry points. Each page ships its own <title>/OG tags and
+// gets its own URL on GitHub Pages: no SPA 404 hacks.
 export default defineConfig({
   plugins: [react()],
   base: '/',
@@ -29,10 +29,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        about: resolve(import.meta.dirname, 'index.html'),
-        timeline: resolve(import.meta.dirname, 'timeline/index.html'),
+        home: resolve(import.meta.dirname, 'index.html'),
+        research: resolve(import.meta.dirname, 'research/index.html'),
         projects: resolve(import.meta.dirname, 'projects/index.html'),
-        bucketList: resolve(import.meta.dirname, 'bucket-list/index.html'),
+        timeline: resolve(import.meta.dirname, 'timeline/index.html'),
+        about: resolve(import.meta.dirname, 'about/index.html'),
       },
     },
   },

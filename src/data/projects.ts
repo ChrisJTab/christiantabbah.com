@@ -9,7 +9,13 @@ export type Topic =
   | 'gpu systems'
 
 /** Ids of the hand-drawn SVG schematics in components/projects/Schematic.tsx */
-export type SchematicId = 'shortener' | 'rplace' | 'olap' | 'disagg' | 'udp'
+export type SchematicId =
+  | 'shortener'
+  | 'rplace'
+  | 'olap'
+  | 'disagg'
+  | 'udp'
+  | 'egad'
 
 export interface ProjectShot {
   /** Filename inside public/images/projects/ */
@@ -57,8 +63,10 @@ export interface Project {
   bullets: string[]
   topic: Topic
   tech: string[]
-  /** TODO(christian): add repo/store links where they exist; null shows "code on request". */
+  /** Public repo, or null for "code on request" (course rules, closed source). */
   repo: string | null
+  /** Optional long-form page on this site, e.g. '/research/'. */
+  writeup?: string
   visual: ProjectVisual
 }
 
@@ -114,7 +122,8 @@ export const projects: Project[] = [
     ],
     topic: 'gpu systems',
     tech: ['CUDA', 'C++', 'Epic'],
-    repo: null,
+    repo: 'https://github.com/ChrisJTab/EGAD_Code',
+    writeup: '/research/',
     visual: {
       kind: 'figures',
       cover: {
@@ -181,7 +190,7 @@ export const projects: Project[] = [
     ],
     topic: 'gpu systems',
     tech: ['CUDA', 'RDMA', 'UCX'],
-    repo: null,
+    repo: 'https://github.com/ChrisJTab/CSC2235-Project',
     visual: {
       kind: 'schematic',
       schematic: 'olap',
@@ -200,7 +209,7 @@ export const projects: Project[] = [
     ],
     topic: 'systems',
     tech: ['Scala', 'C++', 'RocksDB'],
-    repo: null,
+    repo: 'https://github.com/ChrisJTab/rocksdb-hailstorm-disaggregation',
     visual: {
       kind: 'schematic',
       schematic: 'disagg',
@@ -218,7 +227,7 @@ export const projects: Project[] = [
     ],
     topic: 'mobile',
     tech: ['React Native', 'Firebase', 'Google Maps'],
-    repo: null,
+    repo: 'https://github.com/ChrisJTab/Parcube',
     visual: {
       kind: 'shots',
       logo: 'parcube-logo.png',

@@ -19,6 +19,8 @@ export interface TimelineEntry {
   bullets: string[]
   /** Rendered as the "files changed" diffstat in the commit panel. */
   skills: string[]
+  /** Optional pointers rendered at the bottom of the commit panel. */
+  links?: { label: string; href: string }[]
 }
 
 /** Upper bound of the graph; bump this when adding new ongoing months. */
@@ -40,6 +42,11 @@ export const timeline: TimelineEntry[] = [
       'The goal: multi-million-key OLTP batches as a predictable, low-latency pipeline.',
     ],
     skills: ['CUDA', 'C++', 'profiling', 'systems design'],
+    links: [
+      { label: 'write-up', href: '/research/' },
+      { label: 'paper (PDF)', href: '/EGAD-paper.pdf' },
+      { label: 'code', href: 'https://github.com/ChrisJTab/EGAD_Code' },
+    ],
   },
   {
     id: 'gsu',
@@ -127,6 +134,12 @@ export const timeline: TimelineEntry[] = [
       'Tested recovery methods across operating systems and file system architectures.',
     ],
     skills: ['file systems', 'data recovery', 'OS internals'],
+    links: [
+      {
+        label: 'paper and code',
+        href: 'https://github.com/ChrisJTab/ComputerForensicsResearchProject',
+      },
+    ],
   },
   {
     id: 'veritablesoft',

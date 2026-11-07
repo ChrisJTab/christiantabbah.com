@@ -61,6 +61,23 @@ export function CommitCard({ entry }: { entry: TimelineEntry }) {
           </ul>
         </footer>
       )}
+      {entry.links && entry.links.length > 0 && (
+        <p className="c-links mono">
+          <span className="c-label">links:</span>{' '}
+          {entry.links.map((l, i) => (
+            <span key={l.href}>
+              {i > 0 && ' · '}
+              <a
+                href={l.href}
+                target={l.href.startsWith('http') ? '_blank' : undefined}
+                rel={l.href.startsWith('http') ? 'noreferrer' : undefined}
+              >
+                {l.label}
+              </a>
+            </span>
+          ))}
+        </p>
+      )}
       {entry.end === 'ongoing' ? (
         <p className="c-status c-open mono">
           <span className="open-dot" aria-hidden="true" /> open branch · still

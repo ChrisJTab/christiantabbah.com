@@ -1,13 +1,14 @@
 import { profile } from '../data/profile'
 import { ThemeToggle } from './ThemeToggle'
 
-export type PageId = 'about' | 'timeline' | 'projects' | 'bucket-list'
+export type PageId = 'home' | 'research' | 'projects' | 'timeline' | 'about'
 
 const LINKS: { id: PageId; href: string; label: string }[] = [
-  { id: 'about', href: '/', label: 'About' },
-  { id: 'timeline', href: '/timeline/', label: 'Timeline' },
+  { id: 'home', href: '/', label: 'Home' },
+  { id: 'research', href: '/research/', label: 'Research' },
   { id: 'projects', href: '/projects/', label: 'Projects' },
-  { id: 'bucket-list', href: '/bucket-list/', label: 'TODOs' },
+  { id: 'timeline', href: '/timeline/', label: 'Timeline' },
+  { id: 'about', href: '/about/', label: 'About' },
 ]
 
 /** Icon links rendered as mono chips: on-theme and unambiguous. */

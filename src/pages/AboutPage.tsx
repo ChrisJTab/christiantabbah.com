@@ -1,7 +1,8 @@
 import type { CSSProperties } from 'react'
-import { MiniGraph } from '../components/MiniGraph'
+import { BucketList } from '../components/BucketList'
 import { Shell } from '../components/Shell'
 import { accolades, heroChips, heroIntro, hobbies } from '../data/about'
+import { bucketList } from '../data/bucketList'
 import { commitHashFor } from '../lib/hash'
 import './about.css'
 
@@ -18,32 +19,29 @@ const NODE_TINTS = [
 ]
 
 export function AboutPage() {
+  const done = bucketList.filter((i) => i.done).length
+
   return (
     <Shell page="about">
-      <section className="container hero" aria-label="Introduction">
-        <div className="hero-text">
-          <span className="file-tab rise" style={d(0)}>
-            README.md
-          </span>
-          <h1 className="rise" style={d(90)}>
-            Hi, I’m Christian<span className="accent">.</span>
-          </h1>
-          {heroIntro.map((p, i) => (
-            <p key={p} className="hero-p rise" style={d(180 + i * 90)}>
-              {p}
-            </p>
+      <section className="container about-hero" aria-label="Introduction">
+        <span className="file-tab rise" style={d(0)}>
+          ~/about
+        </span>
+        <h1 className="rise" style={d(90)}>
+          Hi, I’m Christian<span className="accent">.</span>
+        </h1>
+        {heroIntro.map((p, i) => (
+          <p key={p} className="hero-p rise" style={d(180 + i * 90)}>
+            {p}
+          </p>
+        ))}
+        <ul className="hero-chips rise" style={d(380)}>
+          {heroChips.map((c) => (
+            <li key={c} className="pill">
+              {c}
+            </li>
           ))}
-          <ul className="hero-chips rise" style={d(380)}>
-            {heroChips.map((c) => (
-              <li key={c} className="pill">
-                {c}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="hero-art rise" style={d(250)} aria-hidden="true">
-          <MiniGraph />
-        </div>
+        </ul>
       </section>
 
       <section className="container about-sec" aria-labelledby="milestones-h">
@@ -104,6 +102,16 @@ export function AboutPage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="container about-sec" id="todo" aria-labelledby="todo-h">
+        <span className="file-tab">TODO.md</span>
+        <h2 id="todo-h">The bucket list</h2>
+        <p className="intro">
+          Things to do before I run out of runtime. {done} of {bucketList.length}{' '}
+          merged so far.
+        </p>
+        <BucketList />
       </section>
     </Shell>
   )

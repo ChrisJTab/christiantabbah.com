@@ -95,8 +95,10 @@
   margin-left: var(--sp-2);
 }
 
-/* The CV button's short label ("CV") only exists on small screens. */
-.btn-label-short {
+/* The CV button's short label ("CV") and the "Releases" tab label only
+   exist on small screens. */
+.btn-label-short,
+.nav-short {
   display: none;
 }
 
@@ -124,14 +126,22 @@
   }
 
   .nav-links {
-    max-width: 26rem;
-    justify-content: space-between;
-    gap: var(--sp-2);
+    flex-wrap: wrap;
+    gap: 0 var(--sp-3);
   }
 
   .nav-links a {
     display: inline-block;
     padding-block: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .nav-long {
+    display: none;
+  }
+
+  .nav-short {
+    display: inline;
   }
 
   .btn-label {
@@ -140,6 +150,15 @@
 
   .btn-label-short {
     display: inline;
+  }
+}
+
+/* Phones: six tabs become a tidy two-row grid instead of a ragged wrap. */
+@media (max-width: 480px) {
+  .nav-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 var(--sp-3);
   }
 }
 

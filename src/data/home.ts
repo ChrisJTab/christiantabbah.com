@@ -31,7 +31,16 @@ export const status = {
 export const selectedProjectIds = ['uate-app', 'url-shortener', 'gpu-olap-distinct']
 
 /** Timeline ids (src/data/timeline.ts) in the `git log --oneline` strip. */
-export const logIds = ['gsu', 'gpu-txn-db', 'msc', 'ta', 'poker-club', 'veritablesoft']
+export const logIds = [
+  'gsu',
+  'gpu-txn-db',
+  'msc',
+  'uate',
+  'cyber-course',
+  'ta',
+  'poker-club',
+  'veritablesoft',
+]
 
 export const skills: { group: string; items: string[] }[] = [
   {
@@ -74,6 +83,7 @@ export const skills: { group: string; items: string[] }[] = [
     group: 'people',
     items: [
       'eleven terms as a teaching assistant, including lecturing',
+      'designed and taught a cybersecurity course, CTFs included',
       'founded and ran a 200-member club',
       'grad-student event logistics',
       'French and English',

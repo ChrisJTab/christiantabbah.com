@@ -1,0 +1,338 @@
+/* ==========================================================================
+   Release notes: experiences versioned like software. The index reads as a
+   CHANGELOG.md; each release page opens with its changelog panel (the
+   signature: a person’s diff, color-coded by kind) and then tells the story
+   in open prose with photos and, where there are any, playable CTFs.
+   ========================================================================== */
+
+/* --- change kinds (shared by the index preview and the panel) ------------ */
+
+.ck-added {
+  --ck: var(--accent);
+}
+
+.ck-changed {
+  --ck: var(--c-leadership);
+}
+
+.ck-fixed {
+  --ck: var(--primary);
+}
+
+.ck-known {
+  --ck: var(--c-work);
+}
+
+.ck-mark {
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ck);
+}
+
+/* --- index ----------------------------------------------------------------- */
+
+.rel-index {
+  list-style: none;
+  padding: 0;
+  max-width: 54rem;
+}
+
+.rel-entry {
+  padding-block: var(--sp-6);
+  border-top: 1px dashed var(--border-strong);
+}
+
+.rel-entry:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.rel-version {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  color: var(--text-muted);
+}
+
+.rel-tag {
+  color: var(--c-work);
+}
+
+.rel-entry-title {
+  margin-top: var(--sp-2);
+  font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+}
+
+.rel-entry-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.rel-entry-title a:hover {
+  color: var(--primary);
+}
+
+.rel-summary {
+  margin-top: var(--sp-3);
+  color: var(--text-muted);
+  max-width: 62ch;
+}
+
+.rel-preview {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-4);
+  max-width: 66ch;
+}
+
+.rel-preview li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-block: var(--sp-2);
+  color: var(--text);
+}
+
+.rel-preview .ck-kind {
+  color: var(--text-dim);
+  margin-right: var(--sp-2);
+}
+
+.rel-more {
+  margin-top: var(--sp-4);
+}
+
+/* --- release page header --------------------------------------------------- */
+
+.rel-meta {
+  margin-top: var(--sp-3);
+  color: var(--text-muted);
+  font-size: var(--text-mono);
+}
+
+.rel-meta .rel-tag {
+  color: var(--c-work);
+}
+
+/* --- the changelog panel ------------------------------------------------------ */
+
+.chlog {
+  max-width: 54rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--c-work);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+  animation: fade-in 400ms var(--ease-out) 350ms backwards;
+}
+
+.chlog-chrome {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 45%, var(--surface));
+  font-size: var(--text-mono-small);
+  color: var(--text-muted);
+}
+
+.chlog-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.chlog-dot.d-1 {
+  background: var(--c-work);
+}
+
+.chlog-dot.d-2 {
+  background: var(--primary);
+}
+
+.chlog-dot.d-3 {
+  background: var(--c-leadership);
+}
+
+.chlog-path {
+  flex: 1;
+  min-width: 0;
+  margin-left: var(--sp-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chlog-tag {
+  margin-left: auto;
+  color: var(--c-work);
+  white-space: nowrap;
+}
+
+.chlog-body {
+  padding: var(--sp-5) var(--sp-6) var(--sp-6);
+}
+
+.chlog-h {
+  color: var(--text-muted);
+}
+
+.chlog-group {
+  margin-top: var(--sp-5);
+}
+
+.chlog-kind {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ck);
+}
+
+.chlog-kind::before {
+  content: '### ';
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.chlog-lines {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-2);
+  max-width: 66ch;
+  font-size: var(--text-small);
+}
+
+.chlog-lines li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-block: var(--sp-2);
+}
+
+/* --- the story ---------------------------------------------------------------- */
+
+.rel-story {
+  margin-top: var(--sp-8);
+}
+
+.rel-sec {
+  max-width: 54rem;
+}
+
+.rel-sec + .rel-sec {
+  margin-top: var(--sp-7);
+}
+
+.rel-sec h2 {
+  font-size: 1.6rem;
+}
+
+.rel-sec h2::before {
+  content: '## ';
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--text-dim);
+}
+
+.rel-sec p {
+  margin-top: var(--sp-3);
+  max-width: 66ch;
+}
+
+.rel-links,
+.rel-back {
+  margin-top: var(--sp-7);
+  color: var(--text-muted);
+}
+
+.rel-back {
+  margin-top: var(--sp-5);
+}
+
+/* --- photos ------------------------------------------------------------------- */
+
+.rel-photos {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-5);
+}
+
+/* Every listed photo missing in production: no empty gap either. */
+.rel-photos:empty {
+  display: none;
+}
+
+.rel-photos.n-1 {
+  max-width: 40rem;
+}
+
+.rel-photos.n-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rel-photos.n-3 {
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.rel-photo {
+  margin: 0;
+}
+
+.rel-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+}
+
+.rel-photos.n-1 .rel-photo img {
+  aspect-ratio: 3 / 2;
+}
+
+.rel-photo figcaption {
+  margin-top: var(--sp-2);
+  color: var(--text-dim);
+  font-size: var(--text-mono-small);
+}
+
+.rel-photo.is-missing {
+  display: grid;
+  place-content: center;
+  gap: var(--sp-1);
+  aspect-ratio: 3 / 2;
+  padding: var(--sp-4);
+  text-align: center;
+  color: var(--text-dim);
+  font-size: var(--text-mono-small);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-m);
+  overflow-wrap: anywhere;
+}
+
+/* --- responsive --------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .chlog-body {
+    padding: var(--sp-4);
+  }
+
+  .chlog-chrome {
+    padding-inline: var(--sp-4);
+  }
+
+  .chlog-tag {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .rel-photos.n-2,
+  .rel-photos.n-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

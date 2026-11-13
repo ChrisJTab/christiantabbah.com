@@ -1,0 +1,135 @@
+/* ==========================================================================
+   CTF list: one card per challenge with a flag field. Cards are keyed off
+   the work color until solved, then the accent takes over.
+   ========================================================================== */
+
+.ctf-list {
+  margin-top: var(--sp-5);
+}
+
+.ctf-list > p {
+  max-width: 66ch;
+}
+
+.ctf-items {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-4);
+  display: grid;
+  gap: var(--sp-4);
+  max-width: 54rem;
+}
+
+.ctf {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  border-radius: var(--radius-m);
+  padding: var(--sp-4) var(--sp-5);
+  transition: border-color var(--dur-quick) var(--ease-out);
+}
+
+.ctf.is-solved {
+  border-left-color: var(--accent);
+}
+
+.ctf-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+}
+
+.ctf-n {
+  color: var(--text-dim);
+}
+
+.ctf-title {
+  font-size: 1.2rem;
+  margin-right: var(--sp-2);
+}
+
+.ctf-solved {
+  color: var(--accent);
+  font-size: var(--text-mono-small);
+}
+
+.ctf p {
+  margin-top: var(--sp-3);
+  max-width: 66ch;
+}
+
+.ctf-files {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+}
+
+.ctf-details {
+  margin-top: var(--sp-3);
+  max-width: 66ch;
+}
+
+.ctf-details summary {
+  cursor: pointer;
+  color: var(--text-muted);
+  width: max-content;
+}
+
+.ctf-details summary:hover,
+.ctf-details[open] summary {
+  color: var(--text);
+}
+
+.ctf-hints {
+  padding-left: 1.2rem;
+  margin-top: var(--sp-2);
+}
+
+.ctf-hints li + li {
+  margin-top: var(--sp-2);
+}
+
+.ctf-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+
+.ctf-input {
+  flex: 1 1 14rem;
+  min-width: 0;
+  max-width: 24rem;
+  padding: 0.5em 0.75em;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-s);
+}
+
+.ctf-input::placeholder {
+  color: var(--text-dim);
+}
+
+.ctf-result {
+  min-width: 5ch;
+}
+
+.ctf-result.is-right {
+  color: var(--accent);
+}
+
+.ctf-result.is-wrong {
+  color: var(--c-work);
+}
+
+@media (max-width: 760px) {
+  .ctf {
+    padding: var(--sp-4);
+  }
+}

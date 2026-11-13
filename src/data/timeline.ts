@@ -27,6 +27,42 @@ export interface TimelineEntry {
 export const TIMELINE_NOW: YM = '2026-11'
 
 export const timeline: TimelineEntry[] = [
+  // TODO(christian): confirm the months for both summer jobs (June to
+  // August is assumed) and the name of the organization you taught for.
+  {
+    id: 'uate',
+    category: 'work',
+    role: 'Software Developer, UATE',
+    org: 'UATE, Yerevan',
+    short: 'Built the UATE app · Yerevan',
+    start: '2026-06',
+    end: '2026-08',
+    bullets: [
+      'The official UATE and DigiTec app, built alone from an empty repo: every screen, the data layer, the Directus backend, push notifications, tests, and docs.',
+      'Bilingual English and Armenian. Interest-based people matching and chat, the full multi-day schedule, and RSVPs that land in your calendar.',
+      'Left a documentation site and a setup guide so the next developer never needs me.',
+    ],
+    skills: ['TypeScript', 'React Native', 'Expo', 'Directus', 'Firebase'],
+    links: [
+      { label: 'release notes', href: '/release-notes/armenia/' },
+      { label: 'project', href: '/projects/#uate-app' },
+    ],
+  },
+  {
+    id: 'cyber-course',
+    category: 'work',
+    role: 'Cybersecurity Instructor',
+    org: 'Summer course, Armenia',
+    short: 'Taught cybersecurity · Armenia',
+    start: '2026-06',
+    end: '2026-08',
+    bullets: [
+      'Designed and taught a cybersecurity course from scratch: slides, exercises, and a CTF for every lesson, so each idea ended with something to break.',
+      'The most rewarding thing I did all summer. Certificates on the last day.',
+    ],
+    skills: ['security', 'teaching', 'CTF design'],
+    links: [{ label: 'release notes', href: '/release-notes/armenia/' }],
+  },
   {
     id: 'gpu-txn-db',
     category: 'research',

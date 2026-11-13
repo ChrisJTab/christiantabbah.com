@@ -82,8 +82,9 @@ export const projects: Project[] = [
       'RSVPs land an invite in your email calendar; organizers publish whole events from an admin panel with no developer involved.',
     ],
     topic: 'mobile',
-    tech: ['React Native (Expo)', 'TypeScript', 'Firebase', 'TanStack Query'],
+    tech: ['React Native (Expo)', 'TypeScript', 'Directus', 'Firebase', 'TanStack Query'],
     repo: null,
+    writeup: '/release-notes/armenia/',
     visual: {
       kind: 'shots',
       logo: 'uate-logo.png',

@@ -1,12 +1,14 @@
 import { profile } from '../data/profile'
 import { ThemeToggle } from './ThemeToggle'
 
-export type PageId = 'home' | 'research' | 'projects' | 'timeline' | 'about'
+export type PageId = 'home' | 'research' | 'projects' | 'releases' | 'timeline' | 'about'
 
-const LINKS: { id: PageId; href: string; label: string }[] = [
+/** `short` swaps in below 900px, where six tabs share one row. */
+const LINKS: { id: PageId; href: string; label: string; short?: string }[] = [
   { id: 'home', href: '/', label: 'Home' },
   { id: 'research', href: '/research/', label: 'Research' },
   { id: 'projects', href: '/projects/', label: 'Projects' },
+  { id: 'releases', href: '/release-notes/', label: 'Release notes', short: 'Releases' },
   { id: 'timeline', href: '/timeline/', label: 'Timeline' },
   { id: 'about', href: '/about/', label: 'About' },
 ]
@@ -30,7 +32,16 @@ export function Nav({ page }: { page: PageId }) {
             {LINKS.map((l) => (
               <li key={l.id}>
                 <a href={l.href} aria-current={page === l.id ? 'page' : undefined}>
-                  {l.label}
+                  {l.short ? (
+                    <>
+                      <span className="nav-long">{l.label}</span>
+                      <span className="nav-short" aria-hidden="true">
+                        {l.short}
+                      </span>
+                    </>
+                  ) : (
+                    l.label
+                  )}
                 </a>
               </li>
             ))}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Set before first paint so the chosen theme never flashes.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>A summer in Armenia · Christian Tabbah</title>
+    <meta
+      name="description"
+      content="Two and a half months in Armenia, two jobs at once: a cybersecurity course built from nothing, CTFs included, and the official DigiTec conference app, built alone from an empty repo."
+    />
+    <link rel="canonical" href="https://christiantabbah.com/release-notes/armenia/" />
+    <meta name="theme-color" content="#242b1c" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Christian Tabbah" />
+    <meta property="og:title" content="A summer in Armenia" />
+    <meta
+      property="og:description"
+      content="Two and a half months, two jobs at once: a cybersecurity course built from nothing, CTFs included, and the official DigiTec conference app, built alone from an empty repo."
+    />
+    <meta property="og:url" content="https://christiantabbah.com/release-notes/armenia/" />
+    <meta property="og:image" content="https://christiantabbah.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A summer in Armenia" />
+    <meta
+      name="twitter:description"
+      content="Two and a half months, two jobs at once: a cybersecurity course built from nothing, CTFs included, and the official DigiTec conference app, built alone from an empty repo."
+    />
+    <meta name="twitter:image" content="https://christiantabbah.com/og.png" />
+  </head>
+  <body>
+    <div id="root" data-release="armenia"></div>
+    <script type="module" src="/src/entries/release.tsx"></script>
+  </body>
+</html>

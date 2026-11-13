@@ -1,4 +1,5 @@
 import { execSync } from 'node:child_process'
+import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -17,8 +18,22 @@ function commitHash(): string {
   }
 }
 
-// Five real HTML entry points. Each page ships its own <title>/OG tags and
-// gets its own URL on GitHub Pages: no SPA 404 hacks.
+const root = import.meta.dirname
+
+// Every release-notes/<slug>/index.html is an entry of its own, so a new
+// release needs no config change: add it to src/data/releases.ts and copy
+// an existing release folder.
+function releaseInputs(): Record<string, string> {
+  const dir = resolve(root, 'release-notes')
+  return Object.fromEntries(
+    readdirSync(dir, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => [`release-${d.name}`, resolve(dir, d.name, 'index.html')]),
+  )
+}
+
+// Real HTML entry points. Each page ships its own <title>/OG tags and gets
+// its own URL on GitHub Pages: no SPA 404 hacks.
 export default defineConfig({
   plugins: [react()],
   base: '/',
@@ -29,11 +44,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        home: resolve(import.meta.dirname, 'index.html'),
-        research: resolve(import.meta.dirname, 'research/index.html'),
-        projects: resolve(import.meta.dirname, 'projects/index.html'),
-        timeline: resolve(import.meta.dirname, 'timeline/index.html'),
-        about: resolve(import.meta.dirname, 'about/index.html'),
+        home: resolve(root, 'index.html'),
+        research: resolve(root, 'research/index.html'),
+        projects: resolve(root, 'projects/index.html'),
+        releases: resolve(root, 'release-notes/index.html'),
+        timeline: resolve(root, 'timeline/index.html'),
+        about: resolve(root, 'about/index.html'),
+        ...releaseInputs(),
       },
     },
   },

@@ -97,11 +97,11 @@ export const releases: Release[] = [
     summary:
       'Two and a half months, two jobs at once: a cybersecurity course I built from nothing, CTFs included, and the official DigiTec conference app, built alone from an empty repo.',
     intro:
-      'In the summer of 2026 I moved to Armenia for two and a half months and took two jobs at the same time. One was a classroom full of students who had never broken anything on purpose. The other was an empty repository that had to become a conference app before I flew home.',
+      'In the summer of 2026 I moved to Armenia for two and a half months and took two jobs at the same time. One was a classroom full of kids who had never broken anything on purpose. The other was an empty repository that had to become a conference app before I flew home.',
     changelog: [
       {
         kind: 'added',
-        text: 'A cybersecurity course for students, with my own slides, my own CTFs, and certificates on the last day.',
+        text: 'A cybersecurity course for kids at THINK, a coding school in Yerevan, with my own slides, my own CTFs, and certificates on the last day.',
       },
       {
         kind: 'added',
@@ -142,7 +142,7 @@ export const releases: Release[] = [
       {
         heading: 'The classroom',
         body: [
-          'The first job was teaching cybersecurity to students, and there was no course to teach. I built it from nothing: the slides, the exercises, the order things should be learned in, and the part I cared about most, the CTFs.',
+          'The first job was teaching cybersecurity to kids at THINK, a coding school in Yerevan, and there was no course to teach. I built it from nothing: the slides, the exercises, the order things should be learned in, and the part I cared about most, the CTFs.',
           'A CTF is a puzzle with a flag hidden inside it. You get a file, a page, or a scrambled message, and the only way to the flag is to understand how the thing actually works. I wrote one for each idea I wanted to stick, so every lesson ended with something to break. Nobody learns security by being told about it. You learn it by breaking something that someone built for you to break.',
           // TODO(christian): this paragraph is my guess at the feeling; make it yours.
           'It was the most rewarding thing I did all summer. There is a specific moment when a student stops waiting to be told the answer and starts hunting for it, and I got to watch it happen over and over. On the last day I handed out certificates.',
@@ -150,8 +150,16 @@ export const releases: Release[] = [
         photos: [
           {
             src: 'certificates.jpg',
-            alt: 'Christian handing a certificate to a student at the end of the cybersecurity course',
-            caption: 'Certificate day, the last day of the course.',
+            alt: 'Christian in a white cap in the middle of ten kids holding up their cybersecurity certificates in front of the THINK neon sign',
+            caption: 'Certificate day, one per group. Same wall every time.',
+          },
+          {
+            src: 'certificates-2.jpg',
+            alt: 'Nine kids holding up their certificates in front of the THINK sign, Christian behind them',
+          },
+          {
+            src: 'certificates-3.jpg',
+            alt: 'Christian with four kids holding up their certificates',
           },
         ],
         ctfs: {

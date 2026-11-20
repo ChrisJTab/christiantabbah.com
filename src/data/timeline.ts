@@ -28,7 +28,7 @@ export const TIMELINE_NOW: YM = '2026-11'
 
 export const timeline: TimelineEntry[] = [
   // TODO(christian): confirm the months for both summer jobs (June to
-  // August is assumed) and the name of the organization you taught for.
+  // August is assumed).
   {
     id: 'uate',
     category: 'work',
@@ -52,12 +52,12 @@ export const timeline: TimelineEntry[] = [
     id: 'cyber-course',
     category: 'work',
     role: 'Cybersecurity Instructor',
-    org: 'Summer course, Armenia',
-    short: 'Taught cybersecurity · Armenia',
+    org: 'THINK Engineering, Yerevan',
+    short: 'Taught cybersecurity · THINK, Yerevan',
     start: '2026-06',
     end: '2026-08',
     bullets: [
-      'Designed and taught a cybersecurity course from scratch: slides, exercises, and a CTF for every lesson, so each idea ended with something to break.',
+      'Designed and taught a cybersecurity course for kids at a Yerevan coding school, from scratch: slides, exercises, and a CTF for every lesson, so each idea ended with something to break.',
       'The most rewarding thing I did all summer. Certificates on the last day.',
     ],
     skills: ['security', 'teaching', 'CTF design'],

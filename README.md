@@ -67,8 +67,10 @@ Publishing a new one takes two steps:
 Photos go in `public/images/releases/<slug>/` and are listed per section
 (`photos: [{ src, alt, caption }]`). A listed photo whose file isn't there
 yet shows a dashed placeholder in `npm run dev` and renders nothing in the
-production build, so a page can ship before its photos. The convert-and-
-resize command is in `public/images/releases/README.md`.
+production build, so a page can ship before its photos. Convert phone
+photos with `python3 scripts/release-photo.py IMG.HEIC public/images/releases/<slug>/name.jpg`:
+it fixes orientation and color, resizes, and strips the metadata (GPS
+included). Details in `public/images/releases/README.md`.
 
 CTFs are listed per section (`ctfs: { intro, items }`). The flag never
 ships: store its SHA-256 from `node scripts/flag-hash.mjs 'flag{...}'`,

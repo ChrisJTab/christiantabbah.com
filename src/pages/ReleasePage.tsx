@@ -116,7 +116,13 @@ export function ReleasePage({ slug }: { slug: string }) {
             {r.links.map((l, i) => (
               <Fragment key={l.href}>
                 {i > 0 && ' · '}
-                <a href={l.href}>{l.label}</a>
+                {l.href.startsWith('http') ? (
+                  <a href={l.href} target="_blank" rel="noopener noreferrer">
+                    {l.label} ↗
+                  </a>
+                ) : (
+                  <a href={l.href}>{l.label}</a>
+                )}
               </Fragment>
             ))}
           </p>

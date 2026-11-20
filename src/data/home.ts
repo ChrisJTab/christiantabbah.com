@@ -83,7 +83,7 @@ export const skills: { group: string; items: string[] }[] = [
     group: 'people',
     items: [
       'eleven terms as a teaching assistant, including lecturing',
-      'designed and taught a cybersecurity course for kids, CTFs included',
+      'designed and taught a cybersecurity course for kids at THINK in Yerevan, CTFs included',
       'founded and ran a 200-member club',
       'grad-student event logistics',
       'French and English',

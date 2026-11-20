@@ -95,7 +95,7 @@ export const releases: Release[] = [
     title: 'A summer in Armenia',
     place: 'Armenia',
     summary:
-      'Two and a half months, two jobs at once: a cybersecurity course I built from nothing, CTFs included, and the official DigiTec conference app, built alone from an empty repo.',
+      'Two and a half months, two jobs at once: a cybersecurity course for kids at THINK, built from nothing, CTFs included, and the official DigiTec conference app, built alone from an empty repo.',
     intro:
       'In the summer of 2026 I moved to Armenia for two and a half months and took two jobs at the same time. One was a classroom full of kids who had never broken anything on purpose. The other was an empty repository that had to become a conference app before I flew home.',
     changelog: [
@@ -151,7 +151,7 @@ export const releases: Release[] = [
           {
             src: 'certificates.jpg',
             alt: 'Christian in a white cap in the middle of ten kids holding up their cybersecurity certificates in front of the THINK neon sign',
-            caption: 'Certificate day, one per group. Same wall every time.',
+            caption: 'Certificate day at THINK, one per group. Same wall every time.',
           },
           {
             src: 'certificates-2.jpg',
@@ -195,6 +195,7 @@ export const releases: Release[] = [
     links: [
       { label: 'the app on the projects page', href: '/projects/#uate-app' },
       { label: 'both jobs on the timeline', href: '/timeline/#uate' },
+      { label: 'THINK Engineering, the school', href: 'https://ithink.am/' },
     ],
   },
 

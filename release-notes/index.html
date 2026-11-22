@@ -9,6 +9,30 @@
         localStorage.getItem('theme') ||
         (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
     </script>
+    <script>
+      // After a deploy, a cached copy of this page can point at script files
+      // that no longer exist, and the page comes up blank. If a script or a
+      // stylesheet fails to load, fetch the page fresh, at most once a minute.
+      addEventListener(
+        'error',
+        function (e) {
+          var t = e.target
+          if (!t) return
+          var tag = t.tagName
+          var isLink = tag === 'LINK' && /stylesheet|modulepreload/.test(t.rel || '')
+          if (tag !== 'SCRIPT' && !isLink) return
+          try {
+            var key = 'reloaded:' + location.pathname
+            if (Date.now() - Number(sessionStorage.getItem(key) || 0) < 60000) return
+            sessionStorage.setItem(key, String(Date.now()))
+          } catch (_) {
+            return
+          }
+          location.reload()
+        },
+        true
+      )
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Release notes · Christian Tabbah</title>

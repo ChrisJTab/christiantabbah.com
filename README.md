@@ -47,9 +47,10 @@ Adding a timeline entry: append an object to `src/data/timeline.ts`, and the
 graph lays itself out (lanes, curves, label rows) from the dates. When a new
 month starts, bump `TIMELINE_NOW` in the same file so open branches extend.
 
-The research numbers in `src/data/research.ts` come from the paper's plot
-index (`EGAD_Code/EGAD_plotting/PLOTS.md`); keep them in sync with the
-paper when it changes.
+The research numbers in `src/data/research.ts` are quoted from the paper
+(`public/EGAD-paper.pdf`), with its plot index
+(`EGAD_Code/EGAD_plotting/PLOTS.md`) behind the ones that only appear in a
+figure; keep them in sync with the paper when it changes.
 
 ## Release notes
 

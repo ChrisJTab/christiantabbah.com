@@ -1,7 +1,8 @@
 // Content for the research page and the home page’s featured block.
 // Voice: first person, plain English first, numbers second. Every number
-// below is a headline figure from the paper’s plot index
-// (EGAD_Code/EGAD_plotting/PLOTS.md); keep them in sync with the paper.
+// below is quoted from the final paper (public/EGAD-paper.pdf), falling
+// back to its plot index (EGAD_Code/EGAD_plotting/PLOTS.md) for figures
+// the text only shows in a plot; keep them in sync with the paper.
 
 export interface ResultRow {
   setting: string

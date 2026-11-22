@@ -272,7 +272,7 @@
 
 .rd-figure figcaption {
   margin-top: var(--sp-2);
-  color: var(--text-dim);
+  color: var(--text-muted);
   font-size: var(--text-mono-small);
 }
 

@@ -47,13 +47,14 @@ export const research = {
     'Selective write-back. Epic keeps two versions of every record and a batch’s writes only touch one of them, so EGAD ships half the bytes per modified record that a naive design would, moved with scatter-gather DMA.',
     'Writeback runs on worker threads while the next batch is already executing. The CPU-side primary store trails the GPU by at most two batches.',
     'Recovery with a fixed cost. Everything older than two batches already lives in CPU memory, so recovering from a GPU crash means replaying at most two batches of transaction inputs, no matter how long the system has been up.',
+    'Inserts and deletes that resolve at their own position in the serial order, so a key deleted and re-inserted inside one batch still reads correctly, and deleted records recover through the same rollback and replay.',
     'A fork of Epic in CUDA and C++, a harness that reproduces every figure in the paper on YCSB and TPC-C, and a validation suite that kills the process mid-run with a real GPU fault and checks the recovered state against a no-crash run.',
   ],
   architecture: {
     src: '/images/projects/egad-architecture.png',
-    alt: 'EGAD architecture figure: a per-epoch stager admits records from the CPU primary store into the GPU execution cache and flushes writeback',
+    alt: 'EGAD architecture figure: a per-epoch stager admits records from the CPU primary store into the GPU execution cache and writes modified records back',
     caption:
-      'From the paper: the stager sits between the CPU primary store and the GPU execution cache, admitting before each batch and flushing after it.',
+      'From the paper: the stager sits between the CPU primary store and the GPU execution cache, admitting records before each batch and writing back after it.',
   },
   hardware:
     'Measured on one NVIDIA RTX 5000 Ada with 32 GB over PCIe Gen4, against unmodified Epic running CPU-only and GPU-only. YCSB rows use 20 million records with the cache sized to a third of the database. The 216 to 240 warehouse row uses the NewOrder and Payment mix from the Epic paper; the other TPC-C rows use EGAD’s full mix.',
@@ -76,13 +77,13 @@ export const research = {
     },
     {
       setting: 'Async writeback, TPC-C, 128 warehouses',
-      value: '25.6 ms → 11.3 ms',
-      note: 'time per batch, sync vs async; writeback on the critical path shrinks 9.4×',
+      value: '25.65 ms → 11.24 ms',
+      note: 'time per batch, sync vs async; a 2.28× speedup from running writeback alongside the next batch',
     },
     {
       setting: 'Crash recovery switched on',
-      value: '−13% to −18%',
-      note: 'throughput cost at 8 warehouses and up; still ahead of CPU-only',
+      value: '−12% to −19%',
+      note: 'throughput cost on TPC-C at 8 warehouses and up; still ahead of CPU-only, 1.15× at 128',
     },
   ] satisfies ResultRow[],
   resultsNote:
@@ -108,18 +109,19 @@ export const research = {
     },
   ],
   limits: [
-    'If the database fits in GPU memory, don’t use it. The staging machinery costs between 9% and 48% of GPU-only throughput, depending on how write-heavy the workload is.',
+    'If the database fits in GPU memory, don’t use it. The staging machinery costs between 9% and 48% of GPU-only throughput on YCSB, depending on how write-heavy the workload is, and about half of it on TPC-C.',
     'At low skew the CPU-only baseline is as fast or faster. EGAD wins once contention rises, from a Zipf skew of about 0.8 upward on every YCSB workload.',
-    'Full-record reads over field-split storage amplify reads about tenfold and lose to the CPU at every skew.',
-    'Workloads whose working set grows without bound eventually overflow the cache. The spec TPC-C mix does this: its throughput declines over a long run and crosses under the CPU baseline.',
+    'Full-record reads over field-split storage turn each read into ten operations and lose to the CPU at all but one of the skews we tested.',
+    'The full TPC-C mix needs the Order and OrderLine caches to hold its reach-back window. As warehouses are added, the always-resident tables crowd those caches out, misses take over the batch, and EGAD drops under the CPU baseline by 160 warehouses.',
   ],
   open: [
-    'Cut the host-side contention between the writeback worker and the main thread’s CUDA submissions, which inflates index transfer up to three and a half times in async mode.',
-    'Handle unbounded working sets, most likely by partitioning, so the spec TPC-C mix stops degrading over long runs.',
-    'Bring the field-split read path up to parity with the headline configuration.',
+    'Cut the contention between the writeback worker and the main thread’s CUDA calls. On writeback-light YCSB-B it grows the index transfer from 265 to 656 microseconds and turns async mode into a small net loss.',
+    'Recycle deleted record identifiers on the same two-batch bound the writeback already obeys, so the CPU store’s footprint tracks the live set instead of the total number of inserts.',
+    'Resize the per-table cache partitions at runtime. They are fixed at startup, so a workload whose per-table working sets shift is served only as well as the initial split.',
+    'Extend the stager across several GPUs once one card’s transfer path saturates.',
   ],
   status: [
-    'This is my MSc research paper at the University of Toronto, supervised by Angela Demke Brown and Ashvin Goel. The PDF above is the full-length version. A shorter conference version is in preparation.',
+    'This is my MSc research paper at the University of Toronto, supervised by Angela Demke Brown and Ashvin Goel. The PDF above is the final version, from November 2026. A shorter conference version is in preparation.',
     'The code is public and forked from the Epic artifact, with the benchmark harness, a plot index that maps every figure to its claim and its caveats, and the crash-recovery validation scripts.',
   ],
 }

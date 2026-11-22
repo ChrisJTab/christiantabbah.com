@@ -129,7 +129,7 @@ export const projects: Project[] = [
       kind: 'figures',
       cover: {
         src: 'egad-architecture.png',
-        alt: 'EGAD architecture figure: a per-epoch stager admits records from the CPU primary store into the GPU execution cache and flushes writeback',
+        alt: 'EGAD architecture figure: a per-epoch stager admits records from the CPU primary store into the GPU execution cache and writes modified records back',
       },
       figure: {
         src: 'egad-timeline.png',

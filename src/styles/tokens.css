@@ -36,6 +36,8 @@
   /* Backing for third-party app icons on project covers. Stays white in
      both themes: the logos ship on white, like a real app-icon tile. */
   --logo-tile: #ffffff;
+  --canvas: #ffffff; /* the r/place board */
+  --canvas-grid: #e6e0cf;
 
   /* CRT terminal (the ext2 demo window): black glass and phosphor green,
      identical in both themes, like a real terminal screenshot would be. */
@@ -111,6 +113,9 @@
 
   --sch-tint: 34%;
   --sch-band: 24%;
+
+  --canvas: #312b1d;
+  --canvas-grid: #4a4230;
 
   --shadow-panel: 0 14px 40px color-mix(in srgb, black 30%, transparent);
 }

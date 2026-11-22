@@ -117,14 +117,15 @@
   height: 100%;
 }
 
+/* The board is paper by day and a dark board at night (tokens.css), so
+   the pixels keep their contrast in both themes. */
 .pxc-bg {
-  fill: color-mix(in srgb, var(--logo-tile) 92%, var(--bg));
+  fill: var(--canvas);
 }
 
 .pxc-grid {
-  stroke: var(--border);
+  stroke: var(--canvas-grid);
   stroke-width: 0.75;
-  opacity: 0.6;
 }
 
 .pxc-work {
@@ -159,7 +160,7 @@
 
 .pxc-cursor {
   fill: var(--text);
-  stroke: var(--logo-tile);
+  stroke: var(--canvas);
   stroke-width: 1;
 }
 

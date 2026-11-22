@@ -183,11 +183,14 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
       <text className="sch-label" x="160" y="55" textAnchor="middle">
         pre-reduce
       </text>
+      {/* The detour rises from gpu a into the host box from the left, and
+         leaves it from the right down into gpu b; both tips stop 2px short
+         of the outline they point at. */}
       <g className="sch-host-dashed">
-        <path d="M94 74 C 106 60, 114 52, 123 47" />
-        <Head x={126} y={45.5} angle={-25} />
-        <path d="M194 46 C 204 50, 212 58, 222 72" />
-        <Head x={224} y={75} angle={55} />
+        <path d="M80 62 C 80 44, 96 44, 115 44" />
+        <Head x={118} y={44} />
+        <path d="M202 44 C 221 44, 240 44, 240 59" />
+        <Head x={240} y={62} angle={90} />
       </g>
     </>
   ),
@@ -313,15 +316,15 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
         gpu
       </text>
       <g className="sch-main">
-        <line x1="110" y1="44" x2="110" y2="125" />
-        <Head x={110} y={128} angle={90} />
+        <line x1="110" y1="46" x2="110" y2="123" />
+        <Head x={110} y={126} angle={90} />
       </g>
       <text className="sch-label" x="102" y="74" textAnchor="end">
         admit
       </text>
       <g className="sch-accent">
-        <line x1="210" y1="128" x2="210" y2="47" />
-        <Head x={210} y={44} angle={-90} />
+        <line x1="210" y1="126" x2="210" y2="49" />
+        <Head x={210} y={46} angle={-90} />
       </g>
       <text className="sch-label sch-accent-label" x="218" y="108">
         writeback

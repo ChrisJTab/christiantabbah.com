@@ -12,7 +12,7 @@ export const hero = {
 
 /** The `$ git status` block: where I am and what I’m open to. */
 export const status = {
-  summary: 'On branch main. MSc merged October 2026.',
+  summary: 'Finished my MSc in October 2026. Looking for a full-time role.',
   rows: [
     {
       key: 'open to',

@@ -44,6 +44,10 @@
   --crt-green: #45f06e;
   --crt-green-dim: #33a355;
 
+  /* --- schematics: how strongly a box or band is tinted with its role --- */
+  --sch-tint: 20%;
+  --sch-band: 15%;
+
   /* --- type ----------------------------------------------------------- */
   --font-display: 'Young Serif', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible',
@@ -104,6 +108,9 @@
   --c-education: #8fb0cf; /* dusty blue */
   --c-research: #b49bd1; /* heather */
   --c-leadership: #d6b36a; /* ochre */
+
+  --sch-tint: 34%;
+  --sch-band: 24%;
 
   --shadow-panel: 0 14px 40px color-mix(in srgb, black 30%, transparent);
 }

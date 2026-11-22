@@ -215,9 +215,17 @@
   font-size: var(--text-mono);
 }
 
+/* The figure card sits on faint graph paper, like a figure on a page. */
 .feat-figure {
   margin: 0;
-  background: var(--surface);
+  background:
+    radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--border-strong) 42%, transparent) 1px,
+      transparent 1.6px
+    )
+    0 0 / 14px 14px,
+    var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-l);
   padding: var(--sp-4) var(--sp-5) var(--sp-3);
@@ -230,7 +238,7 @@
 
 .feat-figure figcaption {
   margin-top: var(--sp-2);
-  color: var(--text-dim);
+  color: var(--text-muted);
   font-size: var(--text-mono-small);
 }
 

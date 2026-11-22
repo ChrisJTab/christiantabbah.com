@@ -2,10 +2,16 @@ import type { ReactNode } from 'react'
 import type { SchematicId } from '../../data/projects'
 
 /**
- * Hand-drawn-feel system schematics, one per systems project: the projects
- * page's answer to the timeline's git graph. All strokes/fills reference
- * theme variables (styled in projects.css); each card sets --topic-color.
+ * System schematics, one per systems project, drawn like the figures in a
+ * paper: filled boxes in the branch palette, ink arrows, a tinted band for
+ * the layer in between. Styled in covers.css; each card sets --topic-color.
  * Decorative: the visible caption next to each one carries the meaning.
+ *
+ * Color legend, the same on every schematic: blue (sch-host) is the host or
+ * compute side, plum (sch-device) is the device or storage side, ochre
+ * (sch-layer, sch-band, sch-divider) is the layer between them, sienna
+ * (sch-fail) is a failure or retry, the accent is a return path, and ink
+ * carries data forward.
  *
  * Geometry conventions: boxes on a 320x180 canvas, arrow tips land 2px off
  * the edge they point at, dashed strokes mean "optional path / background
@@ -37,15 +43,15 @@ const RING_NODES: [number, number][] = [
 const SCHEMATICS: Record<SchematicId, ReactNode> = {
   shortener: (
     <>
-      <circle className="sch-dot" cx="28" cy="90" r="4" />
+      <circle className="sch-dot" cx="28" cy="90" r="5" />
       <text className="sch-label" x="28" y="112" textAnchor="middle">
         key
       </text>
-      <g className="sch-line">
+      <g className="sch-main">
         <line x1="36" y1="90" x2="77" y2="90" />
         <Head x={80} y={90} />
       </g>
-      <circle className="sch-main" cx="118" cy="90" r="36" fill="none" />
+      <circle className="sch-box sch-layer" cx="118" cy="90" r="36" />
       <text className="sch-label" x="118" y="87" textAnchor="middle">
         hash
       </text>
@@ -58,13 +64,13 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
         <path d="M150.6 105.2 C 185 118, 212 130, 238 138" />
       </g>
       {RING_NODES.map(([x, y]) => (
-        <circle key={`${x}-${y}`} className="sch-node" cx={x} cy={y} r="4" />
+        <circle key={x + '-' + y} className="sch-node" cx={x} cy={y} r="4" />
       ))}
       {[40, 90, 140].map((y, i) => (
-        <g key={y} className="sch-line">
+        <g key={y}>
           <path
             className="sch-cyl"
-            d={`M240 ${y - 8} v18 a28 7 0 0 0 56 0 v-18`}
+            d={'M240 ' + (y - 8) + ' v18 a28 7 0 0 0 56 0 v-18'}
           />
           <ellipse className="sch-cyl" cx="268" cy={y - 8} rx="28" ry="7" />
           <text className="sch-label" x="268" y={y + 8} textAnchor="middle">
@@ -95,7 +101,7 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
       <text className="sch-label" x="26" y="156" textAnchor="middle">
         painters
       </text>
-      <rect className="sch-box" x="86" y="54" width="74" height="64" rx="8" />
+      <rect className="sch-box sch-layer" x="86" y="54" width="74" height="64" rx="8" />
       <text className="sch-label" x="123" y="76" textAnchor="middle">
         api gw
       </text>
@@ -141,15 +147,15 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
     </>
   ),
 
-  /* Two paths from GPU A to GPU B: direct RDMA (solid), or dashed through
-     the host node that pre-reduces on the way. Heads on both hops. */
+  /* Two paths from GPU A to GPU B: direct RDMA (ink), or the dashed detour
+     through the host node that pre-reduces on the way. Heads on both hops. */
   olap: (
     <>
-      <rect className="sch-box" x="22" y="64" width="72" height="52" rx="8" />
+      <rect className="sch-box sch-device" x="22" y="64" width="72" height="52" rx="8" />
       <text className="sch-label" x="58" y="93" textAnchor="middle">
         gpu a
       </text>
-      <rect className="sch-box" x="226" y="64" width="72" height="52" rx="8" />
+      <rect className="sch-box sch-device" x="226" y="64" width="72" height="52" rx="8" />
       <text className="sch-label" x="262" y="87" textAnchor="middle">
         gpu b
       </text>
@@ -160,17 +166,24 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
         <line x1="94" y1="104" x2="221" y2="104" />
         <Head x={224} y={104} />
       </g>
-      <text className="sch-label" x="158" y="122" textAnchor="middle">
+      <text className="sch-note" x="158" y="122" textAnchor="middle">
         rdma · ucx
       </text>
-      <rect className="sch-dashed" x="120" y="26" width="80" height="36" rx="8" />
+      <rect
+        className="sch-box sch-host sch-dashed-box"
+        x="120"
+        y="26"
+        width="80"
+        height="36"
+        rx="8"
+      />
       <text className="sch-label" x="160" y="42" textAnchor="middle">
         host
       </text>
       <text className="sch-label" x="160" y="55" textAnchor="middle">
         pre-reduce
       </text>
-      <g className="sch-branch-dashed">
+      <g className="sch-host-dashed">
         <path d="M94 74 C 106 60, 114 52, 123 47" />
         <Head x={126} y={45.5} angle={-25} />
         <path d="M194 46 C 204 50, 212 58, 222 72" />
@@ -181,22 +194,22 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
 
   disagg: (
     <>
-      <rect className="sch-box" x="24" y="52" width="104" height="76" rx="8" />
+      <rect className="sch-box sch-host" x="24" y="52" width="104" height="76" rx="8" />
       <text className="sch-label" x="76" y="86" textAnchor="middle">
         compute
       </text>
       <text className="sch-label" x="76" y="102" textAnchor="middle">
         rocksdb
       </text>
-      <rect className="sch-box" x="192" y="52" width="104" height="76" rx="8" />
+      <rect className="sch-box sch-device" x="192" y="52" width="104" height="76" rx="8" />
       <text className="sch-label" x="244" y="86" textAnchor="middle">
         storage
       </text>
       <text className="sch-label" x="244" y="102" textAnchor="middle">
         hailstorm
       </text>
-      <line className="sch-dashed" x1="160" y1="36" x2="160" y2="144" />
-      <text className="sch-label" x="160" y="28" textAnchor="middle">
+      <line className="sch-divider" x1="160" y1="36" x2="160" y2="144" />
+      <text className="sch-note" x="160" y="28" textAnchor="middle">
         network
       </text>
       {/* labels sit beside the dashed divider, never on it */}
@@ -207,11 +220,11 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
       <text className="sch-label" x="150" y="68" textAnchor="end">
         put
       </text>
-      <g className="sch-main">
+      <g className="sch-accent">
         <line x1="192" y1="108" x2="133" y2="108" />
         <Head x={130} y={108} angle={180} />
       </g>
-      <text className="sch-label" x="170" y="124" textAnchor="start">
+      <text className="sch-label sch-accent-label" x="170" y="124">
         get
       </text>
     </>
@@ -219,7 +232,7 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
 
   /* Stop-and-wait told honestly: #1 is acked, #2 dies on the wire, the
      sender's (dashed) timer fires, the retransmit goes through, ack 2
-     comes back. */
+     comes back. Sienna marks everything the loss causes. */
   udp: (
     <>
       <text className="sch-label" x="80" y="28" textAnchor="middle">
@@ -230,6 +243,8 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
       </text>
       <line className="sch-lifeline" x1="80" y1="36" x2="80" y2="164" />
       <line className="sch-lifeline" x1="240" y1="36" x2="240" y2="164" />
+      <circle className="sch-dot" cx="80" cy="36" r="4" />
+      <circle className="sch-dot" cx="240" cy="36" r="4" />
       <g className="sch-main">
         <line x1="80" y1="50" x2="234" y2="50" />
         <Head x={237} y={50} />
@@ -241,7 +256,7 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
         <line x1="240" y1="68" x2="88" y2="68" />
         <Head x={85} y={68} angle={180} />
       </g>
-      <text className="sch-label" x="100" y="62">
+      <text className="sch-label sch-accent-label" x="100" y="62">
         ack 1
       </text>
       <line className="sch-main" x1="80" y1="92" x2="166" y2="92" />
@@ -252,71 +267,68 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
       <text className="sch-label" x="92" y="86">
         #2
       </text>
-      <text className="sch-label" x="188" y="90">
+      <text className="sch-label sch-fail-label" x="188" y="90">
         dropped
       </text>
-      <path className="sch-dashed" d="M80 98 C 58 104, 58 118, 80 124" fill="none" />
-      <text className="sch-label" x="44" y="114" textAnchor="middle">
+      <path className="sch-fail-dashed" d="M80 98 C 58 104, 58 118, 80 124" />
+      <text className="sch-label sch-fail-label" x="44" y="114" textAnchor="middle">
         timeout
       </text>
-      <g className="sch-branch">
+      <g className="sch-fail">
         <line x1="80" y1="130" x2="234" y2="130" />
         <Head x={237} y={130} />
       </g>
-      <text className="sch-label" x="92" y="124">
+      <text className="sch-label sch-fail-label" x="92" y="124">
         #2 again
       </text>
       <g className="sch-accent">
         <line x1="240" y1="152" x2="88" y2="152" />
         <Head x={85} y={152} angle={180} />
       </g>
-      <text className="sch-label" x="100" y="146">
+      <text className="sch-label sch-accent-label" x="100" y="146">
         ack 2
       </text>
     </>
   ),
 
-  /* EGAD: the CPU primary store on the left, the GPU execution cache on
-     the right, the stager between them. Admit goes right before a batch,
-     write-back comes left after it; the bracket says how far apart the
-     two copies are ever allowed to drift. */
+  /* EGAD, laid out the way the paper's Figure 1 is: the CPU primary store
+     on top, the GPU execution cache at the bottom, and the stager as a band
+     straddling the CPU/GPU line. Admit goes down before a batch, writeback
+     comes back up after it. */
   egad: (
     <>
-      <rect className="sch-box" x="16" y="50" width="110" height="80" rx="8" />
-      <text className="sch-label" x="71" y="86" textAnchor="middle">
-        cpu memory
+      <rect className="sch-box sch-host" x="40" y="8" width="240" height="36" rx="7" />
+      <text className="sch-label" x="160" y="30" textAnchor="middle">
+        primary store · cpu memory
       </text>
-      <text className="sch-label" x="71" y="102" textAnchor="middle">
-        primary store
-      </text>
-      <rect className="sch-box" x="194" y="50" width="110" height="80" rx="8" />
-      <text className="sch-label" x="249" y="86" textAnchor="middle">
-        gpu memory
-      </text>
-      <text className="sch-label" x="249" y="102" textAnchor="middle">
-        exec cache
-      </text>
-      <g className="sch-main">
-        <line x1="126" y1="72" x2="189" y2="72" />
-        <Head x={192} y={72} />
-      </g>
-      <text className="sch-label" x="160" y="64" textAnchor="middle">
-        admit
-      </text>
-      <rect className="sch-box" x="136" y="80" width="48" height="20" rx="5" />
-      <text className="sch-label" x="160" y="94" textAnchor="middle">
+      <rect className="sch-band" x="40" y="58" width="240" height="56" rx="7" />
+      <text className="sch-label" x="268" y="76" textAnchor="end">
         stager
       </text>
-      <g className="sch-accent">
-        <line x1="194" y1="108" x2="131" y2="108" />
-        <Head x={128} y={108} angle={180} />
-      </g>
-      <text className="sch-label" x="160" y="122" textAnchor="middle">
-        write back
+      <line className="sch-divider" x1="16" y1="86" x2="304" y2="86" />
+      <text className="sch-tiny" x="34" y="82" textAnchor="end">
+        cpu
       </text>
-      <path className="sch-dashed" d="M71 134 v10 H249 v-10" />
-      <text className="sch-label" x="160" y="160" textAnchor="middle">
-        never more than 2 batches apart
+      <text className="sch-tiny" x="34" y="97" textAnchor="end">
+        gpu
+      </text>
+      <g className="sch-main">
+        <line x1="110" y1="44" x2="110" y2="125" />
+        <Head x={110} y={128} angle={90} />
+      </g>
+      <text className="sch-label" x="102" y="74" textAnchor="end">
+        admit
+      </text>
+      <g className="sch-accent">
+        <line x1="210" y1="128" x2="210" y2="47" />
+        <Head x={210} y={44} angle={-90} />
+      </g>
+      <text className="sch-label sch-accent-label" x="218" y="108">
+        writeback
+      </text>
+      <rect className="sch-box sch-device" x="40" y="128" width="240" height="36" rx="7" />
+      <text className="sch-label" x="160" y="150" textAnchor="middle">
+        execution cache · gpu memory
       </text>
     </>
   ),

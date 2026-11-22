@@ -67,10 +67,19 @@
   transform: rotate(-2deg);
 }
 
+/* Schematic covers sit on faint graph paper, like a figure on a page. */
 .proj-cover-sch {
   display: grid;
   place-items: center;
   padding: var(--sp-3) var(--sp-4);
+  background:
+    radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--border-strong) 42%, transparent) 1px,
+      transparent 1.6px
+    )
+    0 0 / 14px 14px,
+    color-mix(in srgb, var(--bg) 55%, var(--surface));
 }
 
 /* Research-figure covers: the real figure from the paper, framed like a
@@ -244,39 +253,90 @@
 
 /* --- schematics ------------------------------------------------------------ */
 
+/* Drawn like the figures in a paper: boxes filled with their role color,
+   ink arrows, dark labels. --sch-tint and --sch-band (tokens.css) set how
+   strongly a box or band is tinted in each theme. The role legend is in
+   Schematic.tsx. */
+
 .sch {
   display: block;
 }
 
 .sch text {
   font-family: var(--font-mono);
-  font-size: 10.5px;
-  fill: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--text);
   stroke: none;
 }
 
 .sch .sch-tiny {
-  font-size: 9px;
-  fill: var(--text-dim);
+  font-size: 9.5px;
+  font-weight: 400;
+  fill: var(--text-muted);
 }
 
+.sch .sch-note {
+  font-weight: 400;
+  fill: var(--text-muted);
+}
+
+.sch .sch-accent-label {
+  fill: var(--accent);
+}
+
+.sch .sch-fail-label {
+  fill: var(--c-work);
+}
+
+/* Boxes: a role class sets the fill tint and the stroke. */
 .sch-box {
-  fill: color-mix(in srgb, var(--bg) 40%, var(--surface));
+  fill: color-mix(in srgb, var(--surface-2) 70%, var(--surface));
   stroke: var(--border-strong);
-  stroke-width: 1.5;
+  stroke-width: 1.75;
+}
+
+.sch-host {
+  fill: color-mix(in srgb, var(--c-education) var(--sch-tint), var(--surface));
+  stroke: var(--c-education);
+}
+
+.sch-device {
+  fill: color-mix(in srgb, var(--c-research) var(--sch-tint), var(--surface));
+  stroke: var(--c-research);
+}
+
+.sch-layer {
+  fill: color-mix(in srgb, var(--c-leadership) var(--sch-tint), var(--surface));
+  stroke: var(--c-leadership);
+}
+
+.sch-dashed-box {
+  stroke-dasharray: 4 4;
+}
+
+/* The band: a layer that straddles two sides (the stager across CPU/GPU). */
+.sch-band {
+  fill: color-mix(in srgb, var(--c-leadership) var(--sch-band), var(--surface));
+  stroke: color-mix(in srgb, var(--c-leadership) 70%, transparent);
+  stroke-width: 1.25;
 }
 
 .sch-line,
 .sch-main,
 .sch-accent,
+.sch-fail,
+.sch-fail-dashed,
 .sch-branch,
 .sch-branch-dashed,
+.sch-host-dashed,
 .sch-curve,
 .sch-dashed,
+.sch-divider,
 .sch-lifeline,
 .sch-x {
   fill: none;
-  stroke-width: 2;
+  stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -287,16 +347,46 @@
   stroke: none;
 }
 
-.sch-line .sch-head {
-  fill: var(--text-dim);
+.sch-line,
+.sch-main {
+  stroke: var(--text);
 }
 
+.sch-line {
+  stroke-width: 2;
+}
+
+.sch-line .sch-head,
 .sch-main .sch-head {
-  fill: var(--primary);
+  fill: var(--text);
+}
+
+.sch-accent {
+  stroke: var(--accent);
 }
 
 .sch-accent .sch-head {
   fill: var(--accent);
+}
+
+.sch-fail,
+.sch-fail-dashed {
+  stroke: var(--c-work);
+}
+
+.sch-fail .sch-head,
+.sch-fail-dashed .sch-head {
+  fill: var(--c-work);
+}
+
+.sch-fail-dashed {
+  stroke-dasharray: 4 5;
+  stroke-width: 2;
+}
+
+.sch-branch,
+.sch-branch-dashed {
+  stroke: var(--topic-color, var(--primary));
 }
 
 .sch-branch .sch-head,
@@ -304,60 +394,61 @@
   fill: var(--topic-color, var(--primary));
 }
 
-.sch-line {
-  stroke: var(--text-dim);
+.sch-branch-dashed {
+  stroke-dasharray: 4 5;
+}
+
+.sch-host-dashed {
+  stroke: var(--c-education);
+  stroke-dasharray: 4 5;
+  stroke-width: 2;
+}
+
+.sch-host-dashed .sch-head {
+  fill: var(--c-education);
 }
 
 .sch-curve {
-  stroke: var(--border-strong);
-  stroke-width: 1.5;
-}
-
-.sch-main {
-  stroke: var(--primary);
-}
-
-.sch-accent {
-  stroke: var(--accent);
-}
-
-.sch-branch {
-  stroke: var(--topic-color, var(--primary));
-}
-
-.sch-branch-dashed {
-  stroke: var(--topic-color, var(--primary));
-  stroke-dasharray: 4 5;
+  stroke: var(--text-muted);
+  stroke-width: 1.75;
 }
 
 .sch-dashed {
-  stroke: var(--text-dim);
+  stroke: var(--text-muted);
   stroke-dasharray: 4 5;
+  stroke-width: 1.75;
+}
+
+/* A boundary between two sides: the network, the CPU/GPU line. */
+.sch-divider {
+  stroke: var(--c-leadership);
+  stroke-dasharray: 5 5;
+  stroke-width: 1.75;
 }
 
 .sch-lifeline {
-  stroke: var(--border-strong);
+  stroke: var(--c-education);
 }
 
 .sch-x {
   stroke: var(--c-work);
-  stroke-width: 2.5;
+  stroke-width: 3;
 }
 
 .sch-node {
-  fill: var(--bg);
-  stroke: var(--topic-color, var(--primary));
+  fill: var(--surface);
+  stroke: var(--c-leadership);
   stroke-width: 2;
 }
 
 .sch-dot {
-  fill: var(--topic-color, var(--primary));
+  fill: var(--c-education);
 }
 
 .sch-cyl {
-  fill: color-mix(in srgb, var(--bg) 40%, var(--surface));
-  stroke: var(--border-strong);
-  stroke-width: 1.5;
+  fill: color-mix(in srgb, var(--c-research) var(--sch-tint), var(--surface));
+  stroke: var(--c-research);
+  stroke-width: 1.75;
 }
 
 .sch-grid {

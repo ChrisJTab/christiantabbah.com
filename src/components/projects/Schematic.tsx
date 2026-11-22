@@ -73,7 +73,7 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
             d={'M240 ' + (y - 8) + ' v18 a28 7 0 0 0 56 0 v-18'}
           />
           <ellipse className="sch-cyl" cx="268" cy={y - 8} rx="28" ry="7" />
-          <text className="sch-label" x="268" y={y + 8} textAnchor="middle">
+          <text className="sch-label" x="268" y={y + 12} textAnchor="middle">
             shard {i + 1}
           </text>
         </g>

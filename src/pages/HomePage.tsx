@@ -1,23 +1,25 @@
 import { Fragment, type CSSProperties } from 'react'
-import { MiniGraph } from '../components/MiniGraph'
 import { Shell } from '../components/Shell'
+import {
+  DownloadIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  MailIcon,
+} from '../components/SocialIcons'
 import { Cover } from '../components/projects/Cover'
 import { Schematic } from '../components/projects/Schematic'
 import { TOPIC_COLORS } from '../components/projects/topics'
 import {
   contact,
   hero,
-  logIds,
   selectedProjectIds,
   skills,
+  stack,
   status,
 } from '../data/home'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { research } from '../data/research'
-import { timeline } from '../data/timeline'
-import { formatRange } from '../lib/dates'
-import { commitHashFor } from '../lib/hash'
 import './home.css'
 
 const d = (ms: number) => ({ ['--d' as string]: `${ms}ms` }) as CSSProperties
@@ -28,11 +30,6 @@ const selected = selectedProjectIds.flatMap((id) => {
   return p ? [p] : []
 })
 
-const log = logIds.flatMap((id) => {
-  const e = timeline.find((x) => x.id === id)
-  return e ? [e] : []
-})
-
 /** Display form of a URL: no scheme, no www, no trailing slash. */
 const bare = (url: string) =>
   url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
@@ -40,11 +37,14 @@ const bare = (url: string) =>
 export function HomePage() {
   return (
     <Shell page="home">
-      <section className="container hero" aria-label="Introduction">
-        <div className="hero-text">
-          <span className="file-tab rise" style={d(0)}>
-            README.md
-          </span>
+      {/* The README: who I am, what I'm after right now, what I work with,
+          and how to reach me. The file tab heads all of it. */}
+      <section className="container readme" aria-label="Introduction">
+        <span className="file-tab readme-tab rise" style={d(0)}>
+          README.md
+        </span>
+
+        <div className="readme-intro">
           <h1 className="rise" style={d(90)}>
             {profile.name}
             <span className="accent">.</span>
@@ -69,23 +69,27 @@ export function HomePage() {
             </li>
             <li>
               <a
-                className="hero-link"
+                className="social-chip social-chip-lg"
                 href={profile.github}
+                aria-label="GitHub"
+                title="GitHub"
                 target="_blank"
                 rel="noreferrer"
               >
-                GitHub ↗
+                <GitHubIcon />
               </a>
             </li>
             {profile.linkedin && (
               <li>
                 <a
-                  className="hero-link"
+                  className="social-chip social-chip-lg"
                   href={profile.linkedin}
+                  aria-label="LinkedIn"
+                  title="LinkedIn"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  LinkedIn ↗
+                  <LinkedInIcon />
                 </a>
               </li>
             )}
@@ -95,30 +99,52 @@ export function HomePage() {
               </a>
             </li>
           </ul>
+        </div>
 
-          {/* The working-tree status of the repo that is me. */}
-          <section
-            className="status rise"
-            style={d(480)}
-            aria-label="Availability"
-          >
-            <p className="status-cmd" aria-hidden="true">
-              $ git status
-            </p>
-            <p className="status-summary">{status.summary}</p>
-            <dl className="status-rows">
-              {status.rows.map((r) => (
-                <Fragment key={r.key}>
-                  <dt>{r.key}:</dt>
-                  <dd>{r.value}</dd>
-                </Fragment>
-              ))}
-            </dl>
-          </section>
-        </div>
-        <div className="hero-art rise" style={d(250)} aria-hidden="true">
-          <MiniGraph />
-        </div>
+        <section className="now rise" style={d(250)} aria-labelledby="now-h">
+          <h2 id="now-h" className="readme-h">
+            {status.heading}
+          </h2>
+          <p className="now-summary">{status.summary}</p>
+          <dl className="now-rows">
+            {status.rows.map((r) => (
+              <Fragment key={r.key}>
+                <dt>{r.key}</dt>
+                <dd>
+                  {r.live && <span className="live-dot" aria-hidden="true" />}
+                  {r.value}
+                </dd>
+              </Fragment>
+            ))}
+          </dl>
+        </section>
+
+        <section className="stack rise" style={d(480)} aria-labelledby="stack-h">
+          <div className="stack-head">
+            <h2 id="stack-h" className="readme-h">
+              {stack.heading}
+            </h2>
+            <a className="stack-more mono" href="/timeline/">
+              {stack.more}
+            </a>
+          </div>
+          <dl className="stack-rows">
+            {skills.map((g) => (
+              <div key={g.group}>
+                <dt className="mono">{g.group}</dt>
+                <dd>
+                  <ul className="stack-items">
+                    {g.items.map((item) => (
+                      <Fragment key={item}>
+                        <li>{item}</li>{' '}
+                      </Fragment>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
       </section>
 
       <section className="container home-sec" aria-labelledby="research-h">
@@ -199,72 +225,31 @@ export function HomePage() {
         </p>
       </section>
 
-      <section className="container home-sec" aria-labelledby="log-h">
-        <span className="file-tab">$ git log --oneline</span>
-        <h2 id="log-h">Recent history</h2>
-        <ol className="gl mono">
-          {log.map((e) => (
-            <li
-              key={e.id}
-              style={vars({ '--branch-color': `var(--c-${e.category})` })}
-            >
-              <a href={`/timeline/#${e.id}`}>
-                <span className="gl-hash" aria-hidden="true">
-                  {commitHashFor(e.id)}
-                </span>
-                <span className="gl-short">{e.short}</span>
-                <span className="gl-range">{formatRange(e.start, e.end)}</span>
-                <span className="gl-cat">
-                  <span className="gl-dot" aria-hidden="true" />
-                  {e.category}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ol>
-        <p className="home-more mono">
-          <a href="/timeline/">The full graph, 2018 to now →</a>
-        </p>
-      </section>
-
-      <section className="container home-sec" aria-labelledby="skills-h">
-        <span className="file-tab">SKILLS.md</span>
-        <h2 id="skills-h">What I work with</h2>
-        <dl className="skills">
-          {skills.map((g) => (
-            <div key={g.group}>
-              <dt className="mono">{g.group}</dt>
-              <dd>{g.items.join(', ')}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
       <section className="container home-sec" aria-labelledby="contact-h">
         <span className="file-tab">$ git remote -v</span>
         <h2 id="contact-h">{contact.heading}</h2>
         <p className="contact-note">{contact.note}</p>
         <ul className="remotes mono">
           <li>
-            <span className="remote-name">email</span>
+            <MailIcon />
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
           </li>
           {profile.linkedin && (
             <li>
-              <span className="remote-name">linkedin</span>
+              <LinkedInIcon />
               <a href={profile.linkedin} target="_blank" rel="noreferrer">
                 {bare(profile.linkedin)}
               </a>
             </li>
           )}
           <li>
-            <span className="remote-name">github</span>
+            <GitHubIcon />
             <a href={profile.github} target="_blank" rel="noreferrer">
               {bare(profile.github)}
             </a>
           </li>
           <li>
-            <span className="remote-name">cv</span>
+            <DownloadIcon />
             <a href={profile.cvPath} download="Christian-Tabbah-CV.pdf">
               Christian-Tabbah-CV.pdf
             </a>

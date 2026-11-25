@@ -86,7 +86,8 @@
   background: color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
-.theme-toggle svg {
+/* Icons in the chips: the theme toggle and the profile marks. */
+.social-chip svg {
   width: 15px;
   height: 15px;
 }

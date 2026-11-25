@@ -1,5 +1,8 @@
 // Content for the home page: the recruiter-facing landing. Voice: first
 // person, warm, a little playful. Facts only, nothing aspirational.
+//
+// The top of the page is a README in four parts: who I am (hero), what I'm
+// after right now (status), what I work with (skills), and how to reach me.
 
 export const hero = {
   /** Mono keyword line under the name. Recruiters pattern-match on it. */
@@ -10,9 +13,15 @@ export const hero = {
   ],
 }
 
-/** The `$ git status` block: where I am and what I’m open to. */
-export const status = {
-  summary: 'Finished my MSc in October 2026. Looking for a full-time role.',
+/** The README's "Right now" card: where I am and what I'm open to. */
+export const status: {
+  heading: string
+  summary: string
+  /** `live` puts the pulsing "available" dot in front of the value. */
+  rows: { key: string; value: string; live?: boolean }[]
+} = {
+  heading: 'Right now',
+  summary: 'Looking for a full-time role.',
   rows: [
     {
       key: 'open to',
@@ -23,24 +32,16 @@ export const status = {
       key: 'where',
       value: 'Toronto, downtown, in person or hybrid · open to relocating',
     },
-    { key: 'when', value: 'available now · Canadian citizen' },
+    { key: 'when', value: 'available now · Canadian citizen', live: true },
   ],
 }
 
-/** Project ids (src/data/projects.ts) under “Selected work”, in order. */
-export const selectedProjectIds = ['uate-app', 'url-shortener', 'gpu-olap-distinct']
-
-/** Timeline ids (src/data/timeline.ts) in the `git log --oneline` strip. */
-export const logIds = [
-  'gsu',
-  'gpu-txn-db',
-  'msc',
-  'uate',
-  'cyber-course',
-  'ta',
-  'poker-club',
-  'veritablesoft',
-]
+/** The README's skills section. `more` links to the timeline, whose
+    entries list the skills each job or project added. */
+export const stack = {
+  heading: 'What I work with',
+  more: 'Where I picked these up, on the timeline\u00a0→',
+}
 
 export const skills: { group: string; items: string[] }[] = [
   {
@@ -90,6 +91,9 @@ export const skills: { group: string; items: string[] }[] = [
     ],
   },
 ]
+
+/** Project ids (src/data/projects.ts) under “Selected work”, in order. */
+export const selectedProjectIds = ['uate-app', 'url-shortener', 'gpu-olap-distinct']
 
 export const contact = {
   heading: 'Say hello',

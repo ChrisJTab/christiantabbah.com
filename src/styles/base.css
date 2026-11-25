@@ -129,6 +129,14 @@ a:hover {
   color: var(--text-muted);
 }
 
+/* Inline icons (SocialIcons.tsx) default to the size of the text around
+   them; chips and lists set their own. */
+.icon {
+  flex: none;
+  width: 1em;
+  height: 1em;
+}
+
 /* Eyebrow styled like the active file tab in an editor. */
 .file-tab {
   display: inline-flex;

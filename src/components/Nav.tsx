@@ -1,4 +1,6 @@
+import type { ReactNode } from 'react'
 import { profile } from '../data/profile'
+import { GitHubIcon, InstagramIcon, LinkedInIcon } from './SocialIcons'
 import { ThemeToggle } from './ThemeToggle'
 
 export type PageId = 'home' | 'research' | 'projects' | 'releases' | 'timeline' | 'about'
@@ -13,11 +15,11 @@ const LINKS: { id: PageId; href: string; label: string; short?: string }[] = [
   { id: 'about', href: '/about/', label: 'About' },
 ]
 
-/** Icon links rendered as mono chips: on-theme and unambiguous. */
-const SOCIALS: { label: string; glyph: string; url: string | null }[] = [
-  { label: 'GitHub', glyph: 'gh', url: profile.github },
-  { label: 'LinkedIn', glyph: 'in', url: profile.linkedin },
-  { label: 'Instagram', glyph: 'ig', url: profile.instagram },
+/** Profile links as icon chips, each with the site's own mark. */
+const SOCIALS: { label: string; icon: ReactNode; url: string | null }[] = [
+  { label: 'GitHub', icon: <GitHubIcon />, url: profile.github },
+  { label: 'LinkedIn', icon: <LinkedInIcon />, url: profile.linkedin },
+  { label: 'Instagram', icon: <InstagramIcon />, url: profile.instagram },
 ]
 
 export function Nav({ page }: { page: PageId }) {
@@ -51,14 +53,14 @@ export function Nav({ page }: { page: PageId }) {
           {SOCIALS.filter((s) => s.url !== null).map((s) => (
             <a
               key={s.label}
-              className="social-chip mono"
+              className="social-chip"
               href={s.url!}
               aria-label={s.label}
               title={s.label}
               target="_blank"
               rel="noreferrer"
             >
-              {s.glyph}
+              {s.icon}
             </a>
           ))}
           <ThemeToggle />

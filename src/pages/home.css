@@ -1,26 +1,41 @@
 /* ==========================================================================
-   Home: the recruiter-facing landing. Hero with `$ git status`, the
-   featured research block, selected work, a `git log --oneline` strip,
-   skills, and the contact “remotes”. One page-load reveal: the hero rises
-   and the mini graph draws; everything below is static.
+   Home: the recruiter-facing landing. A README up top (the intro, a "Right
+   now" card, and the skills), then the featured research block, selected
+   work, and the contact remotes. One page-load reveal: the README rises in
+   a stagger; everything below it is static.
    ========================================================================== */
 
-/* --- hero ------------------------------------------------------------- */
+/* --- the README ------------------------------------------------------------ */
 
-.hero {
+/* One file tab over three areas: the intro and the "Right now" card side by
+   side, the skills full width underneath. */
+.readme {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 250px;
-  gap: var(--sp-7);
-  align-items: center;
-  padding-block: var(--sp-8) var(--sp-7);
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  grid-template-areas:
+    'tab tab'
+    'intro now'
+    'stack stack';
+  column-gap: var(--sp-7);
+  padding-block: var(--sp-8) 0;
 }
 
-.hero h1 {
+.readme-tab {
+  grid-area: tab;
+  justify-self: start;
+}
+
+.readme-intro {
+  grid-area: intro;
+}
+
+/* Scales with the viewport so the name holds one line beside the card. */
+.readme h1 {
   margin-top: var(--sp-4);
-  font-size: clamp(2.6rem, 6vw, 4rem);
+  font-size: clamp(2.6rem, 4.9vw, 4rem);
 }
 
-.hero .accent {
+.readme .accent {
   color: var(--primary);
 }
 
@@ -34,7 +49,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--sp-3) var(--sp-5);
+  gap: var(--sp-3);
   list-style: none;
   padding: 0;
   margin-top: var(--sp-5);
@@ -45,109 +60,154 @@
   font-weight: 500;
 }
 
-.hero-art {
-  justify-self: center;
+/* The profile chips from the nav, sized up to sit beside the CV button. */
+.social-chip-lg {
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
-/* --- `$ git status`: where I am and what I’m open to ------------------- */
+.social-chip-lg svg {
+  width: 18px;
+  height: 18px;
+}
 
-.status {
-  margin-top: var(--sp-6);
-  max-width: 44rem;
+/* README section headings keep the markdown `##` as a quiet wink. */
+.readme-h {
+  font-size: 1.3rem;
+}
+
+.readme-h::before {
+  content: '## ' / '';
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--text-dim);
+}
+
+/* --- "Right now": where I am and what I'm open to ------------------------ */
+
+.now {
+  grid-area: now;
+  align-self: start;
+  margin-top: var(--sp-4);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-l);
   box-shadow: var(--shadow-panel);
-  padding: var(--sp-4) var(--sp-5);
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);
-  line-height: 1.6;
+  padding: var(--sp-5);
 }
 
-.status-cmd {
-  color: var(--text-dim);
-}
-
-.status-summary {
-  max-width: none;
+.now-summary {
+  margin-top: var(--sp-3);
   color: var(--text);
 }
 
-.status-rows {
+.now-rows {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
-  gap: 4px var(--sp-4);
-  margin-top: var(--sp-3);
+  gap: var(--sp-2) var(--sp-4);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  line-height: 1.55;
 }
 
-.status-rows dt {
+.now-rows dt {
   color: var(--accent);
 }
 
-.status-rows dd {
+.now-rows dd {
   margin: 0;
   color: var(--text);
+  text-wrap: pretty;
 }
 
-/* --- mini graph (hero ornament) ------------------------------------------ */
-
-.mini-graph .mg-main {
-  fill: none;
-  stroke: var(--primary);
-  stroke-width: 3;
-  stroke-linecap: round;
-  animation: draw-path 700ms var(--ease-out) var(--d) backwards;
+/* Available now: a steady dot with a slow halo, the one thing on the page
+   that keeps moving after the reveal. Reduced motion stills it. */
+.live-dot {
+  position: relative;
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.6em;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: 0.06em;
 }
 
-.mini-graph .mg-branch {
-  fill: none;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  animation: draw-path 620ms var(--ease-out) var(--d) backwards;
-}
-
-.mini-graph .mg-edu {
-  stroke: var(--c-education);
-}
-
-.mini-graph .mg-research {
-  stroke: var(--c-research);
-}
-
-.mini-graph .mg-dot {
-  fill: var(--primary);
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: node-pop 260ms var(--ease-spring) var(--d) backwards;
-}
-
-.mini-graph .mg-node {
-  fill: var(--bg);
-  stroke-width: 2.5;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: node-pop 300ms var(--ease-spring) var(--d) backwards;
-}
-
-.mini-graph .mg-main-node {
-  stroke: var(--primary);
-}
-
-.mini-graph .mg-edu-node {
-  stroke: var(--c-education);
-}
-
-.mini-graph .mg-research-node {
-  stroke: var(--c-research);
-}
-
-.mini-graph .mg-pulse {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  transform-box: fill-box;
-  transform-origin: center;
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent);
   animation: head-pulse 2.8s var(--ease-out) 1400ms infinite;
+}
+
+/* --- What I work with ------------------------------------------------------ */
+
+.stack {
+  grid-area: stack;
+  margin-top: var(--sp-7);
+}
+
+.stack-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-5);
+}
+
+.stack-more {
+  font-size: var(--text-mono);
+}
+
+/* Every row shares one label column, as wide as the longest label. */
+.stack-rows {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  margin-top: var(--sp-4);
+  border-top: 1px solid var(--border-strong);
+}
+
+.stack-rows > div {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  gap: var(--sp-1) var(--sp-6);
+  align-items: baseline;
+  padding-block: var(--sp-3);
+  border-bottom: 1px dashed var(--border);
+}
+
+.stack-rows dt {
+  color: var(--primary);
+  font-size: var(--text-mono);
+}
+
+.stack-rows dd {
+  margin: 0;
+  font-size: var(--text-small);
+  text-wrap: pretty;
+}
+
+.stack-items,
+.stack-items li {
+  display: inline;
+}
+
+.stack-items {
+  list-style: none;
+  padding: 0;
+}
+
+/* A dim middot after every item but the last. The no-break space keeps it
+   on its item's line; the plain space between items is where lines break. */
+.stack-items li:not(:last-child)::after {
+  content: '\00a0\00b7' / '';
+  color: var(--text-dim);
 }
 
 /* --- sections ------------------------------------------------------------- */
@@ -335,96 +395,7 @@
   background: var(--topic-color, var(--primary));
 }
 
-/* --- `git log --oneline` ------------------------------------------------ */
-
-.gl {
-  list-style: none;
-  padding: 0;
-  margin-top: var(--sp-5);
-  max-width: 54rem;
-  font-size: var(--text-mono);
-}
-
-.gl a {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto auto;
-  gap: var(--sp-4);
-  align-items: baseline;
-  padding: 7px 10px;
-  border-radius: var(--radius-s);
-  color: var(--text);
-  text-decoration: none;
-  transition: background var(--dur-quick) var(--ease-out);
-}
-
-.gl a:hover {
-  color: var(--text);
-  background: color-mix(in srgb, var(--primary) 8%, transparent);
-}
-
-.gl-hash {
-  color: var(--text-muted);
-}
-
-.gl a:hover .gl-hash {
-  color: var(--primary);
-}
-
-.gl-short {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.gl-range {
-  color: var(--text-muted);
-  font-size: var(--text-mono-small);
-  white-space: nowrap;
-}
-
-.gl-cat {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  color: var(--branch-color);
-  font-size: var(--text-mono-small);
-  white-space: nowrap;
-}
-
-.gl-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--branch-color);
-}
-
-/* --- skills ------------------------------------------------------------- */
-
-.skills {
-  margin-top: var(--sp-5);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-5) var(--sp-7);
-  max-width: 60rem;
-}
-
-.skills div {
-  padding-top: var(--sp-3);
-  border-top: 1px dashed var(--border);
-}
-
-.skills dt {
-  color: var(--primary);
-  font-size: var(--text-mono);
-}
-
-.skills dd {
-  margin: var(--sp-2) 0 0;
-  font-size: var(--text-small);
-  max-width: 48ch;
-}
-
-/* --- contact (`git remote -v`) ------------------------------------------ */
+/* --- contact: the remotes, each behind its own icon ----------------------- */
 
 .contact-note {
   margin-top: var(--sp-3);
@@ -437,19 +408,21 @@
   margin-top: var(--sp-5);
   max-width: 44rem;
   display: grid;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
   font-size: var(--text-mono);
 }
 
 .remotes li {
   display: grid;
-  grid-template-columns: 6rem minmax(0, 1fr);
-  gap: var(--sp-4);
-  align-items: baseline;
+  grid-template-columns: 1.1rem minmax(0, 1fr);
+  gap: var(--sp-3);
+  align-items: center;
 }
 
-.remote-name {
-  color: var(--text-muted);
+.remotes .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--primary);
 }
 
 .remotes a {
@@ -458,23 +431,31 @@
 
 /* --- responsive ------------------------------------------------------------ */
 
+/* Wide screens: the card gets room for each status line on one row. */
+@media (min-width: 1280px) {
+  .readme {
+    grid-template-columns: minmax(0, 1fr) 26rem;
+  }
+}
+
 @media (max-width: 899px) {
-  .hero {
-    grid-template-columns: 1fr;
-    padding-block: var(--sp-7) var(--sp-6);
+  .readme {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'tab'
+      'intro'
+      'now'
+      'stack';
+    padding-block: var(--sp-7) 0;
   }
 
-  .hero-art {
-    display: none;
+  .now {
+    margin-top: var(--sp-6);
+    padding: var(--sp-4);
   }
 
-  .status-rows {
-    grid-template-columns: 1fr;
-    gap: 2px;
-  }
-
-  .status-rows dd {
-    margin-bottom: var(--sp-2);
+  .stack-rows {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .feat {
@@ -493,23 +474,5 @@
 
   .sel-cover {
     max-width: 420px;
-  }
-
-  .gl a {
-    grid-template-columns: auto minmax(0, 1fr);
-    row-gap: 2px;
-  }
-
-  .gl-range,
-  .gl-cat {
-    grid-column: 2;
-  }
-
-  .skills {
-    grid-template-columns: 1fr;
-  }
-
-  .remotes li {
-    grid-template-columns: 5rem minmax(0, 1fr);
   }
 }

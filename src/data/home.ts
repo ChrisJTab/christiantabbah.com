@@ -1,8 +1,9 @@
 // Content for the home page: the recruiter-facing landing. Voice: first
 // person, warm, a little playful. Facts only, nothing aspirational.
 //
-// The top of the page is a README in four parts: who I am (hero), what I'm
-// after right now (status), what I work with (skills), and how to reach me.
+// The top of the page is a README: who I am and how to reach me (hero) on
+// the left, what I work with (skills) beside it. It stays short enough that
+// the research block starts on a laptop's first screen.
 
 export const hero = {
   /** Mono keyword line under the name. Recruiters pattern-match on it. */
@@ -13,31 +14,10 @@ export const hero = {
   ],
 }
 
-/** The README's "Right now" card: where I am and what I'm open to. */
-export const status: {
-  heading: string
-  summary: string
-  /** `live` puts the pulsing "available" dot in front of the value. */
-  rows: { key: string; value: string; live?: boolean }[]
-} = {
-  heading: 'Right now',
-  summary: 'Looking for a full-time role.',
-  rows: [
-    {
-      key: 'open to',
-      value:
-        'systems, database, and GPU infrastructure engineering, plus solutions engineering',
-    },
-    {
-      key: 'where',
-      value: 'Toronto, downtown, in person or hybrid · open to relocating',
-    },
-    { key: 'when', value: 'available now · Canadian citizen', live: true },
-  ],
-}
-
-/** The README's skills section. `more` links to the timeline, whose
-    entries list the skills each job or project added. */
+/** The README's skills column. `more` links to the timeline, whose
+    entries list the skills each job or project added. Keep each group to
+    two or three lines in the column; the timeline and the project pages
+    carry the details. */
 export const stack = {
   heading: 'What I work with',
   more: 'Where I picked these up, on the timeline\u00a0→',
@@ -50,7 +30,7 @@ export const skills: { group: string; items: string[] }[] = [
       'CUDA',
       'C++',
       'C',
-      'profiling with Nsight Systems',
+      'Nsight profiling',
       'PCIe and DMA',
       'RDMA with UCX',
       'operating systems',
@@ -66,7 +46,7 @@ export const skills: { group: string; items: string[] }[] = [
       'Redis',
       'consistent hashing',
       'Docker Swarm',
-      'AWS Lambda, DynamoDB, ElastiCache, CloudFormation',
+      'AWS',
     ],
   },
   {
@@ -83,10 +63,9 @@ export const skills: { group: string; items: string[] }[] = [
   {
     group: 'people',
     items: [
-      'eleven terms as a teaching assistant, including lecturing',
-      'designed and taught a cybersecurity course for kids at THINK in Yerevan, CTFs included',
+      'eleven terms as a TA, including lecturing',
+      'designed and taught a kids’ cybersecurity course at THINK in Yerevan',
       'founded and ran a 200-member club',
-      'grad-student event logistics',
       'French and English',
     ],
   },

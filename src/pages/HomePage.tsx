@@ -15,7 +15,6 @@ import {
   selectedProjectIds,
   skills,
   stack,
-  status,
 } from '../data/home'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
@@ -30,6 +29,10 @@ const selected = selectedProjectIds.flatMap((id) => {
   return p ? [p] : []
 })
 
+/** Skill items of up to three words ("PCIe and DMA") stay on one line;
+    longer phrases wrap like prose. */
+const isKeyword = (item: string) => item.split(' ').length <= 3
+
 /** Display form of a URL: no scheme, no www, no trailing slash. */
 const bare = (url: string) =>
   url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
@@ -37,8 +40,8 @@ const bare = (url: string) =>
 export function HomePage() {
   return (
     <Shell page="home">
-      {/* The README: who I am, what I'm after right now, what I work with,
-          and how to reach me. The file tab heads all of it. */}
+      {/* The README: who I am and how to reach me, with what I work with
+          in a column beside it. */}
       <section className="container readme" aria-label="Introduction">
         <span className="file-tab readme-tab rise" style={d(0)}>
           README.md
@@ -101,33 +104,10 @@ export function HomePage() {
           </ul>
         </div>
 
-        <section className="now rise" style={d(250)} aria-labelledby="now-h">
-          <h2 id="now-h" className="readme-h">
-            {status.heading}
+        <section className="stack rise" style={d(250)} aria-labelledby="stack-h">
+          <h2 id="stack-h" className="readme-h">
+            {stack.heading}
           </h2>
-          <p className="now-summary">{status.summary}</p>
-          <dl className="now-rows">
-            {status.rows.map((r) => (
-              <Fragment key={r.key}>
-                <dt>{r.key}</dt>
-                <dd>
-                  {r.live && <span className="live-dot" aria-hidden="true" />}
-                  {r.value}
-                </dd>
-              </Fragment>
-            ))}
-          </dl>
-        </section>
-
-        <section className="stack rise" style={d(480)} aria-labelledby="stack-h">
-          <div className="stack-head">
-            <h2 id="stack-h" className="readme-h">
-              {stack.heading}
-            </h2>
-            <a className="stack-more mono" href="/timeline/">
-              {stack.more}
-            </a>
-          </div>
           <dl className="stack-rows">
             {skills.map((g) => (
               <div key={g.group}>
@@ -136,7 +116,9 @@ export function HomePage() {
                   <ul className="stack-items">
                     {g.items.map((item) => (
                       <Fragment key={item}>
-                        <li>{item}</li>{' '}
+                        <li className={isKeyword(item) ? 'keep' : undefined}>
+                          {item}
+                        </li>{' '}
                       </Fragment>
                     ))}
                   </ul>
@@ -144,6 +126,9 @@ export function HomePage() {
               </div>
             ))}
           </dl>
+          <a className="stack-more mono" href="/timeline/">
+            {stack.more}
+          </a>
         </section>
       </section>
 

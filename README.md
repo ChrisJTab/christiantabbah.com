@@ -8,7 +8,7 @@ GitHub Pages at [christiantabbah.com](https://christiantabbah.com).
 
 | URL | What it is |
 | --- | --- |
-| `/` | Home: the recruiter-facing landing. A README up top (intro and links, a "Right now" card, what I work with), then the featured research block, selected work, and contact. |
+| `/` | Home: the recruiter-facing landing. A README up top (intro and links, with what I work with beside it), then the featured research block, selected work, and contact. The README is kept short enough that the research starts on a laptop's first screen. |
 | `/research/` | The MSc research paper (EGAD) as a README: problem, what was built, results, hard parts, limits, status. Serves `public/EGAD-paper.pdf`. |
 | `/projects/` | Project cards that open into README panels. |
 | `/timeline/` | The git-graph timeline. |
@@ -29,7 +29,7 @@ npm run lint      # oxlint
 
 | What | Where |
 | --- | --- |
-| Home README (intro, "Right now" card, skills), selected work, contact | `src/data/home.ts` |
+| Home README (intro and skills), selected work, contact | `src/data/home.ts` |
 | Research page and the home page's research block | `src/data/research.ts` |
 | Release notes: the index intro, every release, its photos and CTFs | `src/data/releases.ts` |
 | Timeline entries (jobs, degrees, research, clubs) | `src/data/timeline.ts` |

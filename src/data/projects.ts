@@ -75,7 +75,7 @@ export const projects: Project[] = [
     id: 'uate-app',
     name: 'uate-app',
     blurb:
-      'The official app of UATE and DigiTec, Armenia’s largest tech event: schedules, interest-matched people, chat, and RSVPs for 2,400+ attendees. Running in production; I built every screen, the backend, and the docs.',
+      'The official app for DigiTec, Armenia’s largest tech event, in English and Armenian for 2,400+ attendees: schedule, RSVPs, chat, and interest matching. I built it alone in React Native, in one summer.',
     bullets: [
       'Fully bilingual (English/Հայերեն) down to the fonts, with sessions always shown in event-local time no matter where the phone is.',
       'A 46-topic interest graph powers two matching engines: suggested people show the shared tags as “why matched” chips, and the schedule grows a personal “For you” rail.',
@@ -143,11 +143,11 @@ export const projects: Project[] = [
     id: 'r-place',
     name: 'r/place',
     blurb:
-      'Reddit’s r/place rebuilt on AWS: one shared pixel canvas surviving a crowd of concurrent painters.',
+      'Reddit’s r/place on serverless AWS: a shared 1000×1000 canvas where anyone can place a pixel every five minutes and everyone sees it live. The whole board is a 500 KB Redis bitfield that loads in under a second.',
     bullets: [
-      'The canvas is a Redis bitfield in ElastiCache: placing a pixel is a SETBIT, reading the board is one GETRANGE.',
-      'A Lambda WebSocket gateway fans every pixel update out to all open browsers; an HTTP gateway serves board snapshots.',
-      'The whole stack (EC2, DynamoDB, API Gateway, CloudFront, S3, VPC, CloudWatch) stands up from a single CloudFormation template.',
+      'The canvas is a 500 KB Redis bitfield in ElastiCache, 4 bits a pixel for 16 colors: placing a pixel is one BITFIELD write, and loading the board is a single GET.',
+      'Painters connect over an API Gateway WebSocket; Lambda functions check the five-minute cooldown in DynamoDB and broadcast each new pixel to every open browser. Full boards come from a separate HTTP endpoint, because pushing 500 KB through the socket was too slow.',
+      'It runs across two availability zones, and the whole stack, VPC and IAM roles included, is captured in one CloudFormation template.',
     ],
     topic: 'distributed systems',
     tech: ['AWS Lambda', 'ElastiCache Redis', 'DynamoDB', 'CloudFormation'],
@@ -164,11 +164,11 @@ export const projects: Project[] = [
     id: 'url-shortener',
     name: 'url-shortener (v1 → v2)',
     blurb:
-      'The same problem solved twice: first from scratch in Java and SQL, then again on grown-up infrastructure. The diff between the two taught me more than either version.',
+      'A bit.ly-style URL shortener built from scratch in Java across four machines, with our own load balancer, sharding, replication, and failover. It served 1,100+ reads a second; version two rebuilt it on Cassandra, Redis, and Docker Swarm.',
     bullets: [
-      'v1.0, no frameworks: consistent hashing spreads keys across database shards, so the system scales out without reshuffling what it already stored.',
-      'v2.0, same spec, more infrastructure: a Docker Swarm deployment backed by Cassandra for storage and Redis for caching, glued together with Python.',
-      'Both versions shipped with load-testing suites and reports on availability, consistency, and fault tolerance.',
+      'Version one, plain Java on lab machines: our own reverse proxy routes each short code by consistent hashing to a SQLite shard, every shard keeps a replica on another machine, and a once-a-second heartbeat moves traffic off a machine that stops answering.',
+      'Measured with JMeter on four machines: over 1,100 reads and about 200 writes a second, and going from two machines to four doubled write throughput.',
+      'Version two rebuilt it on Docker Swarm: Flask on every worker node, Cassandra storing three copies of every link, and Redis caching reads. Killed services restart on their own, and the data survives losing a node.',
     ],
     topic: 'distributed systems',
     tech: ['Java', 'SQL', 'Docker Swarm', 'Cassandra', 'Redis', 'Python'],
@@ -184,10 +184,11 @@ export const projects: Project[] = [
     id: 'gpu-olap-distinct',
     name: 'gpu-olap-distinct',
     blurb:
-      'A distributed GPU OLAP prototype for DISTINCT queries: data moves between GPUs over RDMA with UCX, and a CUB radix sort handles deduplication on the destination GPU.',
+      'A research prototype: GPUs on three machines linked by RDMA split a DISTINCT query, and the CPUs in between drop duplicates in flight. It cut network traffic, but the CPU step became the new bottleneck.',
     bullets: [
-      'GPU-to-GPU transfers run over RDMA with UCX; the destination card deduplicates with a CUB radix sort.',
-      'Evaluated when an intermediate host node doing partial on-path processing pays off versus sending everything straight through.',
+      'Three machines with two GPUs each, linked by RDMA through UCX: the first two run the query on their GPUs, merge the results on the CPU, and write them straight into a registered buffer on the third.',
+      'The destination GPU finishes with a CUB radix sort and a unique pass, so the result is exact no matter how much the hosts removed on the way.',
+      'Deduplicating on the CPU cut network traffic but slowed the whole pipeline: one lock-protected staging buffer serialized the work. The paper measures it and proposes per-thread buffers as the fix.',
     ],
     topic: 'gpu systems',
     tech: ['CUDA', 'RDMA', 'UCX'],

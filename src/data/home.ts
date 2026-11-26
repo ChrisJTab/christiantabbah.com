@@ -72,7 +72,12 @@ export const skills: { group: string; items: string[] }[] = [
 ]
 
 /** Project ids (src/data/projects.ts) under “Selected work”, in order. */
-export const selectedProjectIds = ['uate-app', 'url-shortener', 'gpu-olap-distinct']
+export const selectedProjectIds = [
+  'uate-app',
+  'url-shortener',
+  'r-place',
+  'gpu-olap-distinct',
+]
 
 export const contact = {
   heading: 'Say hello',

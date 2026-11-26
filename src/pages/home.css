@@ -243,7 +243,7 @@
   font-size: var(--text-mono-small);
 }
 
-/* --- selected work: three rows, cover at left --------------------------- */
+/* --- selected work: four projects, each cover beside its words --------- */
 
 /* "All projects" rides on the heading's line. */
 .sel-head {
@@ -263,6 +263,7 @@
   font-size: var(--text-mono);
 }
 
+/* One column of rows, cover at left; from 1100px wide, a 2x2 grid. */
 .sel-list {
   list-style: none;
   padding: 0;
@@ -321,37 +322,46 @@
   text-decoration-color: var(--primary);
 }
 
+.sel-topic {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: var(--sp-1);
+  font-size: var(--text-mono-small);
+  color: var(--text-muted);
+}
+
+.sel-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--topic-color, var(--primary));
+}
+
 .sel-blurb {
   margin-top: var(--sp-2);
   color: var(--text-muted);
   font-size: var(--text-small);
   max-width: 60ch;
+  text-wrap: pretty;
 }
 
-.sel-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-2) var(--sp-2);
-  margin-top: var(--sp-3);
-  max-width: none;
-}
+/* Wide screens: the four projects as a 2x2 grid, so all of them share one
+   window. */
+@media (min-width: 1100px) {
+  .sel-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-6) var(--sp-7);
+  }
 
-.sel-topic {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  margin-right: var(--sp-2);
-  font-size: var(--text-mono-small);
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-
-.sel-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--topic-color, var(--primary));
+  .sel-row {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: var(--sp-4);
+    align-items: start;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
 }
 
 /* --- contact: the remotes, each behind its own icon ----------------------- */
@@ -490,21 +500,6 @@
      then rests. */
   .next.rise svg {
     animation: next-bob 1.6s ease-in-out 1.2s 2;
-  }
-
-  /* Smaller covers, wider blurbs, and tighter rows, so all three
-     projects fit one laptop window. */
-  .sel-list {
-    gap: var(--sp-3);
-  }
-
-  .sel-row {
-    grid-template-columns: 14rem minmax(0, 1fr);
-    padding-bottom: var(--sp-3);
-  }
-
-  .sel-blurb {
-    max-width: 90ch;
   }
 }
 

@@ -240,18 +240,11 @@ export function HomePage() {
                   <h3 className="sel-name mono">
                     <a href={`/projects/#${p.id}`}>{p.name}</a>
                   </h3>
-                  <p className="sel-blurb">{p.blurb}</p>
-                  <p className="sel-meta">
-                    <span className="sel-topic mono">
-                      <span className="sel-dot" aria-hidden="true" />
-                      {p.topic}
-                    </span>
-                    {p.tech.map((t) => (
-                      <span key={t} className="pill">
-                        {t}
-                      </span>
-                    ))}
+                  <p className="sel-topic mono">
+                    <span className="sel-dot" aria-hidden="true" />
+                    {p.topic}
                   </p>
+                  <p className="sel-blurb">{p.blurb}</p>
                 </div>
               </li>
             ))}

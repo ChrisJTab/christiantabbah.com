@@ -8,7 +8,7 @@ GitHub Pages at [christiantabbah.com](https://christiantabbah.com).
 
 | URL | What it is |
 | --- | --- |
-| `/` | Home: the recruiter-facing landing. A README up top (intro and links, with what I work with beside it), then the featured research block, selected work, and contact. The README is kept short enough that the research starts on a laptop's first screen. |
+| `/` | Home: the recruiter-facing landing, in four screens: a README (intro and links, with what I work with beside it), the featured research block, selected work, and contact. On laptop and desktop windows each screen fills the window, scrolling snaps one screen at a time, and an arrow at the foot of each names the next section. Phones scroll normally. |
 | `/research/` | The MSc research paper (EGAD) as a README: problem, what was built, results, hard parts, limits, status. Serves `public/EGAD-paper.pdf`. |
 | `/projects/` | Project cards that open into README panels. |
 | `/timeline/` | The git-graph timeline. |

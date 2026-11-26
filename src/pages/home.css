@@ -1,10 +1,10 @@
 /* ==========================================================================
-   Home: the recruiter-facing landing. A README up top (the intro, with the
-   skills beside it), then the featured research block, selected work, and
-   the contact remotes. The README stays short enough that the research
-   block starts on a laptop's first screen: that peek is the page's scroll
-   cue. One page-load reveal: the README rises in a stagger; everything
-   below it is static.
+   Home: the recruiter-facing landing, in four screens: the README (the
+   intro with the skills beside it), the featured research block, selected
+   work, and contact. On laptop and desktop windows each screen fills the
+   window and scrolling snaps between them (the deck, near the end). One
+   page-load reveal: the README rises in a stagger; everything below it is
+   static apart from the next-section arrows.
    ========================================================================== */
 
 /* --- the README ------------------------------------------------------------ */
@@ -148,35 +148,31 @@
   font-size: var(--text-mono);
 }
 
-/* --- sections ------------------------------------------------------------- */
+/* --- screens ---------------------------------------------------------------- */
 
-.home-sec {
+/* In normal flow (phones, narrow or short windows) the screens stack with a
+   generous gap. The deck below turns each into a full window. */
+.screen + .screen {
   margin-top: var(--sp-8);
-}
-
-/* A shorter step from the README into the research, so the research block
-   starts on a laptop's first screen. Its file tab marks the boundary. */
-.readme + .home-sec {
-  margin-top: var(--sp-7);
 }
 
 .home-sec h2 {
   margin-top: var(--sp-4);
 }
 
-.home-more {
-  margin-top: var(--sp-4);
-  font-size: var(--text-mono);
+/* The arrow at the foot of each screen names the next section. Only the
+   deck shows it; in normal flow the next section is already in view. */
+.next {
+  display: none;
 }
 
 /* --- featured research ------------------------------------------------ */
 
-/* Top-aligned, so the figure is the first thing to show at the fold. */
 .feat {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: var(--sp-7);
-  align-items: start;
+  align-items: center;
 }
 
 .feat-pitch {
@@ -248,6 +244,24 @@
 }
 
 /* --- selected work: three rows, cover at left --------------------------- */
+
+/* "All projects" rides on the heading's line. */
+.sel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-5);
+  margin-top: var(--sp-4);
+}
+
+.sel-head h2 {
+  margin-top: 0;
+}
+
+.sel-head a {
+  font-size: var(--text-mono);
+}
 
 .sel-list {
   list-style: none;
@@ -372,6 +386,138 @@
 
 .remotes a {
   overflow-wrap: anywhere;
+}
+
+/* --- the deck: one section per window -------------------------------------- */
+
+/* On laptop and desktop windows (wide enough for a one-row nav, tall
+   enough to hold a section) each screen fills the window under the sticky
+   nav and scrolling snaps between screens: one gesture, one section,
+   locked in place. The snap runs on the browser's own quick ease. home.css
+   only loads on the home page, so the html rule can live here. */
+@media (min-width: 1100px) and (min-height: 700px) {
+  /* The sticky nav's full height (its min-height plus the 1px border),
+     and the page color captured here, before the light theme's nav
+     re-declares --bg as its moss. */
+  :root {
+    --nav-full: calc(var(--nav-height) + 1px);
+    --page-bg: var(--bg);
+  }
+
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: var(--nav-full);
+  }
+
+  .screen {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100svh - var(--nav-full));
+    padding-block: var(--sp-4) var(--sp-2);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .screen + .screen {
+    margin-top: 0;
+  }
+
+  /* Each screen's content sits centered in the room above its arrow. */
+  .screen > .container {
+    width: 100%;
+    margin-block: auto;
+  }
+
+  .readme {
+    padding-block: 0;
+  }
+
+  /* Opaque nav: when a screen locks in place, the foot of the one before
+     sits right behind the nav, and its arrow would show through the
+     usual frosted glass. The same 82% mix as everywhere else, made solid
+     by mixing with the page color instead of the page itself. */
+  .site-nav {
+    background: color-mix(in srgb, var(--bg) 82%, var(--page-bg));
+  }
+
+  /* Contact shares the last window with the footer (85px tall at these
+     widths), so the two land together. The footer's end is a snap point
+     too, in case its height ever drifts. */
+  .screen-last {
+    min-height: calc(100svh - var(--nav-full) - 85px);
+  }
+
+  .site-footer {
+    margin-top: 0;
+    scroll-snap-align: end;
+  }
+
+  .next {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    align-self: center;
+    margin-top: var(--sp-2);
+    padding: var(--sp-1) var(--sp-4);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .next:hover {
+    color: var(--primary);
+  }
+
+  .next svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform var(--dur-quick) var(--ease-out);
+  }
+
+  .next:hover svg,
+  .next:focus-visible svg {
+    transform: translateY(3px);
+  }
+
+  /* The README's arrow closes the page-load reveal with two slow nudges,
+     then rests. */
+  .next.rise svg {
+    animation: next-bob 1.6s ease-in-out 1.2s 2;
+  }
+
+  /* Smaller covers, wider blurbs, and tighter rows, so all three
+     projects fit one laptop window. */
+  .sel-list {
+    gap: var(--sp-3);
+  }
+
+  .sel-row {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    padding-bottom: var(--sp-3);
+  }
+
+  .sel-blurb {
+    max-width: 90ch;
+  }
+}
+
+/* A nudge: down and back. Reduced motion stills it (base.css). */
+@keyframes next-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
 }
 
 /* --- responsive ------------------------------------------------------------ */

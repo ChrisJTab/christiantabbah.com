@@ -56,10 +56,12 @@ function Next({
       style={style}
       href={'#' + to}
     >
-      {label}
-      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-        <path d="M8 2.5v10.5M3.75 8.75 8 13l4.25-4.25" />
-      </svg>
+      <span className="next-label">{label}</span>
+      <span className="next-icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" focusable="false">
+          <path d="M8 3v9.5M4.25 8.75 8 12.5l3.75-3.75" />
+        </svg>
+      </span>
     </a>
   )
 }
@@ -70,6 +72,31 @@ export function HomePage() {
   useEffect(() => {
     const id = decodeURIComponent(location.hash.slice(1))
     if (id) document.getElementById(id)?.scrollIntoView({ behavior: 'instant' })
+  }, [])
+
+  // Each screen's arrow nudges twice when its screen locks into view; the
+  // class comes off when the nudge ends, so the next arrival replays it.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const next = e.target.querySelector<HTMLElement>('.next')
+          if (e.isIntersecting && next) next.classList.add('nudge')
+        }
+      },
+      { threshold: 0.75 },
+    )
+    const done = (ev: AnimationEvent) => {
+      const next = ev.currentTarget as HTMLElement
+      if (ev.animationName === 'next-bob') next.classList.remove('nudge')
+    }
+    const nexts = document.querySelectorAll<HTMLElement>('.next')
+    nexts.forEach((n) => n.addEventListener('animationend', done))
+    document.querySelectorAll('.screen').forEach((s) => io.observe(s))
+    return () => {
+      io.disconnect()
+      nexts.forEach((n) => n.removeEventListener('animationend', done))
+    }
   }, [])
 
   return (

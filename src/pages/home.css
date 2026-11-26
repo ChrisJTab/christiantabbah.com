@@ -423,7 +423,7 @@
     display: flex;
     flex-direction: column;
     min-height: calc(100svh - var(--nav-full));
-    padding-block: var(--sp-4) var(--sp-2);
+    padding-block: var(--sp-4);
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
@@ -462,44 +462,68 @@
     scroll-snap-align: end;
   }
 
+  /* The cue: a pill naming the next section, with the arrow in a filled
+     circle, so it reads as a control and not as a caption. */
   .next {
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
     align-items: center;
-    gap: 0.15rem;
+    gap: var(--sp-3);
     align-self: center;
-    margin-top: var(--sp-2);
-    padding: var(--sp-1) var(--sp-4);
+    margin-top: var(--sp-3);
+    padding: 0.3rem 0.3rem 0.3rem 1.15rem;
+    border: 1.5px solid color-mix(in srgb, var(--primary) 60%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--primary) 18%, transparent);
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
     color: var(--text);
     text-decoration: none;
+    transition: border-color var(--dur-quick) var(--ease-out),
+      background var(--dur-quick) var(--ease-out);
   }
 
   .next:hover {
-    color: var(--primary);
+    color: var(--text);
+    border-color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 18%, var(--surface));
   }
 
-  .next svg {
-    width: 1.4rem;
-    height: 1.4rem;
+  .next-icon {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--bg);
+  }
+
+  .next-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
     fill: none;
-    stroke: var(--primary);
-    stroke-width: 1.6;
+    stroke: currentColor;
+    stroke-width: 2.2;
     stroke-linecap: round;
     stroke-linejoin: round;
     transition: transform var(--dur-quick) var(--ease-out);
   }
 
-  .next:hover svg,
-  .next:focus-visible svg {
+  .next:hover .next-icon svg,
+  .next:focus-visible .next-icon svg {
     transform: translateY(3px);
   }
 
-  /* The README's arrow closes the page-load reveal with two slow nudges,
-     then rests. */
-  .next.rise svg {
-    animation: next-bob 1.6s ease-in-out 1.2s 2;
+  /* Two nudges when the screen locks into view (HomePage adds .nudge).
+     The README's waits for its own rise to finish. */
+  .next.nudge .next-icon svg {
+    animation: next-bob 0.8s ease-in-out 0.45s 2;
+  }
+
+  .next.rise.nudge .next-icon svg {
+    animation-delay: 1.15s;
   }
 }
 
@@ -511,7 +535,7 @@
   }
 
   50% {
-    transform: translateY(5px);
+    transform: translateY(4px);
   }
 }
 

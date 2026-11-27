@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Design notes (/projects/<slug>/): the research page's README panel
+   (research.css) in the project's topic color, plus what a design doc
+   needs: an architecture diagram, tradeoffs as a diff, a ranked list,
+   and a side-by-side table.
+   ========================================================================== */
+
+/* Doubled class: research.css's .paper sets the research color, and the
+   two files' order in the bundle isn't guaranteed. */
+.paper.design {
+  border-left-color: var(--topic-color);
+}
+
+.design .paper-branch {
+  color: var(--topic-color);
+}
+
+/* --- the diagram, on the covers' graph paper ------------------------------ */
+
+.design-figure {
+  margin: var(--sp-5) 0 0;
+  max-width: 32rem;
+}
+
+.design-diagram {
+  padding: var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background:
+    radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--border-strong) 42%, transparent) 1px,
+      transparent 1.6px
+    )
+    0 0 / 14px 14px,
+    color-mix(in srgb, var(--bg) 55%, var(--surface));
+}
+
+.design-diagram .sch {
+  width: 100%;
+  height: auto;
+}
+
+.design-figure figcaption {
+  margin-top: var(--sp-2);
+  color: var(--text-dim);
+  font-size: var(--text-mono-small);
+}
+
+/* --- tradeoffs as a diff: a hunk per decision ------------------------------ */
+
+.dec-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-4);
+  max-width: 66ch;
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.dec {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+
+.paper-body .dec p {
+  margin: 0;
+  max-width: none;
+}
+
+.dec-choice {
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 45%, var(--surface));
+  font-size: var(--text-mono);
+  color: var(--text);
+}
+
+.dec-hunk {
+  color: var(--text-dim);
+}
+
+.dec-line {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  padding: var(--sp-2) var(--sp-3) var(--sp-2) 0;
+  font-size: var(--text-small);
+  text-wrap: pretty;
+}
+
+.dec-sign {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.dec-gain {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.dec-gain .dec-sign {
+  color: var(--primary);
+}
+
+.dec-cost {
+  background: color-mix(in srgb, var(--c-work) 10%, transparent);
+}
+
+.dec-cost .dec-sign {
+  color: var(--c-work);
+}
+
+/* --- ranked: numbered, most important first --------------------------------- */
+
+.rank-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-3);
+  max-width: 66ch;
+  counter-reset: rank;
+}
+
+.rank-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-block: var(--sp-3);
+  counter-increment: rank;
+}
+
+.rank-list li::before {
+  content: counter(rank) '.';
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+.rank-list strong {
+  font-weight: 700;
+}
+
+/* --- side by side: version one against version two ---------------------- */
+
+.compare-table {
+  min-width: 34rem;
+}
+
+.paper-table.compare-table tbody th {
+  width: 22%;
+}
+
+.compare-table td {
+  color: var(--text-muted);
+}
+
+.compare-table td:last-child {
+  color: var(--text);
+}
+
+/* --- who did what ---------------------------------------------------------- */
+
+.paper-body .design-credit {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+/* --- phones ------------------------------------------------------------------ */
+
+/* A thinner frame gives the drawing the width back. */
+@media (max-width: 760px) {
+  .design-diagram {
+    padding: var(--sp-2);
+  }
+}

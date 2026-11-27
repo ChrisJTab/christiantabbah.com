@@ -82,7 +82,7 @@ function Readme({ p }: { p: Project }) {
             ))}
           </span>
           <span className="rd-links mono">
-            {p.writeup && <a href={p.writeup}>write-up →</a>}
+            {p.writeup && <a href={p.writeup}>{p.writeupLabel ?? 'write-up'} →</a>}
             {p.repo ? (
               <a href={p.repo} target="_blank" rel="noreferrer">
                 source ↗

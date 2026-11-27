@@ -270,6 +270,16 @@ export function HomePage() {
                   <p className="sel-topic mono">
                     <span className="sel-dot" aria-hidden="true" />
                     {p.topic}
+                    {p.writeup && (
+                      <>
+                        <span className="sel-sep" aria-hidden="true">
+                          ·
+                        </span>
+                        <a className="sel-more" href={p.writeup}>
+                          {p.writeupLabel ?? 'write-up'} →
+                        </a>
+                      </>
+                    )}
                   </p>
                   <p className="sel-blurb">{p.blurb}</p>
                 </div>

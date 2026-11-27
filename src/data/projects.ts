@@ -67,6 +67,10 @@ export interface Project {
   repo: string | null
   /** Optional long-form page on this site, e.g. '/research/'. */
   writeup?: string
+  /** The write-up link's text on /projects/ and in the home page's
+      selected work (keep it short: it shares a line with the topic).
+      Defaults to "write-up". */
+  writeupLabel?: string
   visual: ProjectVisual
 }
 
@@ -85,6 +89,7 @@ export const projects: Project[] = [
     tech: ['React Native (Expo)', 'TypeScript', 'Directus', 'Firebase', 'TanStack Query'],
     repo: null,
     writeup: '/release-notes/armenia/',
+    writeupLabel: 'release notes',
     visual: {
       kind: 'shots',
       logo: 'uate-logo.png',
@@ -173,6 +178,8 @@ export const projects: Project[] = [
     topic: 'distributed systems',
     tech: ['Java', 'SQL', 'Docker Swarm', 'Cassandra', 'Redis', 'Python'],
     repo: null,
+    writeup: '/projects/url-shortener/',
+    writeupLabel: 'DESIGN.md',
     visual: {
       kind: 'schematic',
       schematic: 'shortener',

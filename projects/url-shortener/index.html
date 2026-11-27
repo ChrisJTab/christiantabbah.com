@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Set before first paint so the chosen theme never flashes.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    </script>
+    <script>
+      // After a deploy, a cached copy of this page can point at script files
+      // that no longer exist, and the page comes up blank. If a script or a
+      // stylesheet fails to load, fetch the page fresh, at most once a minute.
+      addEventListener(
+        'error',
+        function (e) {
+          var t = e.target
+          if (!t) return
+          var tag = t.tagName
+          var isLink = tag === 'LINK' && /stylesheet|modulepreload/.test(t.rel || '')
+          if (tag !== 'SCRIPT' && !isLink) return
+          try {
+            var key = 'reloaded:' + location.pathname
+            if (Date.now() - Number(sessionStorage.getItem(key) || 0) < 60000) return
+            sessionStorage.setItem(key, String(Date.now()))
+          } catch (_) {
+            return
+          }
+          location.reload()
+        },
+        true
+      )
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>URL shortener design notes · Christian Tabbah</title>
+    <meta
+      name="description"
+      content="Design notes for a URL shortener we built twice: by hand in Java, with our own load balancer, sharding, replication, and failover, then on Cassandra, Redis, and Docker Swarm. Tradeoffs, bottlenecks, measurements, and what I’d change."
+    />
+    <link rel="canonical" href="https://christiantabbah.com/projects/url-shortener/" />
+    <meta name="theme-color" content="#242b1c" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Christian Tabbah" />
+    <meta property="og:title" content="A URL shortener, built twice" />
+    <meta
+      property="og:description"
+      content="Our own load balancer, sharding, replication, and failover in Java, then a rebuild on Cassandra, Redis, and Docker Swarm. The tradeoffs, the bottlenecks, and what I’d change."
+    />
+    <meta property="og:url" content="https://christiantabbah.com/projects/url-shortener/" />
+    <meta property="og:image" content="https://christiantabbah.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A URL shortener, built twice" />
+    <meta
+      name="twitter:description"
+      content="Our own load balancer, sharding, replication, and failover in Java, then a rebuild on Cassandra, Redis, and Docker Swarm. The tradeoffs, the bottlenecks, and what I’d change."
+    />
+    <meta name="twitter:image" content="https://christiantabbah.com/og.png" />
+  </head>
+  <body>
+    <div id="root" data-design="url-shortener"></div>
+    <script type="module" src="/src/entries/design.tsx"></script>
+  </body>
+</html>

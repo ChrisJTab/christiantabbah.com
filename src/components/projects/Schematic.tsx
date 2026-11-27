@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { DiagramId } from '../../data/designs'
 import type { SchematicId } from '../../data/projects'
 
 /**
@@ -610,6 +611,123 @@ export function RPlaceCanvas({ square }: { square?: boolean }) {
         className="pxc-cursor"
         points={CURSOR.map(([x, y]) => `${ac * 10 + 8 + x},${ar * 10 + 8 + y}`).join(' ')}
       />
+    </svg>
+  )
+}
+
+/* ==========================================================================
+   Design-note diagrams: the bigger drawings on /projects/<slug>/, with the
+   same classes and color legend as the schematics above. Labeled for
+   screen readers, since these carry meaning the text around them builds on.
+   ========================================================================== */
+
+/** Box centers of the four machines, left to right. */
+const V1_MACHINES = [47, 149, 251, 353]
+
+/** Twelve tick marks on the proxy's hash ring. */
+const V1_TICKS = Array.from({ length: 12 }, (_, i) => {
+  const a = (i * Math.PI) / 6
+  return [110 + 19 * Math.cos(a), 107 + 19 * Math.sin(a)] as const
+})
+
+/* Version one of the URL shortener: clients, the proxy with its hash ring,
+   and four machines, each holding its shard and a copy of the one before
+   it. Machine 3 is down: its route ends in an x, and a dashed failure path
+   leaves the proxy for machine 4, which holds the copy of shard 3. */
+function ShortenerV1() {
+  return (
+    <>
+      {[176, 200, 224].map((x) => (
+        <circle key={x} className="sch-dot" cx={x} cy="14" r="4.5" />
+      ))}
+      <text className="sch-tiny" x="236" y="18">
+        clients
+      </text>
+      <g className="sch-curve">
+        <line x1="176" y1="19" x2="198" y2="34" />
+        <line x1="200" y1="19" x2="200" y2="34" />
+        <line x1="224" y1="19" x2="202" y2="34" />
+      </g>
+      <g className="sch-main">
+        <line x1="200" y1="34" x2="200" y2="40" />
+        <Head x={200} y={47} angle={90} />
+      </g>
+
+      <rect className="sch-box sch-layer" x="70" y="49" width="260" height="94" rx="10" />
+      <text className="sch-label" x="200" y="69" textAnchor="middle">
+        reverse proxy
+      </text>
+      <circle className="sch-curve" cx="110" cy="107" r="19" />
+      {V1_TICKS.map(([x, y]) => (
+        <circle key={x.toFixed(1) + y.toFixed(1)} className="sch-dot" cx={x} cy={y} r="2.4" />
+      ))}
+      <text className="sch-tiny" x="146" y="99">
+        100 points per machine
+      </text>
+      <text className="sch-tiny" x="146" y="114">
+        heartbeat every second
+      </text>
+      <text className="sch-tiny sch-fail-label" x="146" y="129">
+        replays missed writes
+      </text>
+
+      <g className="sch-main">
+        <path d="M130 143 C 130 166, 47 160, 47 181" />
+        <Head x={47} y={188} angle={90} />
+        <path d="M170 143 C 170 166, 149 162, 149 181" />
+        <Head x={149} y={188} angle={90} />
+        <path d="M270 143 C 270 166, 343 160, 343 181" />
+        <Head x={343} y={188} angle={90} />
+      </g>
+      <path className="sch-fail" d="M230 143 C 230 156, 251 154, 251 164" />
+      <g className="sch-x">
+        <line x1="245" y1="166" x2="257" y2="178" />
+        <line x1="257" y1="166" x2="245" y2="178" />
+      </g>
+      <g className="sch-fail-dashed">
+        <path d="M330 116 C 368 116, 381 146, 381 181" />
+        <Head x={381} y={188} angle={90} />
+      </g>
+
+      {V1_MACHINES.map((cx, i) => (
+        <g key={cx} className={i === 2 ? 'sch-down' : undefined}>
+          <rect className="sch-box sch-host" x={cx - 41} y="190" width="82" height="90" rx="9" />
+          <text className="sch-label" x={cx} y="208" textAnchor="middle">
+            machine {i + 1}
+          </text>
+          <rect className="sch-box sch-device" x={cx - 33} y="218" width="66" height="22" rx="5" />
+          <text className="sch-label" x={cx} y="233" textAnchor="middle">
+            shard {i + 1}
+          </text>
+          <rect
+            className="sch-box sch-device sch-dashed-box"
+            x={cx - 33}
+            y="247"
+            width="66"
+            height="22"
+            rx="5"
+          />
+          <text className="sch-tiny" x={cx} y="262" textAnchor="middle">
+            copy of {((i + 3) % 4) + 1}
+          </text>
+        </g>
+      ))}
+      <text className="sch-tiny sch-fail-label" x="251" y="298" textAnchor="middle">
+        down
+      </text>
+    </>
+  )
+}
+
+const DIAGRAMS: Record<DiagramId, { viewBox: string; draw: () => ReactNode }> = {
+  'shortener-v1': { viewBox: '0 0 400 304', draw: ShortenerV1 },
+}
+
+export function DesignDiagram({ id, label }: { id: DiagramId; label: string }) {
+  const d = DIAGRAMS[id]
+  return (
+    <svg className="sch sch-design" viewBox={d.viewBox} role="img" aria-label={label}>
+      {d.draw()}
     </svg>
   )
 }

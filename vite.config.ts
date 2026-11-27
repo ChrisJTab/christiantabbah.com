@@ -32,6 +32,17 @@ function releaseInputs(): Record<string, string> {
   )
 }
 
+// Every projects/<slug>/index.html is the design notes for one project
+// (src/data/designs.ts); like releases, a new one needs no config change.
+function designInputs(): Record<string, string> {
+  const dir = resolve(root, 'projects')
+  return Object.fromEntries(
+    readdirSync(dir, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => [`design-${d.name}`, resolve(dir, d.name, 'index.html')]),
+  )
+}
+
 // Real HTML entry points. Each page ships its own <title>/OG tags and gets
 // its own URL on GitHub Pages: no SPA 404 hacks.
 export default defineConfig({
@@ -51,6 +62,7 @@ export default defineConfig({
         timeline: resolve(root, 'timeline/index.html'),
         about: resolve(root, 'about/index.html'),
         ...releaseInputs(),
+        ...designInputs(),
       },
     },
   },

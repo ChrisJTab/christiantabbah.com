@@ -485,3 +485,20 @@
   stroke: color-mix(in srgb, var(--primary) 40%, transparent);
   stroke-width: 1;
 }
+
+/* --- design-note diagrams ------------------------------------------------- */
+
+/* Drawn bigger than the cover schematics, so their labels read at body
+   size on a laptop and stay legible on a phone. */
+.sch-design text {
+  font-size: 12px;
+}
+
+.sch-design .sch-tiny {
+  font-size: 10.5px;
+}
+
+/* A machine that is down: still drawn, faded back. */
+.sch-down {
+  opacity: 0.45;
+}

@@ -11,6 +11,7 @@ GitHub Pages at [christiantabbah.com](https://christiantabbah.com).
 | `/` | Home: the recruiter-facing landing, in four screens: a README (intro and links, with what I work with beside it), the featured research block, selected work, and contact. On laptop and desktop windows each screen fills the window, scrolling snaps one screen at a time, and an arrow at the foot of each names the next section. Phones scroll normally. |
 | `/research/` | The MSc research paper (EGAD) as a README: problem, what was built, results, hard parts, limits, status. Serves `public/EGAD-paper.pdf`. |
 | `/projects/` | Project cards that open into README panels. |
+| `/projects/url-shortener/` | Design notes for the URL shortener, as a DESIGN.md: how version one works (with a diagram), its tradeoffs as a diff, what we measured and how, where it would break, what I'd change, and the Docker Swarm rebuild. Linked from its card and its selected-work row. |
 | `/timeline/` | The git-graph timeline. |
 | `/release-notes/` | Experiences versioned like software. Each release has its own page (`/release-notes/armenia/`) with a changelog panel, the story, photos, and playable CTFs. |
 | `/about/` | Intro, milestones, hobbies, and the bucket list (`/about/#todo`). `/bucket-list/` redirects here. |
@@ -34,6 +35,7 @@ npm run lint      # oxlint
 | Release notes: the index intro, every release, its photos and CTFs | `src/data/releases.ts` |
 | Timeline entries (jobs, degrees, research, clubs) | `src/data/timeline.ts` |
 | Projects list | `src/data/projects.ts` |
+| Design notes (`/projects/<slug>/`) | `src/data/designs.ts` |
 | Bucket list items | `src/data/bucketList.ts` |
 | About intro, milestones, hobbies + captions | `src/data/about.ts` |
 | Links (GitHub/LinkedIn/Instagram), email, CV path | `src/data/profile.ts` |
@@ -76,6 +78,18 @@ included). Details in `public/images/releases/README.md`.
 CTFs are listed per section (`ctfs: { intro, items }`). The flag never
 ships: store its SHA-256 from `node scripts/flag-hash.mjs 'flag{...}'`,
 and put downloadable files in `public/ctf/<slug>/`.
+
+## Design notes
+
+A project can have a long-form design doc at `/projects/<slug>/`. Its
+content is an entry in `src/data/designs.ts`, built from a few kinds of
+section (parts with a diagram, decisions as a diff, a results table, a
+ranked list, a plain list, a side-by-side table, and titled points).
+Publishing one takes three steps, listed at the top of that file: add the
+entry, point the project's `writeup` (and a short `writeupLabel`) at the
+page in `src/data/projects.ts`, and copy `projects/url-shortener/` to
+`projects/<slug>/`. Vite picks the folder up by itself. Diagrams are drawn
+in `src/components/projects/Schematic.tsx` with the schematic color legend.
 
 ## Deployment
 

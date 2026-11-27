@@ -322,6 +322,8 @@
   text-decoration-color: var(--primary);
 }
 
+/* A write-up link rides on the topic line, kept to one line so the row
+   never grows. */
 .sel-topic {
   display: flex;
   align-items: center;
@@ -329,6 +331,15 @@
   margin-top: var(--sp-1);
   font-size: var(--text-mono-small);
   color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.sel-sep {
+  color: var(--text-dim);
+}
+
+.sel-more {
+  color: var(--primary);
 }
 
 .sel-dot {

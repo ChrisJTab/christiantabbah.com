@@ -95,7 +95,7 @@ export const releases: Release[] = [
     title: 'A summer in Armenia',
     place: 'Armenia',
     summary:
-      'Two and a half months, two jobs at once: a cybersecurity course for kids at THINK, built from nothing, CTFs included, and the official DigiTec conference app, built alone from an empty repo.',
+      'Two and a half months, two jobs at once: a cybersecurity course for kids at THINK, built from nothing, CTFs included, and UATE’s official events app, built alone from an empty repo.',
     intro:
       'In the summer of 2026 I moved to Armenia for two and a half months and took two jobs at the same time. One was a classroom full of kids who had never broken anything on purpose. The other was an empty repository that had to become a conference app before I flew home.',
     changelog: [
@@ -105,7 +105,7 @@ export const releases: Release[] = [
       },
       {
         kind: 'added',
-        text: 'The official UATE and DigiTec app: every screen, the data layer, the backend, and push notifications, built alone from an empty repo for 2,400+ attendees.',
+        text: 'UATE’s official app for all their events, DigiTec included: every screen, the data layer, the backend, and push notifications, built alone from an empty repo for 2,400+ attendees.',
       },
       {
         kind: 'added',

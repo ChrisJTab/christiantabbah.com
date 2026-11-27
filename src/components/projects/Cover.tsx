@@ -39,8 +39,11 @@ export function TerminalBlock({
 }
 
 /** A project’s cover strip: screenshots, a schematic, or a terminal teaser.
-    Shared by the Projects grid and the home page’s selected-work rows. */
-export function Cover({ p }: { p: Project }) {
+    Shared by the Projects grid and the home page’s selected-work rows.
+    `square` also draws the square version of a schematic or pixel canvas,
+    for a host whose CSS switches to square covers on some layouts; app and
+    figure covers reflow on their own. */
+export function Cover({ p, square }: { p: Project; square?: boolean }) {
   const v = p.visual
   if (v.kind === 'shots') {
     // With a logo, the cover is a composed backdrop (icon tile + framed
@@ -87,12 +90,14 @@ export function Cover({ p }: { p: Project }) {
       return (
         <div className="proj-cover proj-cover-px" aria-hidden="true">
           <RPlaceCanvas />
+          {square && <RPlaceCanvas square />}
         </div>
       )
     }
     return (
       <div className="proj-cover proj-cover-sch">
         <Schematic id={v.schematic} />
+        {square && <Schematic id={v.schematic} tall />}
       </div>
     )
   }

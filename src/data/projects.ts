@@ -75,7 +75,7 @@ export const projects: Project[] = [
     id: 'uate-app',
     name: 'uate-app',
     blurb:
-      'The official app for DigiTec, Armenia’s largest tech event, in English and Armenian for 2,400+ attendees: schedule, RSVPs, chat, and interest matching. I built it alone in React Native, in one summer.',
+      'UATE’s official app for all their events, including DigiTec, Armenia’s largest tech event: schedules, RSVPs, chat, and interest matching for 2,400+ attendees. I built it alone in React Native, in one summer.',
     bullets: [
       'Fully bilingual (English/Հայերեն) down to the fonts, with sessions always shown in event-local time no matter where the phone is.',
       'A 46-topic interest graph powers two matching engines: suggested people show the shared tags as “why matched” chips, and the schedule grows a personal “For you” rail.',
@@ -164,11 +164,11 @@ export const projects: Project[] = [
     id: 'url-shortener',
     name: 'url-shortener (v1 → v2)',
     blurb:
-      'A bit.ly-style URL shortener built from scratch in Java across four machines, with our own load balancer, sharding, replication, and failover. It served 1,100+ reads a second; version two rebuilt it on Cassandra, Redis, and Docker Swarm.',
+      'A bit.ly-style URL shortener we built twice. The first, plain Java on four machines with our own load balancer, sharding, and failover, handled 1,100+ reads and 200 writes a second. The second ran on Cassandra, Redis, and Docker Swarm.',
     bullets: [
       'Version one, plain Java on lab machines: our own reverse proxy routes each short code by consistent hashing to a SQLite shard, every shard keeps a replica on another machine, and a once-a-second heartbeat moves traffic off a machine that stops answering.',
       'Measured with JMeter on four machines: over 1,100 reads and about 200 writes a second, and going from two machines to four doubled write throughput.',
-      'Version two rebuilt it on Docker Swarm: Flask on every worker node, Cassandra storing three copies of every link, and Redis caching reads. Killed services restart on their own, and the data survives losing a node.',
+      'For version two we rebuilt it on Docker Swarm: Flask on every worker node, Cassandra storing three copies of every link, and Redis caching reads. Killed services restart on their own, and the data survives losing a node.',
     ],
     topic: 'distributed systems',
     tech: ['Java', 'SQL', 'Docker Swarm', 'Cassandra', 'Redis', 'Python'],

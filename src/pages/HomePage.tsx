@@ -261,7 +261,7 @@ export function HomePage() {
                   tabIndex={-1}
                   aria-hidden="true"
                 >
-                  <Cover p={p} />
+                  <Cover p={p} square />
                 </a>
                 <div className="sel-body">
                   <h3 className="sel-name mono">

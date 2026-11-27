@@ -337,15 +337,119 @@ const SCHEMATICS: Record<SchematicId, ReactNode> = {
   ),
 }
 
-export function Schematic({ id }: { id: SchematicId }) {
+/* Tall versions on a 200x180 canvas, for the square covers in the home
+   page's selected work: the same parts, stacked top to bottom so they
+   fill a square instead of shrinking into it. Ids without one fall back
+   to the wide drawing. */
+
+/* Ring nodes at 125, 90, and 55 degrees on r=30 around (100, 70): the
+   bottom of the ring, where the curves leave for the shards below. */
+const TALL_RING_NODES: [number, number][] = [
+  [82.8, 94.6],
+  [100, 100],
+  [117.2, 94.6],
+]
+
+const TALL: Partial<Record<SchematicId, ReactNode>> = {
+  shortener: (
+    <>
+      <circle className="sch-dot" cx="100" cy="14" r="5" />
+      <text className="sch-label" x="112" y="18">
+        key
+      </text>
+      <g className="sch-main">
+        <line x1="100" y1="21" x2="100" y2="35" />
+        <Head x={100} y={38} angle={90} />
+      </g>
+      <circle className="sch-box sch-layer" cx="100" cy="70" r="30" />
+      <text className="sch-label" x="100" y="67" textAnchor="middle">
+        hash
+      </text>
+      <text className="sch-label" x="100" y="80" textAnchor="middle">
+        ring
+      </text>
+      <g className="sch-curve">
+        <path d="M82.8 94.6 C 66 110, 40 108, 38 124" />
+        <line x1="100" y1="100" x2="100" y2="124" />
+        <path d="M117.2 94.6 C 134 110, 160 108, 162 124" />
+      </g>
+      {TALL_RING_NODES.map(([x, y]) => (
+        <circle key={x + '-' + y} className="sch-node" cx={x} cy={y} r="4" />
+      ))}
+      {[38, 100, 162].map((x, i) => (
+        <g key={x}>
+          <path
+            className="sch-cyl"
+            d={'M' + (x - 24) + ' 132 v16 a24 6 0 0 0 48 0 v-16'}
+          />
+          <ellipse className="sch-cyl" cx={x} cy="132" rx="24" ry="6" />
+          <text className="sch-label" x={x} y="170" textAnchor="middle">
+            shard {i + 1}
+          </text>
+        </g>
+      ))}
+    </>
+  ),
+
+  /* GPU A above GPU B, the direct RDMA hop between them, and the dashed
+     detour out to the host on the right and back. */
+  olap: (
+    <>
+      <rect className="sch-box sch-device" x="16" y="14" width="76" height="40" rx="8" />
+      <text className="sch-label" x="54" y="38" textAnchor="middle">
+        gpu a
+      </text>
+      <rect className="sch-box sch-device" x="16" y="124" width="76" height="44" rx="8" />
+      <text className="sch-label" x="54" y="142" textAnchor="middle">
+        gpu b
+      </text>
+      <text className="sch-label" x="54" y="157" textAnchor="middle">
+        cub sort
+      </text>
+      <g className="sch-main">
+        <line x1="54" y1="54" x2="54" y2="119" />
+        <Head x={54} y={122} angle={90} />
+      </g>
+      <text className="sch-note" x="62" y="86">
+        rdma
+      </text>
+      <text className="sch-note" x="62" y="99">
+        ucx
+      </text>
+      <rect
+        className="sch-box sch-host sch-dashed-box"
+        x="110"
+        y="70"
+        width="78"
+        height="40"
+        rx="8"
+      />
+      <text className="sch-label" x="149" y="86" textAnchor="middle">
+        host
+      </text>
+      <text className="sch-label" x="149" y="100" textAnchor="middle">
+        pre-reduce
+      </text>
+      <g className="sch-host-dashed">
+        <path d="M92 34 C 122 34, 149 40, 149 65" />
+        <Head x={149} y={68} angle={90} />
+        <path d="M149 110 C 149 140, 125 146, 97 146" />
+        <Head x={94} y={146} angle={180} />
+      </g>
+    </>
+  ),
+}
+
+export function Schematic({ id, tall }: { id: SchematicId; tall?: boolean }) {
+  const drawing = tall ? TALL[id] : undefined
   return (
     <svg
-      className="sch"
-      viewBox="0 0 320 180"
+      className={tall ? 'sch sch-tall' : 'sch'}
+      viewBox={drawing ? '0 0 200 180' : '0 0 320 180'}
       aria-hidden="true"
       focusable="false"
     >
-      {SCHEMATICS[id]}
+      {drawing ?? SCHEMATICS[id]}
     </svg>
   )
 }
@@ -353,50 +457,92 @@ export function Schematic({ id }: { id: SchematicId }) {
 /* ==========================================================================
    The r/place cover: not architecture, the product itself. A mid-painting
    pixel canvas (heart, invader, flower, stray pixels) with one pixel being
-   placed right now. 32x18 cells of 10px on the 320x180 canvas.
+   placed right now. Cells are 10px: 32x18 on the wide canvas, 22x20 on the
+   squarer one the home page's selected work uses.
    ========================================================================== */
 
 type Px = [number, number]
 
-const at = (ox: number, oy: number, cells: Px[]): Px[] =>
+const place = ([ox, oy]: Px, cells: Px[]): Px[] =>
   cells.map(([c, r]) => [c + ox, r + oy])
 
-const HEART = at(4, 3, [
+const HEART: Px[] = [
   [1, 0], [2, 0], [4, 0], [5, 0],
   [0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1],
   [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2],
   [1, 3], [2, 3], [3, 3], [4, 3], [5, 3],
   [2, 4], [3, 4], [4, 4],
   [3, 5],
-])
+]
 
-const INVADER = at(21, 3, [
+const INVADER: Px[] = [
   [2, 0], [5, 0],
   [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1],
   [0, 2], [1, 2], [3, 2], [4, 2], [6, 2], [7, 2],
   [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3],
   [0, 4], [2, 4], [5, 4], [7, 4],
   [1, 5], [6, 5],
-])
+]
 
-const FLOWER_BLOOM = at(14, 10, [
+const FLOWER_BLOOM: Px[] = [
   [2, 0],
   [1, 1], [2, 1], [3, 1],
   [2, 2],
-])
-
-const FLOWER_STEM = at(14, 10, [
-  [2, 3], [2, 4],
-])
-
-const SPRINKLES: { tone: string; cells: Px[] }[] = [
-  { tone: 'leadership', cells: [[11, 7], [29, 2]] },
-  { tone: 'research', cells: [[18, 3], [9, 13]] },
-  { tone: 'work', cells: [[27, 11]] },
-  { tone: 'education', cells: [[3, 12]] },
 ]
 
-const ACTIVE: Px = [25, 14]
+const FLOWER_STEM: Px[] = [
+  [2, 3], [2, 4],
+]
+
+/** Where everything sits on one canvas: each shape's top-left cell, the
+    stray pixels, and the pixel being placed. */
+type Layout = {
+  cols: number
+  rows: number
+  heart: Px
+  invader: Px
+  flower: Px
+  sprinkles: { tone: string; cells: Px[] }[]
+  active: Px
+}
+
+const WIDE: Layout = {
+  cols: 32,
+  rows: 18,
+  heart: [4, 3],
+  invader: [21, 3],
+  flower: [14, 10],
+  sprinkles: [
+    { tone: 'leadership', cells: [[11, 7], [29, 2]] },
+    { tone: 'research', cells: [[18, 3], [9, 13]] },
+    { tone: 'work', cells: [[27, 11]] },
+    { tone: 'education', cells: [[3, 12]] },
+  ],
+  active: [25, 14],
+}
+
+/* The squarer canvas keeps two cells of margin left and right and one top
+   and bottom: those covers run from a little taller than wide to a little
+   wider than tall, and "slice" crops whatever doesn't fit. */
+const SQUARE: Layout = {
+  cols: 22,
+  rows: 20,
+  heart: [2, 3],
+  invader: [12, 3],
+  flower: [3, 11],
+  sprinkles: [
+    { tone: 'leadership', cells: [[10, 5], [18, 16]] },
+    { tone: 'research', cells: [[15, 11], [9, 16]] },
+    { tone: 'work', cells: [[19, 13]] },
+    { tone: 'education', cells: [[2, 16]] },
+  ],
+  active: [14, 14],
+}
+
+/** The painter's cursor outline, relative to its tip. */
+const CURSOR: Px[] = [
+  [0, 0], [0, 15], [3.5, 11.5], [6, 17], [8.5, 15.8], [6, 10.5], [10.5, 10.5],
+]
 
 function cellRect(tone: string, [c, r]: Px) {
   return (
@@ -411,46 +557,50 @@ function cellRect(tone: string, [c, r]: Px) {
   )
 }
 
-export function RPlaceCanvas() {
+export function RPlaceCanvas({ square }: { square?: boolean }) {
+  const L = square ? SQUARE : WIDE
+  const w = L.cols * 10
+  const h = L.rows * 10
+  const [ac, ar] = L.active
   return (
     <svg
-      className="pxc"
-      viewBox="0 0 320 180"
+      className={square ? 'pxc pxc-square' : 'pxc'}
+      viewBox={`0 0 ${w} ${h}`}
       preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"
       focusable="false"
     >
-      <rect className="pxc-bg" width="320" height="180" />
-      {Array.from({ length: 31 }, (_, i) => (
+      <rect className="pxc-bg" width={w} height={h} />
+      {Array.from({ length: L.cols - 1 }, (_, i) => (
         <line
           key={`v${i}`}
           className="pxc-grid"
           x1={(i + 1) * 10}
           y1="0"
           x2={(i + 1) * 10}
-          y2="180"
+          y2={h}
         />
       ))}
-      {Array.from({ length: 17 }, (_, i) => (
+      {Array.from({ length: L.rows - 1 }, (_, i) => (
         <line
           key={`h${i}`}
           className="pxc-grid"
           x1="0"
           y1={(i + 1) * 10}
-          x2="320"
+          x2={w}
           y2={(i + 1) * 10}
         />
       ))}
-      {HEART.map((p) => cellRect('work', p))}
-      {INVADER.map((p) => cellRect('education', p))}
-      {FLOWER_BLOOM.map((p) => cellRect('research', p))}
-      {FLOWER_STEM.map((p) => cellRect('primary', p))}
-      {SPRINKLES.flatMap((s) => s.cells.map((p) => cellRect(s.tone, p)))}
-      {cellRect('accent', ACTIVE)}
+      {place(L.heart, HEART).map((p) => cellRect('work', p))}
+      {place(L.invader, INVADER).map((p) => cellRect('education', p))}
+      {place(L.flower, FLOWER_BLOOM).map((p) => cellRect('research', p))}
+      {place(L.flower, FLOWER_STEM).map((p) => cellRect('primary', p))}
+      {L.sprinkles.flatMap((s) => s.cells.map((p) => cellRect(s.tone, p)))}
+      {cellRect('accent', L.active)}
       <rect
         className="pxc-ring"
-        x={ACTIVE[0] * 10 - 1.5}
-        y={ACTIVE[1] * 10 - 1.5}
+        x={ac * 10 - 1.5}
+        y={ar * 10 - 1.5}
         width="13"
         height="13"
         rx="2"
@@ -458,7 +608,7 @@ export function RPlaceCanvas() {
       {/* the painter's cursor, mid-placement */}
       <polygon
         className="pxc-cursor"
-        points="258,148 258,163 261.5,159.5 264,165 266.5,163.8 264,158.5 268.5,158.5"
+        points={CURSOR.map(([x, y]) => `${ac * 10 + 8 + x},${ar * 10 + 8 + y}`).join(' ')}
       />
     </svg>
   )

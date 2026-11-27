@@ -169,6 +169,13 @@
   height: 100%;
 }
 
+/* Square drawings (Cover's `square` option) stay hidden until the host's
+   layout asks for them. */
+.proj-cover .sch-tall,
+.proj-cover .pxc-square {
+  display: none;
+}
+
 .proj-cover-term {
   padding: var(--sp-4) var(--sp-4) 0;
 }

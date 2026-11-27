@@ -38,7 +38,7 @@ export const timeline: TimelineEntry[] = [
     start: '2026-06',
     end: '2026-08',
     bullets: [
-      'The official UATE and DigiTec app, built alone from an empty repo: every screen, the data layer, the Directus backend, push notifications, tests, and docs.',
+      'UATE’s official app for all their events, DigiTec included, built alone from an empty repo: every screen, the data layer, the Directus backend, push notifications, tests, and docs.',
       'Bilingual English and Armenian. Interest-based people matching and chat, the full multi-day schedule, and RSVPs that land in your calendar.',
       'Left a documentation site and a setup guide so the next developer never needs me.',
     ],

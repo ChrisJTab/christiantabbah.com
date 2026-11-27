@@ -355,12 +355,51 @@
     gap: var(--sp-6) var(--sp-7);
   }
 
+  /* Each cover stands as tall as the words beside it, close to square,
+     so the picture weighs as much as the text. Size containment keeps
+     the cover out of the row's height: the text sets it, the cover
+     stretches to match. */
   .sel-row {
     grid-template-columns: 12rem minmax(0, 1fr);
     gap: var(--sp-4);
-    align-items: start;
+    align-items: stretch;
     padding-bottom: 0;
     border-bottom: none;
+  }
+
+  .sel-cover {
+    display: flex;
+    flex-direction: column;
+    contain: size;
+  }
+
+  .sel-cover .proj-cover {
+    flex: 1;
+    aspect-ratio: auto;
+  }
+
+  /* The drawings carry their own margins. */
+  .sel-cover .proj-cover-sch {
+    padding: var(--sp-1);
+  }
+
+  .sel-cover .proj-cover .sch-tall,
+  .sel-cover .proj-cover .pxc-square {
+    display: block;
+  }
+
+  .sel-cover .proj-cover .sch:not(.sch-tall),
+  .sel-cover .proj-cover .pxc:not(.pxc-square) {
+    display: none;
+  }
+}
+
+/* Tall windows have height to spare under the grid, so the covers widen
+   and the text takes the extra line or two that costs. From 1152px the
+   container is at full width, which keeps the text column 256px or more. */
+@media (min-width: 1152px) and (min-height: 840px) {
+  .sel-row {
+    grid-template-columns: 15rem minmax(0, 1fr);
   }
 }
 
